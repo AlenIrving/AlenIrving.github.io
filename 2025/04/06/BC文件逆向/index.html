@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/12.png">
 <meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/13.png">
 <meta property="article:published_time" content="2025-04-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-06T12:30:46.679Z">
+<meta property="article:modified_time" content="2025-04-06T12:45:04.595Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/1.png">
@@ -249,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          782 字
         
       </span>
     
@@ -260,7 +260,7 @@
         
         
         
-          10 分钟
+          7 分钟
         
       </span>
     
@@ -364,42 +364,42 @@
 <p>检查版本</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">llvm-config --version<br>clang --version<br></code></pre></td></tr></table></figure>
 
-<h3 id="1-处理-bc-文件"><a href="#1-处理-bc-文件" class="headerlink" title="1. 处理 **&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;** 文件"></a><strong><font style="color:rgb(64, 64, 64);">1. 处理 </font></strong><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><strong><font style="color:rgb(64, 64, 64);"> 文件</font></strong></h3><p><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> </font><font style="color:rgb(64, 64, 64);">文件是 LLVM 中间表示（IR）的二进制格式。要逆向分析它，需将其转换为可读的文本格式（</font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.ll&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">）。</font></p>
-<h4 id="a-转换为-LLVM-IR-文本格式"><a href="#a-转换为-LLVM-IR-文本格式" class="headerlink" title="a. 转换为 LLVM IR 文本格式"></a><strong><font style="color:rgb(64, 64, 64);">a. 转换为 LLVM IR 文本格式</font></strong></h4><p><font style="color:rgb(64, 64, 64);">使用 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;llvm-dis&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> 工具（LLVM 反汇编器）：</font></p>
+<h3 id="1-处理-bc文件"><a href="#1-处理-bc文件" class="headerlink" title="1. 处理.bc文件"></a><strong><font style="color:rgb(64, 64, 64);">1. 处理.bc文件</font></strong></h3><p><font style="color:rgb(64, 64, 64);">.bc文件是 LLVM 中间表示（IR）的二进制格式。要逆向分析它，需将其转换为可读的文本格式（.ll）。</font></p>
+<h4 id="a-转换为-LLVM-IR-文本格式"><a href="#a-转换为-LLVM-IR-文本格式" class="headerlink" title="a. 转换为 LLVM IR 文本格式"></a><strong><font style="color:rgb(64, 64, 64);">a. 转换为 LLVM IR 文本格式</font></strong></h4><p><font style="color:rgb(64, 64, 64);">使用llvm-dis工具（LLVM 反汇编器）：</font></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">llvm-dis input.bc -o output.ll<br></code></pre></td></tr></table></figure>
 
-<p><font style="color:rgb(64, 64, 64);">生成的</font><font style="color:rgb(64, 64, 64);"> </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;output.ll&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> </font><font style="color:rgb(64, 64, 64);">是文本形式的 LLVM IR，可用文本编辑器查看。</font></p>
-<h4 id="b-直接查看-bc-文件信息"><a href="#b-直接查看-bc-文件信息" class="headerlink" title="b. 直接查看**** **&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;** ****文件信息"></a><strong><font style="color:rgb(64, 64, 64);">b. 直接查看</font>****<font style="color:rgb(64, 64, 64);"> </font></strong><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><strong><font style="color:rgb(64, 64, 64);"> </font>****<font style="color:rgb(64, 64, 64);">文件信息</font></strong></h4><p><font style="color:rgb(64, 64, 64);">分析 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> 文件结构：</font></p>
+<p><font style="color:rgb(64, 64, 64);">生成的output.ll是文本形式的 LLVM IR，可用文本编辑器查看。</font></p>
+<h4 id="b-直接查看-bc文件信息"><a href="#b-直接查看-bc文件信息" class="headerlink" title="b. 直接查看.bc文件信息"></a><strong><font style="color:rgb(64, 64, 64);">b. 直接查看.bc文件信息</font></strong></h4><p><font style="color:rgb(64, 64, 64);">分析.bc文件结构：</font></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">llvm-bcanalyzer input.bc<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h3 id="2-使用-Clang-编译-反编译"><a href="#2-使用-Clang-编译-反编译" class="headerlink" title="2. 使用 Clang 编译&#x2F;反编译"></a><strong><font style="color:rgb(64, 64, 64);">2. 使用 Clang 编译&#x2F;反编译</font></strong></h3><h4 id="a-将-bc-编译为可执行文件"><a href="#a-将-bc-编译为可执行文件" class="headerlink" title="a. 将 **&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;** 编译为可执行文件"></a><strong><font style="color:rgb(64, 64, 64);">a. 将 </font></strong><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><strong><font style="color:rgb(64, 64, 64);"> 编译为可执行文件</font></strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">clang input.bc -o output<br></code></pre></td></tr></table></figure>
+<h3 id="2-使用-Clang-编译-反编译"><a href="#2-使用-Clang-编译-反编译" class="headerlink" title="2. 使用 Clang 编译&#x2F;反编译"></a><strong><font style="color:rgb(64, 64, 64);">2. 使用 Clang 编译&#x2F;反编译</font></strong></h3><h4 id="a-将-bc-编译为可执行文件"><a href="#a-将-bc-编译为可执行文件" class="headerlink" title="a. 将 .bc 编译为可执行文件"></a><strong><font style="color:rgb(64, 64, 64);">a. 将 .bc 编译为可执行文件</font></strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">clang input.bc -o output<br></code></pre></td></tr></table></figure>
 
-<p><font style="color:rgb(64, 64, 64);">生成的可执行文件</font><font style="color:rgb(64, 64, 64);"> </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;output&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> </font><font style="color:rgb(64, 64, 64);">可用逆向工具（如 Ghidra、IDA Pro）分析。</font></p>
+<p><font style="color:rgb(64, 64, 64);">生成的可执行文件output可用逆向工具（如 Ghidra、IDA Pro）分析。</font></p>
 <h4 id="b-反编译为-C-代码（需额外工具）"><a href="#b-反编译为-C-代码（需额外工具）" class="headerlink" title="b. 反编译为 C 代码（需额外工具）"></a><strong><font style="color:rgb(64, 64, 64);">b. 反编译为 C 代码（需额外工具）</font></strong></h4><p><font style="color:rgb(64, 64, 64);">直接反编译 LLVM IR 到 C 代码需要第三方工具，例如：</font></p>
 <p><strong><font style="color:rgb(64, 64, 64);">RetDec</font></strong><font style="color:rgb(64, 64, 64);">：支持 LLVM IR 反编译。</font></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain"># 安装 RetDec<br>git clone https://github.com/avast/retdec.git<br>cd retdec<br>./retdec-support.sh<br>mkdir build &amp;&amp; cd build<br>cmake .. -DCMAKE_INSTALL_PREFIX=/path/to/install<br>make &amp;&amp; make install<br><br># 使用 RetDec 反编译<br>retdec-decompiler.py input.bc<br></code></pre></td></tr></table></figure>
 
 <hr>
-<h3 id="3-动态分析（调试）"><a href="#3-动态分析（调试）" class="headerlink" title="3. 动态分析（调试）"></a><strong><font style="color:rgb(64, 64, 64);">3. 动态分析（调试）</font></strong></h3><p><font style="color:rgb(64, 64, 64);">使用 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;lli&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">（LLVM 解释器）直接运行 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> 文件：</font></p>
+<h3 id="3-动态分析（调试）"><a href="#3-动态分析（调试）" class="headerlink" title="3. 动态分析（调试）"></a><strong><font style="color:rgb(64, 64, 64);">3. 动态分析（调试）</font></strong></h3><p><font style="color:rgb(64, 64, 64);">使用lli( LLVM 解释器）直接运行.bc文件：</font></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lli input.bc<br></code></pre></td></tr></table></figure>
 
-<p><font style="color:rgb(64, 64, 64);">结合调试器（如 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;gdb&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> 或 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;lldb&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">）跟踪执行流程：</font></p>
+<p><font style="color:rgb(64, 64, 64);">结合调试器（如 gdb 或 lldb）跟踪执行流程：</font></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lldb -- lli input.bc<br></code></pre></td></tr></table></figure>
 
 <h1 id="bc版本兼容问题"><a href="#bc版本兼容问题" class="headerlink" title="bc版本兼容问题"></a><font style="color:#000000;background-color:#FFFFFF;">bc版本兼容问题</font></h1><p>最好根据原生编译平台去下载</p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/5.png" srcset="/img/loading.gif" lazyload></p>
 <p>个人做法是查看内容安装对应版本</p>
-<p><font style="color:rgb(64, 64, 64);">将 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> 转换为 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.ll&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">（LLVM IR 文本格式），查看头部信息：</font></p>
+<p><font style="color:rgb(64, 64, 64);">将 .bc 转换为 .ll（LLVM IR 文本格式），查看头部信息：</font></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">llvm-dis Dragon.bc -o Dragon.ll<br><span class="hljs-built_in">head</span> -n 20 Dragon.ll<br></code></pre></td></tr></table></figure>
 
 <p><font style="color:rgb(64, 64, 64);">关键信息：</font></p>
 <ul>
-<li><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;target triple&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">：目标平台（可推断兼容的 LLVM 版本）。</font></li>
+<li><font style="color:rgb(64, 64, 64);">target triple：目标平台（可推断兼容的 LLVM 版本）。</font></li>
 </ul>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/6.png" srcset="/img/loading.gif" lazyload></p>
 <ul>
-<li><font style="color:rgb(64, 64, 64);">如果文件包含 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;llvm.ident&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">，会显示 Clang 版本：</font></li>
+<li><font style="color:rgb(64, 64, 64);">如果文件包含 llvm.ident，会显示 Clang 版本：</font></li>
 </ul>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/7.png" srcset="/img/loading.gif" lazyload></p>
 <p>是windows下vs生成的，但版本切换麻烦，直接kali安装了</p>
@@ -413,8 +413,8 @@
 <p>遭遇该报错</p>
 <p><strong><font style="color:rgb(64, 64, 64);">错误原因</font></strong></p>
 <ul>
-<li><font style="color:rgb(64, 64, 64);">你正在</font><font style="color:rgb(64, 64, 64);"> </font><strong><font style="color:rgb(64, 64, 64);">Linux（Kali）上编译一个面向 Windows（</font></strong><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;x86_64-pc-windows-msvc&lt;/font&gt;**</code><strong><font style="color:rgb(64, 64, 64);">）的 LLVM Bitcode 文件</font></strong><font style="color:rgb(64, 64, 64);">。</font></li>
-<li><font style="color:rgb(64, 64, 64);">Clang 默认会尝试调用 Linux 的链接器 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;ld&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">，但 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;.bc&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);"> 文件包含 </font><strong><font style="color:rgb(64, 64, 64);">MSVC 特有的库依赖</font></strong><font style="color:rgb(64, 64, 64);">（如 </font><code>**&lt;font style=&quot;color:rgb(64, 64, 64);background-color:rgb(236, 236, 236);&quot;&gt;libcmt&lt;/font&gt;**</code><font style="color:rgb(64, 64, 64);">，Windows 的 C 运行时库）。</font></li>
+<li><font style="color:rgb(64, 64, 64);">你正在 </font><strong><font style="color:rgb(64, 64, 64);">Linux（Kali）上编译一个面向 Windows（x86_64-pc-windows-msvc）的 LLVM Bitcode 文件</font></strong><font style="color:rgb(64, 64, 64);">。</font></li>
+<li><font style="color:rgb(64, 64, 64);">Clang 默认会尝试调用 Linux 的链接器 ld ,但 .bc 文件包含 </font><strong><font style="color:rgb(64, 64, 64);">MSVC 特有的库依赖</font></strong><font style="color:rgb(64, 64, 64);">（如 libcmt，Windows 的 C 运行时库）。</font></li>
 </ul>
 <p>用vscode配置环境：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/613922486">https://zhuanlan.zhihu.com/p/613922486</a></p>
 <p>llvm下载网址：<a target="_blank" rel="noopener" href="https://releases.llvm.org/download.html">https://releases.llvm.org/download.html</a></p>
@@ -423,8 +423,7 @@
 <p>正式逆向Dragon.bc文件（XYCTF2025–Re）</p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/10.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/11.png" srcset="/img/loading.gif" lazyload></p>
-<p>:::tips<br><strong><font style="color:rgb(25, 27, 31);">–target&#x3D;x86_64-w64-windows-gnu</font></strong><font style="color:rgb(25, 27, 31);"> 或 </font><strong><font style="color:rgb(25, 27, 31);">–target&#x3D;x86_64-w64-mingw </font></strong></p>
-<p>:::</p>
+<p><strong><font style="color:rgb(25, 27, 31);">–target&#x3D;x86_64-w64-windows-gnu</font></strong><font style="color:rgb(25, 27, 31);"> 或 </font><strong><font style="color:rgb(25, 27, 31);">–target&#x3D;x86_64-w64-mingw </font></strong></p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/12.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/13.png" srcset="/img/loading.gif" lazyload></p>
 <p>可以vs下载msvc库，但不影响，exe已生成，可以逆向了</p>
