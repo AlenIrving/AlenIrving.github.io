@@ -21,26 +21,26 @@
   
     <meta name="description" content="小结emm,比赛到最后就剩我一个了，pwn爷来打的话能冲前60的，PYD逆向和VM逆向也要开始学起来了。 ReWARMUPvbs文件 参考这个   本质就是chr加密混淆  无魔改rc4，提数据痛苦   XYCTF{5f9f46c147645dd1e2c8044325d4f93c} Dragonbc文件逆向，学习过程见我blog，赛后会发 12345678910111213141516171819">
 <meta property="og:type" content="article">
-<meta property="og:title" content="XYCTF部分WP-Re">
-<meta property="og:url" content="https://alenirving.github.io/2025/04/06/XYCTF/index.html">
+<meta property="og:title" content="XYCTF2025部分WP-Re">
+<meta property="og:url" content="https://alenirving.github.io/2025/04/06/XYCTF2025/index.html">
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
 <meta property="og:description" content="小结emm,比赛到最后就剩我一个了，pwn爷来打的话能冲前60的，PYD逆向和VM逆向也要开始学起来了。 ReWARMUPvbs文件 参考这个   本质就是chr加密混淆  无魔改rc4，提数据痛苦   XYCTF{5f9f46c147645dd1e2c8044325d4f93c} Dragonbc文件逆向，学习过程见我blog，赛后会发 12345678910111213141516171819">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734410751-76499d0e-c840-4b5e-82d1-4deb2fe90e18.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734390630-f1acb95e-1ce2-4384-9fae-881afb6f8e5d.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734431439-5380fc34-0f81-42e8-b954-b1f64a0fd4ec.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734461783-fe589c2a-4bad-4595-b95d-90ddc4d94f0b.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734473612-41fc9744-7529-4d5d-b8e8-39a7f44a7255.png">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743836954636-3bbc5cfe-bfa9-4972-bb76-202366dc2cc5.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/XYCTF2025/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/XYCTF2025/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/XYCTF2025/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/XYCTF2025/4.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/XYCTF2025/5.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/XYCTF2025/6.png">
 <meta property="article:published_time" content="2025-04-05T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-06T12:20:37.867Z">
+<meta property="article:modified_time" content="2025-04-06T12:32:06.792Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734410751-76499d0e-c840-4b5e-82d1-4deb2fe90e18.png">
+<meta name="twitter:image" content="https://alenirving.github.io/2025/04/06/XYCTF2025/1.png">
   
   
   
-  <title>XYCTF部分WP-Re - Ma5k&#39;s Blog</title>
+  <title>XYCTF2025部分WP-Re - Ma5k&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -219,7 +219,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="XYCTF部分WP-Re"></span>
+            <span id="subtitle" data-typed-text="XYCTF2025部分WP-Re"></span>
           
         </div>
 
@@ -299,7 +299,7 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">XYCTF部分WP-Re</h1>
+            <h1 id="seo-header">XYCTF2025部分WP-Re</h1>
             
             
               <div class="markdown-body">
@@ -307,13 +307,13 @@
                 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>emm,比赛到最后就剩我一个了，pwn爷来打的话能冲前60的，PYD逆向和VM逆向也要开始学起来了。</p>
 <h1 id="Re"><a href="#Re" class="headerlink" title="Re"></a>Re</h1><h2 id="WARMUP"><a href="#WARMUP" class="headerlink" title="WARMUP"></a>WARMUP</h2><p>vbs文件</p>
 <p>参考这个</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734410751-76499d0e-c840-4b5e-82d1-4deb2fe90e18.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734390630-f1acb95e-1ce2-4384-9fae-881afb6f8e5d.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/04/06/XYCTF2025/1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/04/06/XYCTF2025/2.png" srcset="/img/loading.gif" lazyload></p>
 <p>本质就是chr加密混淆</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734431439-5380fc34-0f81-42e8-b954-b1f64a0fd4ec.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/04/06/XYCTF2025/3.png" srcset="/img/loading.gif" lazyload></p>
 <p>无魔改rc4，提数据痛苦</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734461783-fe589c2a-4bad-4595-b95d-90ddc4d94f0b.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743734473612-41fc9744-7529-4d5d-b8e8-39a7f44a7255.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/04/06/XYCTF2025/4.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/04/06/XYCTF2025/5.png" srcset="/img/loading.gif" lazyload></p>
 <p>XYCTF{5f9f46c147645dd1e2c8044325d4f93c}</p>
 <h2 id="Dragon"><a href="#Dragon" class="headerlink" title="Dragon"></a>Dragon</h2><p>bc文件逆向，学习过程见我blog，赛后会发</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function"><span class="hljs-type">int</span> __fastcall <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span></span><br><span class="hljs-function"></span>&#123;<br>    __int64 v4; <span class="hljs-comment">// [rsp+30h] [rbp-50h]</span><br>    <span class="hljs-type">size_t</span> v5; <span class="hljs-comment">// [rsp+38h] [rbp-48h]</span><br>    <span class="hljs-type">char</span> Str[<span class="hljs-number">80</span>]; <span class="hljs-comment">// [rsp+40h] [rbp-40h] BYREF</span><br>    _QWORD v7[<span class="hljs-number">13</span>]; <span class="hljs-comment">// [rsp+90h] [rbp+10h] BYREF</span><br>    <span class="hljs-type">int</span> v8; <span class="hljs-comment">// [rsp+FCh] [rbp+7Ch]</span><br><br>    _main(argc, argv, envp);<br>    v8 = <span class="hljs-number">0</span>;<br>    <span class="hljs-built_in">memcpy</span>(v7, &amp;unk_140004000, <span class="hljs-number">0x60uLL</span>);<br>    <span class="hljs-built_in">memset</span>(Str, <span class="hljs-number">0</span>, <span class="hljs-number">66uLL</span>);<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Input U flag:&quot;</span>);<br>    <span class="hljs-built_in">scanf</span>(<span class="hljs-string">&quot;%s&quot;</span>, Str);<br>    v5 = <span class="hljs-number">0LL</span>;<br>    v4 = <span class="hljs-number">0LL</span>;<br>    <span class="hljs-keyword">while</span> ( v5 &lt; <span class="hljs-built_in">strlen</span>(Str) &gt;&gt; <span class="hljs-number">1</span> )<br>        &#123;<br>            <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">calculate_crc64_direct</span>((<span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> __int8 *)&amp;Str[v5], <span class="hljs-number">2uLL</span>) != v7[v4] )<br>            &#123;<br>                <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Error!&quot;</span>);<br>                <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>            &#125;<br>            v5 += <span class="hljs-number">2LL</span>;<br>            ++v4;<br>        &#125;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Success&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
@@ -322,7 +322,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">__int64 __fastcall <span class="hljs-title">calculate_crc64_direct</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">unsigned</span> __int8 *a1, <span class="hljs-type">unsigned</span> __int64 n2)</span></span><br><span class="hljs-function"></span>&#123;<br>  <span class="hljs-type">unsigned</span> __int64 j; <span class="hljs-comment">// [rsp+0h] [rbp-28h]</span><br>  <span class="hljs-type">unsigned</span> __int64 i; <span class="hljs-comment">// [rsp+8h] [rbp-20h]</span><br>  __int64 v5; <span class="hljs-comment">// [rsp+10h] [rbp-18h]</span><br><br>  v5 = <span class="hljs-number">-1LL</span>;<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0LL</span>; i &lt; n2; ++i )<br>  &#123;<br>    v5 ^= (<span class="hljs-type">unsigned</span> __int64)a1[i] &lt;&lt; <span class="hljs-number">56</span>;<br>    <span class="hljs-keyword">for</span> ( j = <span class="hljs-number">0LL</span>; j &lt; <span class="hljs-number">8</span>; ++j )<br>    &#123;<br>      <span class="hljs-keyword">if</span> ( v5 &gt;= <span class="hljs-number">0</span> )<br>        v5 *= <span class="hljs-number">2LL</span>;<br>      <span class="hljs-keyword">else</span><br>        v5 = (<span class="hljs-number">2</span> * v5) ^ <span class="hljs-number">0x42F0E1EBA9EA3693LL</span>;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> ~v5;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>密文</p>
-<p><img src="https://cdn.nlark.com/yuque/0/2025/png/43057672/1743836954636-3bbc5cfe-bfa9-4972-bb76-202366dc2cc5.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/04/06/XYCTF2025/6.png" srcset="/img/loading.gif" lazyload></p>
 <p>脚本：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">calculate_crc64_direct</span>(<span class="hljs-params">data</span>):<br>    crc = <span class="hljs-number">0xFFFFFFFFFFFFFFFF</span>  <span class="hljs-comment"># 初始值 -1</span><br>    poly = <span class="hljs-number">0x42F0E1EBA9EA3693</span>  <span class="hljs-comment"># CRC64/ECMA 多项式</span><br><br>    <span class="hljs-keyword">for</span> byte <span class="hljs-keyword">in</span> data:<br>        crc ^= (byte &lt;&lt; <span class="hljs-number">56</span>) &amp; <span class="hljs-number">0xFFFFFFFFFFFFFFFF</span>  <span class="hljs-comment"># 高位异或</span><br>        <span class="hljs-keyword">for</span> _ <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">8</span>):  <span class="hljs-comment"># 处理 8 位</span><br>            <span class="hljs-keyword">if</span> (crc &amp; <span class="hljs-number">0x8000000000000000</span>) != <span class="hljs-number">0</span>:  <span class="hljs-comment"># 检查最高位</span><br>                crc = ((crc &lt;&lt; <span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFFFFFFFFFFFFFFFF</span>) ^ poly<br>            <span class="hljs-keyword">else</span>:<br>                crc = (crc &lt;&lt; <span class="hljs-number">1</span>) &amp; <span class="hljs-number">0xFFFFFFFFFFFFFFFF</span><br>    <span class="hljs-keyword">return</span> (~crc) &amp; <span class="hljs-number">0xFFFFFFFFFFFFFFFF</span>  <span class="hljs-comment"># 取反并确保 64 位</span><br><br><br><span class="hljs-comment"># 给定的 96 字节密文</span><br>cipher_bytes = <span class="hljs-built_in">bytes</span>([<br>    <span class="hljs-number">0x47</span>, <span class="hljs-number">0x7B</span>, <span class="hljs-number">0x9F</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x4E</span>, <span class="hljs-number">0xE3</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0xDC</span>, <span class="hljs-number">0xC6</span>, <span class="hljs-number">0xBF</span>, <span class="hljs-number">0xB2</span>, <span class="hljs-number">0xE7</span>, <span class="hljs-number">0xD4</span>, <span class="hljs-number">0xF8</span>, <span class="hljs-number">0x1E</span>, <span class="hljs-number">0x3</span>,<br>    <span class="hljs-number">0x9E</span>, <span class="hljs-number">0xD8</span>, <span class="hljs-number">0x5F</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0xBC</span>, <span class="hljs-number">0x2F</span>, <span class="hljs-number">0xD6</span>, <span class="hljs-number">0x12</span>, <span class="hljs-number">0xE8</span>, <span class="hljs-number">0x55</span>, <span class="hljs-number">0x57</span>, <span class="hljs-number">0xCC</span>, <span class="hljs-number">0xE1</span>, <span class="hljs-number">0xB6</span>, <span class="hljs-number">0xE8</span>, <span class="hljs-number">0x83</span>,<br>    <span class="hljs-number">0xCC</span>, <span class="hljs-number">0x65</span>, <span class="hljs-number">0xB6</span>, <span class="hljs-number">0x2A</span>, <span class="hljs-number">0xEB</span>, <span class="hljs-number">0xB1</span>, <span class="hljs-number">0x7B</span>, <span class="hljs-number">0xFC</span>, <span class="hljs-number">0x6B</span>, <span class="hljs-number">0xD9</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x2A</span>, <span class="hljs-number">0x1B</span>, <span class="hljs-number">0xCA</span>, <span class="hljs-number">0x82</span>, <span class="hljs-number">0x93</span>,<br>    <span class="hljs-number">0x87</span>, <span class="hljs-number">0xC3</span>, <span class="hljs-number">0x73</span>, <span class="hljs-number">0x76</span>, <span class="hljs-number">0xA0</span>, <span class="hljs-number">0xF8</span>, <span class="hljs-number">0xFF</span>, <span class="hljs-number">0xB1</span>, <span class="hljs-number">0xE1</span>, <span class="hljs-number">0x5</span>, <span class="hljs-number">0x8E</span>, <span class="hljs-number">0x38</span>, <span class="hljs-number">0x27</span>, <span class="hljs-number">0x16</span>, <span class="hljs-number">0xA8</span>, <span class="hljs-number">0xD</span>,<br>    <span class="hljs-number">0xB7</span>, <span class="hljs-number">0xAA</span>, <span class="hljs-number">0xD0</span>, <span class="hljs-number">0xE8</span>, <span class="hljs-number">0x1A</span>, <span class="hljs-number">0xE6</span>, <span class="hljs-number">0xF1</span>, <span class="hljs-number">0x9E</span>, <span class="hljs-number">0x45</span>, <span class="hljs-number">0x61</span>, <span class="hljs-number">0xF2</span>, <span class="hljs-number">0xE7</span>, <span class="hljs-number">0xD2</span>, <span class="hljs-number">0x3F</span>, <span class="hljs-number">0x78</span>, <span class="hljs-number">0x92</span>,<br>    <span class="hljs-number">0xB</span>, <span class="hljs-number">0xE6</span>, <span class="hljs-number">0x6F</span>, <span class="hljs-number">0xF5</span>, <span class="hljs-number">0xA1</span>, <span class="hljs-number">0x7C</span>, <span class="hljs-number">0xC9</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0xAB</span>, <span class="hljs-number">0x3A</span>, <span class="hljs-number">0xB7</span>, <span class="hljs-number">0x43</span>, <span class="hljs-number">0xB0</span>, <span class="hljs-number">0xA8</span>, <span class="hljs-number">0xD3</span>, <span class="hljs-number">0x9B</span><br>])<br><br><span class="hljs-comment"># 转换为 12 个 64 位整数（小端序）</span><br>v7 = []<br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>, <span class="hljs-built_in">len</span>(cipher_bytes), <span class="hljs-number">8</span>):<br>    chunk = cipher_bytes[i:i + <span class="hljs-number">8</span>]<br>    value = <span class="hljs-built_in">int</span>.from_bytes(chunk, byteorder=<span class="hljs-string">&#x27;little&#x27;</span>)<br>    v7.append(value)<br><br><span class="hljs-comment"># 枚举所有 2 字节组合，计算 CRC64 并匹配</span><br>flag = <span class="hljs-string">b&quot;&quot;</span><br><span class="hljs-keyword">for</span> target <span class="hljs-keyword">in</span> v7:<br>    found = <span class="hljs-literal">False</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0x10000</span>):  <span class="hljs-comment"># 0x0000 ~ 0xFFFF</span><br>        data = i.to_bytes(<span class="hljs-number">2</span>, byteorder=<span class="hljs-string">&#x27;little&#x27;</span>)<br>        crc = calculate_crc64_direct(data)<br>        <span class="hljs-keyword">if</span> crc == target:<br>            flag += data<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Found: <span class="hljs-subst">&#123;data.<span class="hljs-built_in">hex</span>()&#125;</span> -&gt; <span class="hljs-subst">&#123;<span class="hljs-built_in">hex</span>(crc)&#125;</span>&quot;</span>)<br>            found = <span class="hljs-literal">True</span><br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> found:<br>        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Failed for <span class="hljs-subst">&#123;<span class="hljs-built_in">hex</span>(target)&#125;</span>&quot;</span>)<br>        <span class="hljs-keyword">break</span><br><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Flag:&quot;</span>, flag.decode(<span class="hljs-string">&#x27;latin-1&#x27;</span>))<br><span class="hljs-comment">#flag&#123;LLVM_1s_Fun_Ri9h7?&#125;</span><br></code></pre></td></tr></table></figure>
 
@@ -345,8 +345,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>XYCTF部分WP-Re</div>
-      <div>https://alenirving.github.io/2025/04/06/XYCTF/</div>
+      <div>XYCTF2025部分WP-Re</div>
+      <div>https://alenirving.github.io/2025/04/06/XYCTF2025/</div>
     </div>
     <div class="license-meta">
       
@@ -390,18 +390,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/" title="BC文件逆向">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">BC文件逆向</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/25/XCTF-TPCTF2025/" title="XCTF-TPCTF2025">
-                        <span class="hidden-mobile">XCTF-TPCTF2025</span>
+                      <a href="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/" title="BC文件逆向">
+                        <span class="hidden-mobile">BC文件逆向</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
