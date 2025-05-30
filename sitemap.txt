@@ -1,3 +1,4 @@
+https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/
 https://alenirving.github.io/2025/04/06/XYCTF2025/
 https://alenirving.github.io/2025/03/25/XCTF-TPCTF2025/
 https://alenirving.github.io/2025/04/20/UCSCCTF2025/
@@ -9,3 +10,4 @@ https://alenirving.github.io/about/index.html
 https://alenirving.github.io/2025/03/22/hello-world/
 https://alenirving.github.io/
 https://alenirving.github.io/categories/Reverse/
+https://alenirving.github.io/categories/Web/

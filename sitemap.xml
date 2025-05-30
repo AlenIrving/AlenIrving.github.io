@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/</loc>
+    
+    <lastmod>2025-05-30</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alenirving.github.io/2025/04/06/XYCTF2025/</loc>
     
     <lastmod>2025-05-13</lastmod>
@@ -85,7 +94,7 @@
 
   <url>
     <loc>https://alenirving.github.io/</loc>
-    <lastmod>2025-05-20</lastmod>
+    <lastmod>2025-05-30</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -95,7 +104,14 @@
   
   <url>
     <loc>https://alenirving.github.io/categories/Reverse/</loc>
-    <lastmod>2025-05-20</lastmod>
+    <lastmod>2025-05-30</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://alenirving.github.io/categories/Web/</loc>
+    <lastmod>2025-05-30</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
