@@ -19,26 +19,36 @@
   <meta name="author" content="Ma5k">
   <meta name="keywords" content="">
   
-    <meta name="description" content="前言本文章仅用于学习目的分享，恶意利用造成不良后果等博主概不负责参加了躺护网，只能说实战跟理论差距很大啊，CTF给的条件很多，实战基本就是盲打，还会遇到waf，防火墙，闭源商用之类的复合框架，要学的东西还是挺多的，这篇文章留给路过有缘人，红初急速摸鱼入门版 信息打点主要是分析目标资产，获取相关信息，同时了解目标架构、指纹之类信息方便针对性分析 渠道分类个人用的主要是fofa和arl，google搜">
+    <meta name="description" content="前言关于ida的使用快捷键等教程有很多，这里就不多说了，一开始想给每个具体操作附上一份截图，但鄙人是懒狗，再加上很多功能需要自己实际遇到动手一番才会有印象，故这里只作简要介绍 常见问题报错1.我的ida为什么打不开？ ida开发公司为国外的，切忌将ida置于中文目录下(剩下五花八门的问题自行上网搜索，注意提问的智慧，借助ai能事半功倍) 2.争对ida的python环境问题 ida所在文件目录下会">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hvv红队摸鱼入门">
-<meta property="og:url" content="https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="Ma5k&#39;s Blog">
+<meta property="og:url" content="https://alenirving.github.io/2025/06/26/%E9%87%8E%E7%94%9Fida%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
-<meta property="og:description" content="前言本文章仅用于学习目的分享，恶意利用造成不良后果等博主概不负责参加了躺护网，只能说实战跟理论差距很大啊，CTF给的条件很多，实战基本就是盲打，还会遇到waf，防火墙，闭源商用之类的复合框架，要学的东西还是挺多的，这篇文章留给路过有缘人，红初急速摸鱼入门版 信息打点主要是分析目标资产，获取相关信息，同时了解目标架构、指纹之类信息方便针对性分析 渠道分类个人用的主要是fofa和arl，google搜">
+<meta property="og:description" content="前言关于ida的使用快捷键等教程有很多，这里就不多说了，一开始想给每个具体操作附上一份截图，但鄙人是懒狗，再加上很多功能需要自己实际遇到动手一番才会有印象，故这里只作简要介绍 常见问题报错1.我的ida为什么打不开？ ida开发公司为国外的，切忌将ida置于中文目录下(剩下五花八门的问题自行上网搜索，注意提问的智慧，借助ai能事半功倍) 2.争对ida的python环境问题 ida所在文件目录下会">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/1.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/2.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/3.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/4.png">
-<meta property="article:published_time" content="2025-05-29T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-05-30T12:53:13.901Z">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/4.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/5.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/6.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/7.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/8.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/9.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/10.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/11.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/12.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/13.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/14.png">
+<meta property="article:published_time" content="2025-06-26T08:15:49.134Z">
+<meta property="article:modified_time" content="2025-06-26T08:21:43.029Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/1.png">
+<meta name="twitter:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/1.png">
   
   
   
-  <title>hvv红队摸鱼入门 - Ma5k&#39;s Blog</title>
+  <title>Ma5k&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -229,7 +239,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="hvv红队摸鱼入门"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -240,8 +250,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-05-30 00:00" pubdate>
-          2025年5月30日 凌晨
+        <time datetime="2025-06-26 16:15" pubdate>
+          2025年6月26日 下午
         </time>
       </span>
     
@@ -252,7 +262,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          999 字
         
       </span>
     
@@ -263,7 +273,7 @@
         
         
         
-          11 分钟
+          9 分钟
         
       </span>
     
@@ -309,78 +319,105 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">hvv红队摸鱼入门</h1>
+            <h1 id="seo-header"></h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文章仅用于学习目的分享，恶意利用造成不良后果等博主概不负责<br>参加了躺护网，只能说实战跟理论差距很大啊，CTF给的条件很多，实战基本就是盲打，还会遇到waf，防火墙，闭源商用之类的复合框架，要学的东西还是挺多的，这篇文章留给路过有缘人，红初急速摸鱼入门版</p>
-<h1 id="信息打点"><a href="#信息打点" class="headerlink" title="信息打点"></a>信息打点</h1><p>主要是分析目标资产，获取相关信息，同时了解目标架构、指纹之类信息方便针对性分析</p>
-<h2 id="渠道分类"><a href="#渠道分类" class="headerlink" title="渠道分类"></a>渠道分类</h2><p>个人用的主要是fofa和arl，google搜索实战很少搜集到相关信息，可能目标范围不同</p>
-<h3 id="引擎、空间测绘"><a href="#引擎、空间测绘" class="headerlink" title="引擎、空间测绘"></a>引擎、空间测绘</h3><p><a target="_blank" rel="noopener" href="https://www.zoomeye.org/">ZoomEye - Cyberspace Search Engine</a></p>
-<p><a target="_blank" rel="noopener" href="https://fofa.info/">FOFA Search Engine</a></p>
-<p><a target="_blank" rel="noopener" href="https://quake.360.net/quake/#/index">360网络空间测绘 — 因为看见，所以安全</a></p>
-<p><a target="_blank" rel="noopener" href="https://hunter.qianxin.com/_blank">鹰图平台(hunter)-奇安信网络空间测绘系统</a></p>
-<p><a target="_blank" rel="noopener" href="https://tool.chinaz.com/">站长工具 - 站长之家</a></p>
-<p>这个主要是分析：<a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/home/upload">https://www.virustotal.com/gui/home/upload</a></p>
-<h4 id="fofa语法"><a href="#fofa语法" class="headerlink" title="fofa语法"></a>fofa语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">ip=&quot;xxxx&quot;<br>domain=&quot;xxx&quot; (如果前缀有www.可以去掉，扩大搜索范围搜其子域名)<br>title=&quot;xxxx&quot;<br>body=&quot;xxx&quot;<br>host=&quot;xxx&quot;<br>port=&quot;xxx&quot;<br>server=&quot;Apache&quot; (服务器软件名称或版本)<br>header=&quot;Content-Type: application/json&quot; (头信息关键词)<br>&amp;&amp;  ||  !=<br>cert=&quot;CA1&quot; (某企业名字)<br>country=&quot;CN&quot;<br>city=&quot;London&quot;<br>os=&quot;windows&quot;<br>asn=&quot;AS12345&quot; (某个网络服务提供商的自治系统编号)<br>icon_hash=&quot;1578525679&quot; (一个应用或者网站图标的哈希值,特异性大,降低排查范围)<br>app=&quot;视频监控&quot; (明确指定 “app” 字段的值为目标应用程序名称)<br><br>常用 domain=&quot;&quot;&amp;&amp;(title=&quot;系统&quot;||title=&quot;平台&quot;title=&quot;后台&quot;title=&quot;管理&quot;)<br></code></pre></td></tr></table></figure>
-
-<h3 id="浏览器类"><a href="#浏览器类" class="headerlink" title="浏览器类"></a>浏览器类</h3><p>主要是依靠google特定的语法搜索</p>
-<p>工具：<a target="_blank" rel="noopener" href="https://iamunixtz.github.io/LazyDork/">https://iamunixtz.github.io/LazyDork/</a></p>
-<p><a target="_blank" rel="noopener" href="https://ght.se7ensec.cn/">https://ght.se7ensec.cn/</a> (这个可以个人博客部署)  两个感觉都没啥用</p>
-<p><a target="_blank" rel="noopener" href="https://cdbc.pythonanywhere.com/">https://cdbc.pythonanywhere.com/</a> 这个靠谱点</p>
-<h4 id="博客部署"><a href="#博客部署" class="headerlink" title="博客部署"></a>博客部署</h4><p>教程：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2148816">https://cloud.tencent.com/developer/article/2148816</a></p>
-<p>项目：<a target="_blank" rel="noopener" href="https://github.com/r00tSe7en/GoogleHackingTool">https://github.com/r00tSe7en/GoogleHackingTool</a></p>
-<p>不同点</p>
-<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/1.png" srcset="/img/loading.gif" lazyload></p>
-<p>本地fluid主题语法不同</p>
-<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/2.png" srcset="/img/loading.gif" lazyload></p>
-<h4 id="google语法"><a href="#google语法" class="headerlink" title="google语法"></a>google语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">AND OR<br>注意：OR是大写的，小写是不起作用的，而且，每一个关键词与“OR”之间是有一个空格的<br><br>&quot;&quot;:不可分割<br>希望搜索&quot;programgoogle&quot;的内容，而不希望这两个单词之间有任何其他的内容，<br>那么就要使用双引号把搜索的内容组成一个词组，如&quot;passwdadmin&quot;<br><br>Site：site:www.baidu.com<br>找到与指定网站有联系的URL。<br><br>filetype： filetype:txt admin<br>将返回所有以txt结尾的文件URL 名字包含admin的文件<br><br>intext: intext citation apa<br>这个语法类似我们平时在某些网站中使用的“文章内容搜索”功能<br><br>inurl： inurl /admin/login.asp<br>搜索包含有特定字符的URL。<br><br>intitle： intitle index of login<br>搜索网页标题中包含有特定字符的网页。<br></code></pre></td></tr></table></figure>
-
-<h3 id="工具集成平台"><a href="#工具集成平台" class="headerlink" title="工具集成平台"></a>工具集成平台</h3><p>Nemo 和 ARL (其他的没了解过)</p>
-<p>Nemo: <a target="_blank" rel="noopener" href="https://github.com/hanc00l/nemo_go">https://github.com/hanc00l/nemo_go</a></p>
-<p>ARL: </p>
-<p>配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52487093/article/details/141432006">https://blog.csdn.net/weixin_52487093&#x2F;article&#x2F;details&#x2F;141432006</a></p>
-<p>基本就是下载配置内容拉取镜像，需要梯子</p>
-<p><a target="_blank" rel="noopener" href="https://tophanttechnology.github.io/ARL-doc/">ARL 资产灯塔系统安装和使用文档</a></p>
-<p>项目：</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/ki9mu/ARL-plus-docker">https://github.com/ki9mu/ARL-plus-docker</a>（优先）</p>
-<p><a target="_blank" rel="noopener" href="https://github.com/Aabyss-Team/ARL">https://github.com/Aabyss-Team/ARL</a></p>
-<p><a target="_blank" rel="noopener" href="https://github.com/TophantTechnology">https://github.com/TophantTechnology</a></p>
-<p>登录：</p>
-<p>ip:5003 kali  admin arlpass</p>
-<p>fofa配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38154820/article/details/136190510">https://blog.csdn.net/qq_38154820&#x2F;article&#x2F;details&#x2F;136190510</a></p>
-<h3 id="企业查询类"><a href="#企业查询类" class="headerlink" title="企业查询类"></a>企业查询类</h3><p><a target="_blank" rel="noopener" href="https://www.tianyancha.com/">天眼查-商业查询平台_企业信息查询_公司查询_工商查询_企业信用信息系统</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.qcc.com/">企查查 - 查企业_查老板_查风险_企业信息查询系统</a></p>
-<p><a target="_blank" rel="noopener" href="https://aiqicha.baidu.com/index/index">爱企查</a></p>
-<p><a target="_blank" rel="noopener" href="https://sou.xiaolanben.com/pc">小蓝本-商业信息搜索</a></p>
-<p>主要留意：</p>
-<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/3.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E5%85%A5%E9%97%A8/4.png" srcset="/img/loading.gif" lazyload>股份占比50%以上的子公司</p>
-<p>还有知识产权下对应app，公众号，网站等</p>
-<p><a target="_blank" rel="noopener" href="https://dajiala.com/">https://dajiala.com/</a> (用来搜集公众号api的网站，现在更多的信息可以从小程序和公众号获取)</p>
-<h3 id="邮箱类"><a href="#邮箱类" class="headerlink" title="邮箱类"></a>邮箱类</h3><p><a target="_blank" rel="noopener" href="https://phonebook.cz/">https://phonebook.cz/</a></p>
-<p><a target="_blank" rel="noopener" href="https://hunter.io/dashboard">https://hunter.io/dashboard</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.email-format.com/i/search">https://www.email-format.com/i/search</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.skymem.info/">https://www.skymem.info/</a></p>
-<h3 id="指纹类"><a href="#指纹类" class="headerlink" title="指纹类"></a>指纹类</h3><p><a target="_blank" rel="noopener" href="http://finger.tidesec.net/">http://finger.tidesec.net/</a></p>
-<h3 id="ICP备案查询"><a href="#ICP备案查询" class="headerlink" title="ICP备案查询"></a>ICP备案查询</h3><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index">https://beian.miit.gov.cn/#/Integrated/index</a></p>
-<h1 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h1><p>手上没oday就碰运气吧</p>
-<p>github上能搜索到nday</p>
-<p>可以先简单权限，再提权</p>
-<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/">https://gtfobins.github.io/</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/f-carey/p/17536745.html">https://www.cnblogs.com/f-carey/p/17536745.html</a></p>
-<h1 id="内网穿透、横向渗透"><a href="#内网穿透、横向渗透" class="headerlink" title="内网穿透、横向渗透"></a>内网穿透、横向渗透</h1><p>没具体学习过，到时候再整理知识体系，板块加工中</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45927266/article/details/121179250">如何从零构建对内网穿透的理解-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45927266/article/details/121398072">手把手教你如何进行内网渗透-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/9887">https://xz.aliyun.com/news/9887</a></p>
-<p><a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/">Web安全学习笔记 — Web安全学习笔记 1.0 文档</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/backlion/p/15839963.html">实战讲解内网渗透思路 - 渗透测试中心 - 博客园</a></p>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1584913">内网渗透 | 手把手教你如何进行内网渗透-腾讯云开发者社区-腾讯云</a></p>
-<p>工具：fscan nmap msf马</p>
-<p>msf:<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45588247/article/details/119948980">msf-Msfvenonm生成后门木马_msfmsfvenom-CSDN博客</a></p>
-<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1164064">Metasploit – 木马生成原理和方法-阿里云开发者社区</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2401_84578953/article/details/142610658">Kali利用msf入侵Windows电脑（最详细渗透流程、生成木马、监控屏幕）_kali入侵电脑-CSDN博客</a></p>
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>关于ida的使用快捷键等教程有很多，这里就不多说了，一开始想给每个具体操作附上一份截图，但鄙人是懒狗，再加上很多功能需要自己实际遇到动手一番才会有印象，故这里只作简要介绍</p>
+<h1 id="常见问题报错"><a href="#常见问题报错" class="headerlink" title="常见问题报错"></a>常见问题报错</h1><p>1.我的ida为什么打不开？</p>
+<p>ida开发公司为国外的，切忌将ida置于中文目录下(剩下五花八门的问题自行上网搜索，注意提问的智慧，借助ai能事半功倍)</p>
+<p>2.争对ida的python环境问题</p>
+<p>ida所在文件目录下会有自带的python环境</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/1.png" srcset="/img/loading.gif" lazyload>但是也会有相关问题产生,主要利用idapyswitch.exe解决</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-279989.htm">https://bbs.kanxue.com/thread-279989.htm</a></p>
+<p>例子eg.</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/3.png" srcset="/img/loading.gif" lazyload></p>
+<p>解决：</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/4.png" srcset="/img/loading.gif" lazyload></p>
+<p>找到ida文件目录下的该应用程序</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/5.png" srcset="/img/loading.gif" lazyload></p>
+<p>最直接方式.&#x2F;idapyswitch运行，如果有问题利用</p>
+<p>.&#x2F;idapyswitch -s 指定路径\Python3\Python3.dll</p>
+<p>指定路径安装</p>
+<h1 id="最最最基础ida使用"><a href="#最最最基础ida使用" class="headerlink" title="最最最基础ida使用"></a>最最最基础ida使用</h1><p>eg.打开一个exe分析</p>
+<p>其实你可以在ida文件目录下观察到ida和ida64两个应用程序，分别对应于32位和64位程序，选择对应ida打开即可，在ida9版本后已将两种合并，自行分析位数反编译</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/6.png" srcset="/img/loading.gif" lazyload></p>
+<p>初始ida打开exe进入的是程序入口点，对大部分程序一般是main函数入口，混淆操作另算</p>
+<p>右边对应的是汇编代码执行流程，左边为函数窗口，可以在此处搜索对应函数，左下python可以直接简易pyshell使用</p>
+<p>eg.</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/7.png" srcset="/img/loading.gif" lazyload>，也可以算成idc语言</p>
+<p>同样的是这个刚进入显示的页面，按下空格键</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/8.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到汇编执行流窗口变成了完全的汇编代码段</p>
+<p>会有人说，嘶，看的头疼，看不懂，溜之</p>
+<p>咳咳，对应新手来说，未接触花指令以及混淆前，仅逆向反编译伪C代码即可</p>
+<p>在这里对应操作就是按下f5转函数</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/9.png" srcset="/img/loading.gif" lazyload>此处可以看到快捷键对应具体操作</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/10.png" srcset="/img/loading.gif" lazyload><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/11.png" srcset="/img/loading.gif" lazyload>可以分析代码了</p>
+<p>还有个操作shift+f12查看字符串</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/12.png" srcset="/img/loading.gif" lazyload></p>
+<p>好的，到这一步，你的逆向已经初初初步入门，可以做题目了</p>
+<h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1><p>剩下的关于ida的使用就是插件，远程动态调试，idapython等零碎东西，自行学习积累即可，主要提一嘴</p>
+<h2 id="其余快捷键："><a href="#其余快捷键：" class="headerlink" title="其余快捷键："></a>其余快捷键：</h2><p>x&#x2F;ctrl + x : 交叉引用，例如，在某处变量位置点击X，可以查看是谁调用此变量，对于定位程序位置和分析逻辑有所帮助</p>
+<p>shift + E : 提取数据</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/13.png" srcset="/img/loading.gif" lazyload></p>
+<p><font style="color:rgb(77, 77, 77);">G 按地址查找</font></p>
+<p><font style="color:rgb(77, 77, 77);">D 将字符串等元素转为数据</font></p>
+<p><font style="color:rgb(77, 77, 77);">N 重命名（函数名、变量名等）</font></p>
+<p><font style="color:rgb(77, 77, 77);">Y 修改变量类型等（比如int改char等等）</font></p>
+<p><font style="color:rgb(77, 77, 77);">H decimal 数据的进制快速转换</font></p>
+<p><font style="color:rgb(77, 77, 77);">A 将数据转变为字符串类型</font></p>
+<p><font style="color:rgb(77, 77, 77);">C code（将数据转变为汇编代码，分为自动和强制执行）</font></p>
+<p><font style="color:rgb(77, 77, 77);">U undefined（将字符串转变为原始数据）</font></p>
+<p><font style="color:rgb(77, 77, 77);">X 交叉引用（反汇编页面）</font></p>
+<p><font style="color:rgb(77, 77, 77);">P 选中位置识别为函数</font></p>
+<h2 id="远程动态调试"><a href="#远程动态调试" class="headerlink" title="远程动态调试"></a>远程动态调试</h2><p>主要用于elf文件的调试，大多数人用的是windows系统，原理就是借助linux_server64连接一个linux系统从而远程调试</p>
+<p>教程：</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_46296905/article/details/115794076">IDA远程动态调试(linux &amp; Windows)_ida远程调试-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/li528405176/article/details/82810342">SSH简介及两种远程登录的方法-CSDN博客</a></p>
+<p>这里给出基础调试操作，跟dev和vscode差别不大</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong><font style="color:rgb(79, 79, 79);">ida快捷键</font></strong></th>
+<th align="center"><strong><font style="color:rgb(79, 79, 79);">功能</font></strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><font style="color:rgb(79, 79, 79);">F7</font></td>
+<td align="center"><font style="color:rgb(79, 79, 79);">单步步进</font></td>
+</tr>
+<tr>
+<td align="center"><font style="color:rgb(79, 79, 79);">F8</font></td>
+<td align="center"><font style="color:rgb(79, 79, 79);">单步步过</font></td>
+</tr>
+<tr>
+<td align="center"><font style="color:rgb(79, 79, 79);">F9</font></td>
+<td align="center"><font style="color:rgb(79, 79, 79);">继续运行程序</font></td>
+</tr>
+<tr>
+<td align="center"><font style="color:rgb(79, 79, 79);">F4</font></td>
+<td align="center"><font style="color:rgb(79, 79, 79);">运行到光标所在行</font></td>
+</tr>
+<tr>
+<td align="center"><font style="color:rgb(79, 79, 79);">Ctrl + F7</font></td>
+<td align="center"><font style="color:rgb(79, 79, 79);">直到该函数返回时才停止</font></td>
+</tr>
+<tr>
+<td align="center"><font style="color:rgb(79, 79, 79);">Ctrl + F2</font></td>
+<td align="center"><font style="color:rgb(79, 79, 79);">终止一个正在运行的进程</font></td>
+</tr>
+<tr>
+<td align="center"><font style="color:rgb(79, 79, 79);">F2</font></td>
+<td align="center"><font style="color:rgb(79, 79, 79);">设置断点</font></td>
+</tr>
+</tbody></table>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a><strong><font style="color:rgb(79, 79, 79);">插件</font></strong></h2><p>现阶段有用的就findcrypt，快捷键或者edit-&gt;plugin-&gt;findcrypt使用，主要用于找加密特征对应字样</p>
+<p>此外还有个命令行执行窗口用于批量处理汇编代码</p>
+<p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/%E6%8C%87%E5%8D%97/14.png" srcset="/img/loading.gif" lazyload></p>
+<p>可导入相应文件或直接输入脚本</p>
 
                 
               </div>
@@ -388,27 +425,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/Web/" class="category-chain-item">Web</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -419,8 +435,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>hvv红队摸鱼入门</div>
-      <div>https://alenirving.github.io/2025/05/30/hvv红队摸鱼入门/</div>
+      <div></div>
+      <div>https://alenirving.github.io/2025/06/26/野生ida食用指南/</div>
     </div>
     <div class="license-meta">
       
@@ -432,7 +448,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年5月30日</div>
+          <div>2025年6月26日</div>
         </div>
       
       
@@ -464,18 +480,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/06/26/%E9%87%8E%E7%94%9Fida%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/" title="">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/04/20/UCSCCTF2025/" title="UCSCCTF2025">
-                        <span class="hidden-mobile">UCSCCTF2025</span>
+                      <a href="/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/" title="hvv红队摸鱼入门">
+                        <span class="hidden-mobile">hvv红队摸鱼入门</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
