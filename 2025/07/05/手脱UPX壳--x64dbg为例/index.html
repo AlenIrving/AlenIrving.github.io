@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/-x64dbg%E4%B8%BA%E4%BE%8B/9.png">
 <meta property="og:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/-x64dbg%E4%B8%BA%E4%BE%8B/10.png">
 <meta property="article:published_time" content="2025-07-04T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-07-05T12:29:44.507Z">
+<meta property="article:modified_time" content="2025-07-05T12:34:12.609Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenirving.github.io/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/-x64dbg%E4%B8%BA%E4%BE%8B/1.png">
@@ -258,7 +258,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          452 字
+          469 字
         
       </span>
     
@@ -338,7 +338,7 @@
 <p>f7步进完压栈内容至lea指令处，找到rsp对应位置下硬件断点</p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/-x64dbg%E4%B8%BA%E4%BE%8B/4.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/-x64dbg%E4%B8%BA%E4%BE%8B/5.png" srcset="/img/loading.gif" lazyload>字节影响不大</p>
-<p>然后f9可以看到pop和1.exe程序对应的函数调用</p>
+<p>然后f9可以看到pop和1.exe程序对应的函数调用，中间的jne循环用于补齐缺失的栈段空间</p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/-x64dbg%E4%B8%BA%E4%BE%8B/6.png" srcset="/img/loading.gif" lazyload></p>
 <p>下断点运行至该处然后步进</p>
 <p><img src="/2025/04/06/BC%E6%96%87%E4%BB%B6%E9%80%86%E5%90%91/-x64dbg%E4%B8%BA%E4%BE%8B/7.png" srcset="/img/loading.gif" lazyload></p>
