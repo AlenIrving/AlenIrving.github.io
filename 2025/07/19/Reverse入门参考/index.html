@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/6.png">
 <meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/7.png">
 <meta property="article:published_time" content="2025-07-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-07-20T02:26:51.834Z">
+<meta property="article:modified_time" content="2025-07-20T02:31:07.226Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/1.png">
@@ -266,7 +266,7 @@
         
         
         
-          37 分钟
+          36 分钟
         
       </span>
     
@@ -369,7 +369,7 @@
 <h1 id="算法逆向"><a href="#算法逆向" class="headerlink" title="算法逆向"></a>算法逆向</h1><p>新手入门就常见两个base64和rc4，rsa等加密算法其余学长会给予介绍</p>
 <h2 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h2><p>严格来讲，base系列不能说是加密，更像是一种编码方式，用于传输协议仅支持ascii字符的情况</p>
 <p>原理：</p>
-<p><font style="color:#000000;background-color:#FFFFFF;">首先将输入数据分割成每三个字节（共 24 位）一组，接着将这 24 位分割为四个 6 位的块（因为 Base64 中每个字符代表 6 位二进制数据）。最后，通过查找表将这些 6 位块映射为相应的 Base64 字符。</font><font style="color:rgb(48, 48, 48);">若输入数据的字节数非 3 的倍数，则在数据末尾添加</font><code>&lt;font style=&quot;color:rgb(48, 48, 48);background-color:rgb(241, 243, 245);&quot;&gt;=&lt;/font&gt;</code><font style="color:rgb(48, 48, 48);">字符作为填充，以确保编码结果的长度符合 Base64 规范。</font></p>
+<p><font style="color:#000000;background-color:#FFFFFF;">首先将输入数据分割成每三个字节（共 24 位）一组，接着将这 24 位分割为四个 6 位的块（因为 Base64 中每个字符代表 6 位二进制数据）。最后，通过查找表将这些 6 位块映射为相应的 Base64 字符。</font><font style="color:rgb(48, 48, 48);">若输入数据的字节数非 3 的倍数，则在数据末尾添加&#x3D;字符作为填充，以确保编码结果的长度符合 Base64 规范。</font></p>
 <p><img src="/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/4.png" srcset="/img/loading.gif" lazyload></p>
 <p>涉及字符：A-Za-z0-9+&#x2F;&#x3D;   (这也是标准base64表)</p>
 <p>补位：</p>
