@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/</loc>
+    
+    <lastmod>2025-07-20</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alenirving.github.io/2025/07/05/%E6%89%8B%E8%84%B1UPX%E5%A3%B3--x64dbg%E4%B8%BA%E4%BE%8B/</loc>
     
     <lastmod>2025-07-05</lastmod>
@@ -112,7 +121,7 @@
 
   <url>
     <loc>https://alenirving.github.io/</loc>
-    <lastmod>2025-07-05</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -122,14 +131,14 @@
   
   <url>
     <loc>https://alenirving.github.io/categories/Reverse/</loc>
-    <lastmod>2025-07-05</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alenirving.github.io/categories/Web/</loc>
-    <lastmod>2025-07-05</lastmod>
+    <lastmod>2025-07-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
