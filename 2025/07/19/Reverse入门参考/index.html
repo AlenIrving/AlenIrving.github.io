@@ -19,12 +19,12 @@
   <meta name="author" content="Ma5k">
   <meta name="keywords" content="">
   
-    <meta name="description" content="免责声明：re菜鸡，纯用于带大一入门写此文章，还需不断进步 前言主要分为9个模块 1.汇编与IDA使用 2.静态分析 3.动态调试(本地+远程)  迷宫maze逆向  5.壳与混淆 6.各类算法逆向 7.花指令基础 8.SMC基础  Python逆向基础  汇编与ida使用ida使用参考鄙人之前写过的 汇编知识点基础就是对寄存器和汇编码操作指令的了解，实际最主要还是根据main函数入口定位，五六百">
+    <meta name="description" content="免责声明：re菜鸡，纯用于带大一入门写此文章，还需不断进步 前言主要分为9个模块 1.汇编与IDA使用 2.静态分析 3.动态调试(本地+远程) 4.迷宫maze逆向 5.壳与混淆 6.各类算法逆向 7.花指令基础 8.SMC基础 9.Python逆向基础 汇编与ida使用ida使用参考鄙人之前写过的 汇编知识点基础就是对寄存器和汇编码操作指令的了解，实际最主要还是根据main函数入口定位，五六百">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Reverse入门参考">
 <meta property="og:url" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/index.html">
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
-<meta property="og:description" content="免责声明：re菜鸡，纯用于带大一入门写此文章，还需不断进步 前言主要分为9个模块 1.汇编与IDA使用 2.静态分析 3.动态调试(本地+远程)  迷宫maze逆向  5.壳与混淆 6.各类算法逆向 7.花指令基础 8.SMC基础  Python逆向基础  汇编与ida使用ida使用参考鄙人之前写过的 汇编知识点基础就是对寄存器和汇编码操作指令的了解，实际最主要还是根据main函数入口定位，五六百">
+<meta property="og:description" content="免责声明：re菜鸡，纯用于带大一入门写此文章，还需不断进步 前言主要分为9个模块 1.汇编与IDA使用 2.静态分析 3.动态调试(本地+远程) 4.迷宫maze逆向 5.壳与混淆 6.各类算法逆向 7.花指令基础 8.SMC基础 9.Python逆向基础 汇编与ida使用ida使用参考鄙人之前写过的 汇编知识点基础就是对寄存器和汇编码操作指令的了解，实际最主要还是根据main函数入口定位，五六百">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/1.png">
 <meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/2.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/6.png">
 <meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/7.png">
 <meta property="article:published_time" content="2025-07-18T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-07-20T02:16:33.397Z">
+<meta property="article:modified_time" content="2025-07-20T02:20:51.101Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/1.png">
@@ -322,16 +322,12 @@
 <p>1.汇编与IDA使用</p>
 <p>2.静态分析</p>
 <p>3.动态调试(本地+远程)</p>
-<ol start="4">
-<li>迷宫maze逆向</li>
-</ol>
+<p>4.迷宫maze逆向</p>
 <p>5.壳与混淆</p>
 <p>6.各类算法逆向</p>
 <p>7.花指令基础</p>
 <p>8.SMC基础</p>
-<ol start="9">
-<li>Python逆向基础</li>
-</ol>
+<p>9.Python逆向基础</p>
 <h1 id="汇编与ida使用"><a href="#汇编与ida使用" class="headerlink" title="汇编与ida使用"></a>汇编与ida使用</h1><p>ida使用参考鄙人之前写过的</p>
 <h2 id="汇编知识点"><a href="#汇编知识点" class="headerlink" title="汇编知识点"></a>汇编知识点</h2><p>基础就是对寄存器和汇编码操作指令的了解，实际最主要还是根据main函数入口定位，五六百行汇编码人肉分析是基本功，鄙人基础不扎实，望学弟学妹能做到</p>
 <h2 id="静态分析与动态调试"><a href="#静态分析与动态调试" class="headerlink" title="静态分析与动态调试"></a>静态分析与动态调试</h2><p>f5看代码加交叉引用分析以及linux下的远程动调，网上参考很多，不过多赘述</p>
