@@ -26,16 +26,16 @@
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
 <meta property="og:description" content="前言  ida有三个重要库  -IDC    封装IDA与IDC函数的兼容性模块  -Idautils    IDA提供的一个高级实用模块  -idaapi    允许访问更加底层的数据 使用idapython脚本的方式：  shift + F2 脚本文件引用(Script file)本篇环境为ida7.5+python3  基本使用获取地址1234567891011121314151617181">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/1.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/2.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/3.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/4.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/5.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/08/30/idapython_study/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/08/30/idapython_study/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/08/30/idapython_study/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/08/30/idapython_study/4.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/08/30/idapython_study/5.png">
 <meta property="article:published_time" content="2025-08-29T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-08-30T13:01:35.990Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://alenirving.github.io/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/1.png">
+<meta name="twitter:image" content="https://alenirving.github.io/2025/08/30/idapython_study/1.png">
   
   
   
@@ -319,7 +319,7 @@
 <p>使用idapython脚本的方式：</p>
 <ol>
 <li>shift + F2</li>
-<li>脚本文件引用(Script file)<br><img src="/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/1.png" srcset="/img/loading.gif" lazyload><br>本篇环境为ida7.5+python3</li>
+<li>脚本文件引用(Script file)<br><img src="/2025/08/30/idapython_study/1.png" srcset="/img/loading.gif" lazyload><br>本篇环境为ida7.5+python3</li>
 </ol>
 <h1 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h1><h2 id="获取地址"><a href="#获取地址" class="headerlink" title="获取地址"></a>获取地址</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs routeros"><span class="hljs-comment">#获取当前地址</span><br><span class="hljs-built_in">print</span>(hex(idc.here()))          <br><br><span class="hljs-comment">#另一种获取当前地址的函数</span><br><span class="hljs-built_in">print</span>(hex(idc.get_screen_ea())) <br><br><span class="hljs-comment">#获取当前最小地址</span><br><span class="hljs-built_in">print</span>(hex(ida_ida.inf_get_min_ea())) <br><br><span class="hljs-comment">#获取当前最大地址</span><br><span class="hljs-built_in">print</span>(hex(ida_ida.inf_get_max_ea())) <br><br><span class="hljs-comment">#选择块地址的起始地址</span><br><span class="hljs-built_in">print</span>(hex(idc.read_selection_start())) <br><br><span class="hljs-comment">#同上 返回结束地址</span><br><span class="hljs-built_in">print</span>(hex(idc.read_selection_end())) <br> <br><span class="hljs-keyword">if</span> idaapi.BADADDR == idc.here(): <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;BadAddress addr invalid&quot;</span>)<br><span class="hljs-keyword">else</span>: <br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;addr is ok&quot;</span>)`<br></code></pre></td></tr></table></figure>
 <p>新旧函数对比</p>
@@ -410,7 +410,7 @@
 </tr>
 </tbody></table>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">import idc<br> <br>ea = idc.get_screen_ea()<br>value = idc.get_wide_byte(ea)<br>print(&quot;当前指令的硬编码为 &#123;&#125;&quot;.format(hex(value)));<br></code></pre></td></tr></table></figure>
-<p><img src="/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/08/30/idapython_study/2.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="数值操作"><a href="#数值操作" class="headerlink" title="数值操作"></a>数值操作</h2><table>
 <thead>
 <tr>
@@ -509,7 +509,7 @@
 </tr>
 </tbody></table>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs plain">import idc<br>import idaapi<br>import idautils<br> <br>ea = idc.here();<br>print(&quot;当前模块基址为: &#123;&#125;&quot;.format(hex(idaapi.get_imagebase())))<br>print(&quot;当前的汇编语句为: &#123;&#125;&quot;.format(idc.GetDisasm(ea)))<br>print(&quot;当前的汇编指令为: &#123;&#125;&quot;.format(idc.print_insn_mnem(ea)))<br>print(&quot;当前的操作数为: &#123;&#125;&quot;.format(idc.print_operand(ea,0)))<br>print(&quot;当前的操作数值为: &#123;&#125;&quot;.format(idc.get_operand_value(ea,0)))<br></code></pre></td></tr></table></figure>
-<p><img src="/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/08/30/idapython_study/3.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="段"><a href="#段" class="headerlink" title="段"></a>段</h1><table>
 <thead>
 <tr>
@@ -560,7 +560,7 @@
 </tr>
 </tbody></table>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">import idc<br>import idaapi<br>import idautils<br> <br>for seg in idautils.Segments():<br>    segname = idc.get_segm_name(seg)<br>    segstart = idc.get_segm_start(seg)<br>    segend   = idc.get_segm_end(seg)<br>    print(&quot;段名 = &#123;&#125; 起始地址= &#123;&#125; 结束地址 = &#123;&#125; &quot;.format(segname,hex(segstart),hex(segend)));<br></code></pre></td></tr></table></figure>
-<p><img src="/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/4.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/08/30/idapython_study/4.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><table>
 <thead>
 <tr>
@@ -646,7 +646,7 @@
 </tr>
 </tbody></table>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">import idc<br>import idaapi<br>import idautils<br> <br>for seg in idautils.Segments():<br>    segname = idc.get_segm_name(seg)<br>    segstart = idc.get_segm_start(seg)<br>    segend   = idc.get_segm_end(seg)<br>    print(&quot;段名 = &#123;&#125; 起始地址= &#123;&#125; 结束地址 = &#123;&#125; &quot;.format(segname,hex(segstart),hex(segend)));<br>    if (segname == &#x27;.text&#x27;):<br>        for funcaddr in Functions(segstart,segend):<br>            funname = idc.get_func_name(funcaddr)<br>            funend =  idc.find_func_end(funcaddr)<br>            funnext = idc.get_next_func(funcaddr)<br>            funnextname = idc.get_func_name(funnext)<br>            print(&quot;当前函数名 = &#123;&#125; 当前结束地址 = &#123;&#125; 下一个函数地址 = &#123;&#125; 下一个函数名= &#123;&#125;  &quot;.format(funname,hex(funend),hex(funnext),funnextname))<br>            <br> <br>ea = idc.get_screen_ea()<br>funnextoffset = idc.get_func_off_str(ea)<br>print(&quot;当前选择地址距离当前函数的偏移为: &#123;&#125; &quot;.format(funnextoffset))<br></code></pre></td></tr></table></figure>
-<p><img src="/2025/07/19/Reverse%E5%85%A5%E9%97%A8%E5%8F%82%E8%80%83/udy/5.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/08/30/idapython_study/5.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iBinary/p/14642662.html">IDAPython入门教程 基于IDA7.5_Python3 第一讲 简介与地址获取 - iBinary - 博客园</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/iBinary/p/14672540.html">基于python3.x IDAPython第二讲 段 函数 汇编指令等操作 - iBinary - 博客园</a></p>
 
                 
