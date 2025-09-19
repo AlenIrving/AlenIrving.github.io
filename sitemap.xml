@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://alenirving.github.io/2025/09/19/so%E6%96%87%E4%BB%B6%E5%8A%A8%E8%B0%83/</loc>
+    
+    <lastmod>2025-09-19</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://alenirving.github.io/2025/09/01/Xposed-Hook%E5%AD%A6%E4%B9%A0/</loc>
     
     <lastmod>2025-09-01</lastmod>
@@ -148,7 +157,7 @@
 
   <url>
     <loc>https://alenirving.github.io/</loc>
-    <lastmod>2025-09-01</lastmod>
+    <lastmod>2025-09-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -158,14 +167,14 @@
   
   <url>
     <loc>https://alenirving.github.io/categories/Reverse/</loc>
-    <lastmod>2025-09-01</lastmod>
+    <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://alenirving.github.io/categories/Web/</loc>
-    <lastmod>2025-09-01</lastmod>
+    <lastmod>2025-09-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
