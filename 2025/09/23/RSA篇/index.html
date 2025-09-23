@@ -19,21 +19,21 @@
   <meta name="author" content="Ma5k">
   <meta name="keywords" content="">
   
-    <meta name="description" content="python实现 库调用pip install pycryptodome 12345678910111213141516171819202122from Crypto.Cipher import ARC4def rc4_encrypt(text, key):    cipher&#x3D;ARC4.new(key)    enc&#x3D;cipher.encrypt(text)    return encdef r">
+    <meta name="description" content="代码库调用 pip install pycryptodome 关于填充的说明 PyCryptodome 库为 RSA 加密提供了 PKCS#1 OAEP 和 PKCS#1 v1.5 两种填充方案 PKCS#1 OAEP 使用哈希函数（如SHA-1、SHA-256）和随机数进行复杂编码 PKCS#1 v1.5 (旧版) 00 || 02 || [至少8字节的非零随机数] || 00 || 明文 留意">
 <meta property="og:type" content="article">
-<meta property="og:title" content="RC4篇">
-<meta property="og:url" content="https://alenirving.github.io/2025/09/21/RC4%E7%AF%87/index.html">
+<meta property="og:title" content="RSA篇">
+<meta property="og:url" content="https://alenirving.github.io/2025/09/23/RSA%E7%AF%87/index.html">
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
-<meta property="og:description" content="python实现 库调用pip install pycryptodome 12345678910111213141516171819202122from Crypto.Cipher import ARC4def rc4_encrypt(text, key):    cipher&#x3D;ARC4.new(key)    enc&#x3D;cipher.encrypt(text)    return encdef r">
+<meta property="og:description" content="代码库调用 pip install pycryptodome 关于填充的说明 PyCryptodome 库为 RSA 加密提供了 PKCS#1 OAEP 和 PKCS#1 v1.5 两种填充方案 PKCS#1 OAEP 使用哈希函数（如SHA-1、SHA-256）和随机数进行复杂编码 PKCS#1 v1.5 (旧版) 00 || 02 || [至少8字节的非零随机数] || 00 || 明文 留意">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-09-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-09-21T06:10:41.017Z">
+<meta property="article:published_time" content="2025-09-22T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-09-23T03:33:45.717Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>RC4篇 - Ma5k&#39;s Blog</title>
+  <title>RSA篇 - Ma5k&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -224,7 +224,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="RC4篇"></span>
+            <span id="subtitle" data-typed-text="RSA篇"></span>
           
         </div>
 
@@ -235,8 +235,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-09-21 00:00" pubdate>
-          2025年9月21日 凌晨
+        <time datetime="2025-09-23 00:00" pubdate>
+          2025年9月23日 凌晨
         </time>
       </span>
     
@@ -247,7 +247,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          386 字
+          439 字
         
       </span>
     
@@ -304,19 +304,25 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">RC4篇</h1>
+            <h1 id="seo-header">RSA篇</h1>
             
             
               <div class="markdown-body">
                 
-                <p>python实现</p>
-<h1 id="库调用"><a href="#库调用" class="headerlink" title="库调用"></a>库调用</h1><p>pip install pycryptodome</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> ARC4<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">rc4_encrypt</span>(<span class="hljs-params">text, key</span>):<br>    cipher=ARC4.new(key)<br>    enc=cipher.encrypt(text)<br>    <span class="hljs-keyword">return</span> enc<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">rc4_decrypt</span>(<span class="hljs-params">text, key</span>):<br>    cipher=ARC4.new(key)<br>    dec=cipher.decrypt(text)<br>    <span class="hljs-keyword">return</span> dec<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># m=&#x27;re100dayzhuji&#x27;</span><br>    <span class="hljs-comment"># key=&#x27;jibengong&#x27;</span><br>    <span class="hljs-comment"># m=m.encode(&#x27;utf-8&#x27;)</span><br>    <span class="hljs-comment"># key=key.encode(&#x27;utf-8&#x27;)</span><br>    m = <span class="hljs-string">b&#x27;re100dayzhuji&#x27;</span><br>    key = <span class="hljs-string">b&#x27;jibengong&#x27;</span><br>    enc=rc4_encrypt(m, key)<br>    dec=rc4_decrypt(enc, key)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;加密后：&#x27;</span>,enc.<span class="hljs-built_in">hex</span>(),<span class="hljs-string">&#x27;\n解密后：&#x27;</span>,dec.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br></code></pre></td></tr></table></figure>
-<h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">def</span> <span class="hljs-title function_">rc4</span>(<span class="hljs-params">key,data</span>):<br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">isinstance</span>(key,<span class="hljs-built_in">str</span>): <span class="hljs-comment">#判断key数据类型,如果密钥是字符串，转换为字节串</span><br>        key=key.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    <span class="hljs-comment">#1.初始化S盒</span><br>    s=<span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">256</span>))<br>    j=<span class="hljs-number">0</span><br>    <span class="hljs-comment">#2.KSA(密钥调度算法)</span><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">256</span>):<br>        j=(j+s[i]+key[i%<span class="hljs-built_in">len</span>(key)])%<span class="hljs-number">256</span><br>        s[i],s[j]=s[j],s[i]<br>    <span class="hljs-comment">#3.PRGA(伪随机生成算法)加密</span><br>    i=j=<span class="hljs-number">0</span><br>    result=<span class="hljs-built_in">bytearray</span>()<br>    <span class="hljs-keyword">for</span> char <span class="hljs-keyword">in</span> data:<br>        i=(i+<span class="hljs-number">1</span>)%<span class="hljs-number">256</span><br>        j=(j+s[i])%<span class="hljs-number">256</span><br>        s[i],s[j]=s[j],s[i]<br>        k=s[(s[i]+s[j])%<span class="hljs-number">256</span>]<br>        <span class="hljs-comment"># print(type(char)) int类型</span><br>        result.append(char^k)<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">bytes</span>(result)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    m=<span class="hljs-string">&#x27;re100dayzhuji&#x27;</span><br>    key=<span class="hljs-string">&#x27;jibengong&#x27;</span><br>    enc=rc4(key,m.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>    dec=rc4(key,enc)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;加密后: &#x27;</span>,enc)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;解密后: &#x27;</span>,dec.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br>    <span class="hljs-comment"># 加密后: b&#x27;9\x87\xf3\x86?&amp;w#\xa7\xe7qd\x81&#x27;</span><br>    <span class="hljs-comment"># 解密后: re100dayzhuji</span><br></code></pre></td></tr></table></figure>
-<h1 id="Hex"><a href="#Hex" class="headerlink" title="Hex"></a>Hex</h1><p>import binascii<br>binascii.unhexlify()和binascii.hexlify()</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> ARC4<br><span class="hljs-keyword">import</span> binascii<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">rc4_encrypt</span>(<span class="hljs-params">key,data</span>):<br>    m=data.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    cipher = ARC4.new(key)<br>    enc=cipher.encrypt(m)<br>    enc=binascii.hexlify(enc).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br>    <span class="hljs-keyword">return</span> enc<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">rc4_decrypt</span>(<span class="hljs-params">key,data</span>):<br>    m=binascii.unhexlify(data) <span class="hljs-comment">#十六进制明文转换为字节</span><br>    cipher = ARC4.new(key)<br>    <span class="hljs-keyword">return</span> cipher.decrypt(m)<br><br>key=<span class="hljs-string">b&#x27;jibengong&#x27;</span><br>m=<span class="hljs-string">&#x27;re100dayzhuji&#x27;</span><br>enc=rc4_encrypt(key,m)<br>dec=rc4_decrypt(key,enc)<br><span class="hljs-built_in">print</span>(enc)<br><span class="hljs-built_in">print</span>(dec.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br><br><span class="hljs-comment"># 3987f3863f267723a7e7716481</span><br><span class="hljs-comment"># re100dayzhuji</span><br></code></pre></td></tr></table></figure>
-<p>附带hex格式处理f’{x:02x}’</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">hex_array=[]<br>result=<span class="hljs-string">&#x27;&#x27;</span>.join([<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;x:02x&#125;</span>&#x27;</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> hex_array])<br><span class="hljs-built_in">print</span>(result)<br></code></pre></td></tr></table></figure>
+                <h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><p>库调用</p>
+<p>pip install pycryptodome</p>
+<p>关于填充的说明</p>
+<p>PyCryptodome 库为 RSA 加密提供了 PKCS#1 OAEP 和 PKCS#1 v1.5 两种填充方案</p>
+<p><strong>PKCS#1 OAEP</strong></p>
+<p>使用哈希函数（如SHA-1、SHA-256）和随机数进行复杂编码</p>
+<p><strong>PKCS#1 v1.5 (旧版)</strong></p>
+<p>00 || 02 || [至少8字节的非零随机数] || 00 || 明文</p>
+<p>留意Bleichenbacher攻击</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> Crypto.PublicKey <span class="hljs-keyword">import</span> RSA<br><span class="hljs-keyword">from</span> Crypto.Cipher <span class="hljs-keyword">import</span> PKCS1_OAEP<br><span class="hljs-keyword">import</span> base64<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">generate_rsa_keys</span>():<br>    <span class="hljs-comment"># key = RSA.generate(2048)</span><br>    key = RSA.generate(<span class="hljs-number">1024</span>)<br>    private_key = key.export_key()<br>    public_key = key.publickey().export_key()<br>    <span class="hljs-keyword">return</span> private_key, public_key<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">encrypt_rsa</span>(<span class="hljs-params">public_key_pem, plaintext</span>):<br>    rsa_key = RSA.import_key(public_key_pem)<br>    cipher = PKCS1_OAEP.new(rsa_key) <br>    ciphertext = cipher.encrypt(plaintext.encode(<span class="hljs-string">&#x27;utf-8&#x27;</span>))<br>    <span class="hljs-keyword">return</span> base64.b64encode(ciphertext).decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decrypt_rsa</span>(<span class="hljs-params">private_key_pem, ciphertext_b64</span>):<br>    rsa_key = RSA.import_key(private_key_pem)<br>    cipher = PKCS1_OAEP.new(rsa_key)<br>    encrypted_data = base64.b64decode(ciphertext_b64)<br>    decrypted_data = cipher.decrypt(encrypted_data)<br>    <span class="hljs-keyword">return</span> decrypted_data.decode(<span class="hljs-string">&#x27;utf-8&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&quot;__main__&quot;</span>:<br>    private_key_pem, public_key_pem = generate_rsa_keys()<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Private Key:\n&quot;</span>, private_key_pem.decode())<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;Public Key:\n&quot;</span>, public_key_pem.decode())<br><br>    message = <span class="hljs-string">&quot;re100dayzhuji&quot;</span><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;原始消息: <span class="hljs-subst">&#123;message&#125;</span>&quot;</span>)<br><br>    encrypted_msg_b64 = encrypt_rsa(public_key_pem, message)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;加密后的数据 (Base64): <span class="hljs-subst">&#123;encrypted_msg_b64&#125;</span>&quot;</span>)<br><br>    decrypted_msg = decrypt_rsa(private_key_pem, encrypted_msg_b64)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;解密后的消息: <span class="hljs-subst">&#123;decrypted_msg&#125;</span>&quot;</span>)<br></code></pre></td></tr></table></figure>
+<p>源码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> math<br><span class="hljs-keyword">import</span> random<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">prime_init</span>(<span class="hljs-params">max_num</span>):<br>    prime_num=[]<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,max_num):<br>        tmp=<span class="hljs-number">0</span><br>        s=<span class="hljs-built_in">int</span>(math.sqrt(i))+<span class="hljs-number">1</span><br>        <span class="hljs-keyword">for</span> j <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,s):<br>            <span class="hljs-keyword">if</span> i%j==<span class="hljs-number">0</span>:<br>                tmp=<span class="hljs-number">1</span><br>                <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">if</span> tmp==<span class="hljs-number">0</span>:<br>            prime_num.append(i)<br>    <span class="hljs-keyword">return</span> prime_num<br><span class="hljs-keyword">def</span> <span class="hljs-title function_">key_init</span>():<br>    prime_num=prime_init(<span class="hljs-number">500</span>)<br>    <span class="hljs-built_in">print</span>(prime_num)<br>    <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:<br>        string=<span class="hljs-built_in">input</span>(<span class="hljs-string">&quot;选择两个素数: &quot;</span>).split(<span class="hljs-string">&#x27; &#x27;</span>)<br>        p,q=[<span class="hljs-built_in">int</span>(x) <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> string]<br>        <span class="hljs-keyword">if</span> (p <span class="hljs-keyword">in</span> prime_num) <span class="hljs-keyword">and</span> (q <span class="hljs-keyword">in</span> prime_num):<br>            <span class="hljs-keyword">break</span><br>        <span class="hljs-keyword">else</span>:<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;输入错误&quot;</span>)<br>    N=p*q<br>    r=(p-<span class="hljs-number">1</span>)*(q-<span class="hljs-number">1</span>)<br>    r_prime=prime_init(r)<br>    r_len=<span class="hljs-built_in">len</span>(r_prime)<br>    e=r_prime[random.randint(<span class="hljs-number">0</span>,r_len-<span class="hljs-number">1</span>)]<br>    d=<span class="hljs-number">0</span><br>    <span class="hljs-keyword">for</span> n <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">2</span>,r):   <span class="hljs-comment">#遍历找私钥</span><br>        <span class="hljs-keyword">if</span>(e*n)%r==<span class="hljs-number">1</span>:<br>            d=n<br>            <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">return</span> (N,e),(N,d)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">encode</span>(<span class="hljs-params">pub_key,m</span>):<br>    N,e=pub_key<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">pow</span>(m,e,N)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">decode</span>(<span class="hljs-params">pri_key,m</span>):<br>    N,d=pri_key<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">pow</span>(m,d,N)<br><br>pub_key,pri_key=key_init()<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;公钥：&#x27;</span>,pub_key,<span class="hljs-string">&#x27;\n私钥：&#x27;</span>,pri_key)<br>m=<span class="hljs-string">&#x27;re100dayzhuji&#x27;</span><br>enc=[encode(pub_key,<span class="hljs-built_in">ord</span>(i)) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> m]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;加密后:&#x27;</span>)<br>s1=<span class="hljs-string">&#x27;&#x27;</span>.join(<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;x:02x&#125;</span>&#x27;</span> <span class="hljs-keyword">for</span> x <span class="hljs-keyword">in</span> enc)<br><span class="hljs-built_in">print</span>(s1)<br>dec=[<span class="hljs-built_in">chr</span>(decode(pri_key,i)) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> enc]<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;解密后:&#x27;</span>)<br>s2=<span class="hljs-string">&#x27;&#x27;</span>.join(dec)<br><span class="hljs-built_in">print</span>(s2)<br><span class="hljs-comment"># 选择两个素数: 13 43</span><br><span class="hljs-comment"># 公钥： (559, 257) </span><br><span class="hljs-comment"># 私钥： (559, 353)</span><br><span class="hljs-comment"># 加密后:</span><br><span class="hljs-comment"># 861fffb1d1d16f917f87ea341721a1</span><br><span class="hljs-comment"># 解密后:</span><br><span class="hljs-comment"># re100dayzhuji</span><br></code></pre></td></tr></table></figure>
+<h1 id="解密技巧"><a href="#解密技巧" class="headerlink" title="解密技巧"></a>解密技巧</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_46145027/article/details/125047313">https://blog.csdn.net/qq_46145027/article/details/125047313</a></p>
+
                 
               </div>
             
@@ -354,8 +360,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>RC4篇</div>
-      <div>https://alenirving.github.io/2025/09/21/RC4篇/</div>
+      <div>RSA篇</div>
+      <div>https://alenirving.github.io/2025/09/23/RSA篇/</div>
     </div>
     <div class="license-meta">
       
@@ -367,7 +373,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年9月21日</div>
+          <div>2025年9月23日</div>
         </div>
       
       
@@ -399,18 +405,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/09/23/RSA%E7%AF%87/" title="RSA篇">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">RSA篇</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/09/20/Base64%E7%AF%87/" title="Base64篇">
-                        <span class="hidden-mobile">Base64篇</span>
+                      <a href="/2025/09/21/RC4%E7%AF%87/" title="RC4篇">
+                        <span class="hidden-mobile">RC4篇</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
