@@ -262,7 +262,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2025/09/30/AES%E7%AF%87/" target="_self">
         <div>
-          吐槽DES和AES还是看得有点头大，仅做到过一遍，权当积累吧 流程flowchart TD     subgraph Encryption [加密流程]         A1[明文] --&gt; B1[初始轮密钥加]         B1 --&gt; C1[进入轮循环]         C1 --&gt; D1[字节替换&lt;br&gt;SubBytes]         D1 --&gt;
+          吐槽DES和AES还是看得有点头大，仅做到过一遍，权当积累吧 流程flowchart TD     subgraph Encryption         A1[明文] --&gt; B1[初始轮密钥加]         B1 --&gt; C1[进入轮循环]         C1 --&gt; D1[&quot;字节替换&lt;br&gt;SubBytes&quot;]         D1 -
         </div>
       </a>
 
@@ -362,15 +362,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/09/23/RSA%E7%AF%87/" target="_self">
-          RSA篇
+        <a href="/2025/09/23/DES%E7%AF%87/" target="_self">
+          DES篇
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/09/23/RSA%E7%AF%87/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/09/23/DES%E7%AF%87/" target="_self">
         <div>
-          代码库调用 pip install pycryptodome 关于填充的说明 PyCryptodome 库为 RSA 加密提供了 PKCS#1 OAEP 和 PKCS#1 v1.5 两种填充方案 PKCS#1 OAEP 使用哈希函数（如SHA-1、SHA-256）和随机数进行复杂编码 PKCS#1 v1.5 (旧版) 00 || 02 || [至少8字节的非零随机数] || 00 || 明文 留意
+          分组加密涉及S盒P盒等数据，本篇仅作梳理，未能手搓 des密钥格式为固定8字节64位，长度限死 代码加解密大致流程flowchart TD     A[64位明文输入] --&gt; B(初始置换IP)     B --&gt; C&#123;将64位分为L0左32位 R0右32位&#125;     C --&gt; D[16轮Feistel迭代]          subgraph Feist
         </div>
       </a>
 
@@ -416,15 +416,15 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h2 class="index-header">
         
-        <a href="/2025/09/23/DES%E7%AF%87/" target="_self">
-          DES篇
+        <a href="/2025/09/23/RSA%E7%AF%87/" target="_self">
+          RSA篇
         </a>
       </h2>
 
       
-      <a class="index-excerpt index-excerpt__noimg" href="/2025/09/23/DES%E7%AF%87/" target="_self">
+      <a class="index-excerpt index-excerpt__noimg" href="/2025/09/23/RSA%E7%AF%87/" target="_self">
         <div>
-          分组加密涉及S盒P盒等数据，本篇仅作梳理，未能手搓 des密钥格式为固定8字节64位，长度限死 代码加解密大致流程flowchart TD     A[64位明文输入] --&gt; B(初始置换IP)     B --&gt; C&#123;将64位分为L0左32位 R0右32位&#125;     C --&gt; D[16轮Feistel迭代]          subgraph D [第i
+          代码库调用 pip install pycryptodome 关于填充的说明 PyCryptodome 库为 RSA 加密提供了 PKCS#1 OAEP 和 PKCS#1 v1.5 两种填充方案 PKCS#1 OAEP 使用哈希函数（如SHA-1、SHA-256）和随机数进行复杂编码 PKCS#1 v1.5 (旧版) 00 || 02 || [至少8字节的非零随机数] || 00 || 明文 留意
         </div>
       </a>
 
