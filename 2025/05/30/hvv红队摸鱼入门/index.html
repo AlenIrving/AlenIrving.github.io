@@ -1,0 +1,766 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/yuanshen.png">
+  <link rel="icon" href="/img/yuanshen.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ma5k">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言本文章仅用于学习目的分享，恶意利用造成不良后果等博主概不负责参加了躺护网，只能说实战跟理论差距很大啊，CTF给的条件很多，实战基本就是盲打，还会遇到waf，防火墙，闭源商用之类的复合框架，要学的东西还是挺多的，这篇文章留给路过有缘人，红初急速摸鱼入门版 信息打点主要是分析目标资产，获取相关信息，同时了解目标架构、指纹之类信息方便针对性分析 渠道分类个人用的主要是fofa和arl，google搜">
+<meta property="og:type" content="article">
+<meta property="og:title" content="hvv红队摸鱼入门">
+<meta property="og:url" content="https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:site_name" content="Ma5k&#39;s Blog">
+<meta property="og:description" content="前言本文章仅用于学习目的分享，恶意利用造成不良后果等博主概不负责参加了躺护网，只能说实战跟理论差距很大啊，CTF给的条件很多，实战基本就是盲打，还会遇到waf，防火墙，闭源商用之类的复合框架，要学的东西还是挺多的，这篇文章留给路过有缘人，红初急速摸鱼入门版 信息打点主要是分析目标资产，获取相关信息，同时了解目标架构、指纹之类信息方便针对性分析 渠道分类个人用的主要是fofa和arl，google搜">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/4.png">
+<meta property="article:published_time" content="2025-05-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-30T12:53:13.901Z">
+<meta property="article:author" content="Ma5k">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://alenirving.github.io/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/1.png">
+  
+  
+  
+  <title>hvv红队摸鱼入门 - Ma5k&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"alenirving.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"oqufArAhMdAIfuSwGcA0SJau-gzGzoHsz","app_key":"MOKJfsXIQuG9dWR5QTE2kRLH","server_url":"https://oqufarah.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ma5k&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/GoogleHacking/" target="_self">
+                <i class="iconfont fa-google"></i>
+                <span>GoogleHacking</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="hvv红队摸鱼入门"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-05-30 00:00" pubdate>
+          2025年5月30日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          11 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">hvv红队摸鱼入门</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文章仅用于学习目的分享，恶意利用造成不良后果等博主概不负责<br>参加了躺护网，只能说实战跟理论差距很大啊，CTF给的条件很多，实战基本就是盲打，还会遇到waf，防火墙，闭源商用之类的复合框架，要学的东西还是挺多的，这篇文章留给路过有缘人，红初急速摸鱼入门版</p>
+<h1 id="信息打点"><a href="#信息打点" class="headerlink" title="信息打点"></a>信息打点</h1><p>主要是分析目标资产，获取相关信息，同时了解目标架构、指纹之类信息方便针对性分析</p>
+<h2 id="渠道分类"><a href="#渠道分类" class="headerlink" title="渠道分类"></a>渠道分类</h2><p>个人用的主要是fofa和arl，google搜索实战很少搜集到相关信息，可能目标范围不同</p>
+<h3 id="引擎、空间测绘"><a href="#引擎、空间测绘" class="headerlink" title="引擎、空间测绘"></a>引擎、空间测绘</h3><p><a target="_blank" rel="noopener" href="https://www.zoomeye.org/">ZoomEye - Cyberspace Search Engine</a></p>
+<p><a target="_blank" rel="noopener" href="https://fofa.info/">FOFA Search Engine</a></p>
+<p><a target="_blank" rel="noopener" href="https://quake.360.net/quake/#/index">360网络空间测绘 — 因为看见，所以安全</a></p>
+<p><a target="_blank" rel="noopener" href="https://hunter.qianxin.com/_blank">鹰图平台(hunter)-奇安信网络空间测绘系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://tool.chinaz.com/">站长工具 - 站长之家</a></p>
+<p>这个主要是分析：<a target="_blank" rel="noopener" href="https://www.virustotal.com/gui/home/upload">https://www.virustotal.com/gui/home/upload</a></p>
+<h4 id="fofa语法"><a href="#fofa语法" class="headerlink" title="fofa语法"></a>fofa语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs plain">ip=&quot;xxxx&quot;<br>domain=&quot;xxx&quot; (如果前缀有www.可以去掉，扩大搜索范围搜其子域名)<br>title=&quot;xxxx&quot;<br>body=&quot;xxx&quot;<br>host=&quot;xxx&quot;<br>port=&quot;xxx&quot;<br>server=&quot;Apache&quot; (服务器软件名称或版本)<br>header=&quot;Content-Type: application/json&quot; (头信息关键词)<br>&amp;&amp;  ||  !=<br>cert=&quot;CA1&quot; (某企业名字)<br>country=&quot;CN&quot;<br>city=&quot;London&quot;<br>os=&quot;windows&quot;<br>asn=&quot;AS12345&quot; (某个网络服务提供商的自治系统编号)<br>icon_hash=&quot;1578525679&quot; (一个应用或者网站图标的哈希值,特异性大,降低排查范围)<br>app=&quot;视频监控&quot; (明确指定 “app” 字段的值为目标应用程序名称)<br><br>常用 domain=&quot;&quot;&amp;&amp;(title=&quot;系统&quot;||title=&quot;平台&quot;title=&quot;后台&quot;title=&quot;管理&quot;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="浏览器类"><a href="#浏览器类" class="headerlink" title="浏览器类"></a>浏览器类</h3><p>主要是依靠google特定的语法搜索</p>
+<p>工具：<a target="_blank" rel="noopener" href="https://iamunixtz.github.io/LazyDork/">https://iamunixtz.github.io/LazyDork/</a></p>
+<p><a target="_blank" rel="noopener" href="https://ght.se7ensec.cn/">https://ght.se7ensec.cn/</a> (这个可以个人博客部署)  两个感觉都没啥用</p>
+<p><a target="_blank" rel="noopener" href="https://cdbc.pythonanywhere.com/">https://cdbc.pythonanywhere.com/</a> 这个靠谱点</p>
+<h4 id="博客部署"><a href="#博客部署" class="headerlink" title="博客部署"></a>博客部署</h4><p>教程：<a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2148816">https://cloud.tencent.com/developer/article/2148816</a></p>
+<p>项目：<a target="_blank" rel="noopener" href="https://github.com/r00tSe7en/GoogleHackingTool">https://github.com/r00tSe7en/GoogleHackingTool</a></p>
+<p>不同点</p>
+<p><img src="/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/1.png" srcset="/img/loading.gif" lazyload></p>
+<p>本地fluid主题语法不同</p>
+<p><img src="/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/2.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="google语法"><a href="#google语法" class="headerlink" title="google语法"></a>google语法</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs plain">AND OR<br>注意：OR是大写的，小写是不起作用的，而且，每一个关键词与“OR”之间是有一个空格的<br><br>&quot;&quot;:不可分割<br>希望搜索&quot;programgoogle&quot;的内容，而不希望这两个单词之间有任何其他的内容，<br>那么就要使用双引号把搜索的内容组成一个词组，如&quot;passwdadmin&quot;<br><br>Site：site:www.baidu.com<br>找到与指定网站有联系的URL。<br><br>filetype： filetype:txt admin<br>将返回所有以txt结尾的文件URL 名字包含admin的文件<br><br>intext: intext citation apa<br>这个语法类似我们平时在某些网站中使用的“文章内容搜索”功能<br><br>inurl： inurl /admin/login.asp<br>搜索包含有特定字符的URL。<br><br>intitle： intitle index of login<br>搜索网页标题中包含有特定字符的网页。<br></code></pre></td></tr></table></figure>
+
+<h3 id="工具集成平台"><a href="#工具集成平台" class="headerlink" title="工具集成平台"></a>工具集成平台</h3><p>Nemo 和 ARL (其他的没了解过)</p>
+<p>Nemo: <a target="_blank" rel="noopener" href="https://github.com/hanc00l/nemo_go">https://github.com/hanc00l/nemo_go</a></p>
+<p>ARL: </p>
+<p>配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_52487093/article/details/141432006">https://blog.csdn.net/weixin_52487093&#x2F;article&#x2F;details&#x2F;141432006</a></p>
+<p>基本就是下载配置内容拉取镜像，需要梯子</p>
+<p><a target="_blank" rel="noopener" href="https://tophanttechnology.github.io/ARL-doc/">ARL 资产灯塔系统安装和使用文档</a></p>
+<p>项目：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ki9mu/ARL-plus-docker">https://github.com/ki9mu/ARL-plus-docker</a>（优先）</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/Aabyss-Team/ARL">https://github.com/Aabyss-Team/ARL</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/TophantTechnology">https://github.com/TophantTechnology</a></p>
+<p>登录：</p>
+<p>ip:5003 kali  admin arlpass</p>
+<p>fofa配置：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38154820/article/details/136190510">https://blog.csdn.net/qq_38154820&#x2F;article&#x2F;details&#x2F;136190510</a></p>
+<h3 id="企业查询类"><a href="#企业查询类" class="headerlink" title="企业查询类"></a>企业查询类</h3><p><a target="_blank" rel="noopener" href="https://www.tianyancha.com/">天眼查-商业查询平台_企业信息查询_公司查询_工商查询_企业信用信息系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.qcc.com/">企查查 - 查企业_查老板_查风险_企业信息查询系统</a></p>
+<p><a target="_blank" rel="noopener" href="https://aiqicha.baidu.com/index/index">爱企查</a></p>
+<p><a target="_blank" rel="noopener" href="https://sou.xiaolanben.com/pc">小蓝本-商业信息搜索</a></p>
+<p>主要留意：</p>
+<p><img src="/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/05/30/hvv%E7%BA%A2%E9%98%9F%E6%91%B8%E9%B1%BC%E5%85%A5%E9%97%A8/4.png" srcset="/img/loading.gif" lazyload>股份占比50%以上的子公司</p>
+<p>还有知识产权下对应app，公众号，网站等</p>
+<p><a target="_blank" rel="noopener" href="https://dajiala.com/">https://dajiala.com/</a> (用来搜集公众号api的网站，现在更多的信息可以从小程序和公众号获取)</p>
+<h3 id="邮箱类"><a href="#邮箱类" class="headerlink" title="邮箱类"></a>邮箱类</h3><p><a target="_blank" rel="noopener" href="https://phonebook.cz/">https://phonebook.cz/</a></p>
+<p><a target="_blank" rel="noopener" href="https://hunter.io/dashboard">https://hunter.io/dashboard</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.email-format.com/i/search">https://www.email-format.com/i/search</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.skymem.info/">https://www.skymem.info/</a></p>
+<h3 id="指纹类"><a href="#指纹类" class="headerlink" title="指纹类"></a>指纹类</h3><p><a target="_blank" rel="noopener" href="http://finger.tidesec.net/">http://finger.tidesec.net/</a></p>
+<h3 id="ICP备案查询"><a href="#ICP备案查询" class="headerlink" title="ICP备案查询"></a>ICP备案查询</h3><p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/#/Integrated/index">https://beian.miit.gov.cn/#/Integrated/index</a></p>
+<h1 id="getshell"><a href="#getshell" class="headerlink" title="getshell"></a>getshell</h1><p>手上没oday就碰运气吧</p>
+<p>github上能搜索到nday</p>
+<p>可以先简单权限，再提权</p>
+<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/">https://gtfobins.github.io/</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/f-carey/p/17536745.html">https://www.cnblogs.com/f-carey/p/17536745.html</a></p>
+<h1 id="内网穿透、横向渗透"><a href="#内网穿透、横向渗透" class="headerlink" title="内网穿透、横向渗透"></a>内网穿透、横向渗透</h1><p>没具体学习过，到时候再整理知识体系，板块加工中</p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45927266/article/details/121179250">如何从零构建对内网穿透的理解-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45927266/article/details/121398072">手把手教你如何进行内网渗透-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/news/9887">https://xz.aliyun.com/news/9887</a></p>
+<p><a target="_blank" rel="noopener" href="https://websec.readthedocs.io/zh/latest/">Web安全学习笔记 — Web安全学习笔记 1.0 文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/backlion/p/15839963.html">实战讲解内网渗透思路 - 渗透测试中心 - 博客园</a></p>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1584913">内网渗透 | 手把手教你如何进行内网渗透-腾讯云开发者社区-腾讯云</a></p>
+<p>工具：fscan nmap msf马</p>
+<p>msf:<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45588247/article/details/119948980">msf-Msfvenonm生成后门木马_msfmsfvenom-CSDN博客</a></p>
+<p><a target="_blank" rel="noopener" href="https://developer.aliyun.com/article/1164064">Metasploit – 木马生成原理和方法-阿里云开发者社区</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/2401_84578953/article/details/142610658">Kali利用msf入侵Windows电脑（最详细渗透流程、生成木马、监控屏幕）_kali入侵电脑-CSDN博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>hvv红队摸鱼入门</div>
+      <div>https://alenirving.github.io/2025/05/30/hvv红队摸鱼入门/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ma5k</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2025年5月30日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              CC-BY-NC-SA
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/06/26/%E9%87%8E%E7%94%9Fida%E9%A3%9F%E7%94%A8%E6%8C%87%E5%8D%97/" title="野生ida食用指南">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">野生ida食用指南</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/04/20/UCSCCTF2025/" title="UCSCCTF2025">
+                        <span class="hidden-mobile">UCSCCTF2025</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
