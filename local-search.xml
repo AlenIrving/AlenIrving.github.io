@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>0</title>
+    <link href="/2025/10/24/000/"/>
+    <url>/2025/10/24/000/</url>
+    
+    <content type="html"><![CDATA[<h1 id="小记🐥"><a href="#小记🐥" class="headerlink" title="小记🐥"></a>小记🐥</h1><p>整了个bat文件</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bat"><span class="hljs-built_in">start</span> calc<br></code></pre></td></tr></table></figure><p>命名为clac.bat，点击后会收获快乐</p><p>什么时候不学re了，去pwn里面研究相关情况看看，虽然不大可能，狗头doge:))</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>杂/瓜/趣</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Frida-labs</title>
     <link href="/2025/10/06/Frida-Labs/"/>
     <url>/2025/10/06/Frida-Labs/</url>
