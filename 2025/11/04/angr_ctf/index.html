@@ -1,0 +1,923 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/reverse.png">
+  <link rel="icon" href="/img/reverse.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Ma5k">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="前言尝试学习angr在混淆下的应用，示例eg.exe源于封装好的现成solutions下 项目：https:&#x2F;&#x2F;github.com&#x2F;jakespringer&#x2F;angr_ctf 又是一个re✌：https:&#x2F;&#x2F;github.com&#x2F;ZERO-A-ONE&#x2F;AngrCTF_FITM&#x2F;tree&#x2F;master ubuntu配置32位环境： 1234sudo dpkg --add-arc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="angr_ctf">
+<meta property="og:url" content="https://alenirving.github.io/2025/11/04/angr_ctf/index.html">
+<meta property="og:site_name" content="Ma5k&#39;s Blog">
+<meta property="og:description" content="前言尝试学习angr在混淆下的应用，示例eg.exe源于封装好的现成solutions下 项目：https:&#x2F;&#x2F;github.com&#x2F;jakespringer&#x2F;angr_ctf 又是一个re✌：https:&#x2F;&#x2F;github.com&#x2F;ZERO-A-ONE&#x2F;AngrCTF_FITM&#x2F;tree&#x2F;master ubuntu配置32位环境： 1234sudo dpkg --add-arc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/4.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/5.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/6.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/7.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/8.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/9.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/10.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/11.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/12.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/13.png">
+<meta property="article:published_time" content="2025-11-03T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-11-04T12:26:46.550Z">
+<meta property="article:author" content="Ma5k">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/ctf/1.png">
+  
+  
+  
+  <title>angr_ctf - Ma5k&#39;s Blog</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"alenirving.github.io","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":"oqufArAhMdAIfuSwGcA0SJau-gzGzoHsz","app_key":"MOKJfsXIQuG9dWR5QTE2kRLH","server_url":"https://oqufarah.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":true},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Ma5k&#39;s Blog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/GoogleHacking/" target="_self">
+                <i class="iconfont fa-google"></i>
+                <span>GoogleHacking</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="angr_ctf"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-11-04 00:00" pubdate>
+          2025年11月4日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">angr_ctf</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>尝试学习angr在混淆下的应用，示例eg.exe源于封装好的现成solutions下</p>
+<p>项目：<a target="_blank" rel="noopener" href="https://github.com/jakespringer/angr_ctf">https://github.com/jakespringer/angr_ctf</a></p>
+<p>又是一个re✌：<a target="_blank" rel="noopener" href="https://github.com/ZERO-A-ONE/AngrCTF_FITM/tree/master">https://github.com/ZERO-A-ONE/AngrCTF_FITM&#x2F;tree&#x2F;master</a></p>
+<p>ubuntu配置32位环境：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> dpkg --add-architecture i386<br><span class="hljs-built_in">sudo</span> apt install libc6:i386 libstdc++6:i386<br><span class="hljs-built_in">sudo</span> apt-get update<br><span class="hljs-built_in">sudo</span> apt install libncurses5-dev lib32z1<br></code></pre></td></tr></table></figure>
+
+<p>去除烦人警告</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> logging<br>logging.getLogger(<span class="hljs-string">&#x27;angr.storage.memory_mixins.default_filler_mixin&#x27;</span>).setLevel(logging.CRITICAL)<br></code></pre></td></tr></table></figure>
+
+<h1 id="00-find"><a href="#00-find" class="headerlink" title="00_find"></a>00_find</h1><p><img src="/2025/09/30/AES%E7%AF%87/ctf/1.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br>project=angr.Project(<span class="hljs-string">&#x27;00_angr_find&#x27;</span>)<br>initial_state = project.factory.entry_state(     <span class="hljs-comment">#ZERO_FILL/SYMBOL_FILL 填充</span><br>    add_options = &#123; angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>                    angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS&#125;<br>)<br>simulation = project.factory.simgr(initial_state) <span class="hljs-comment">#创建simulation manager</span><br>simulation.explore(find=<span class="hljs-number">0x804868C</span>,avoid=<span class="hljs-number">0x804867A</span>)<br><span class="hljs-keyword">if</span> simulation.found:<br>    solution_state = simulation.found[<span class="hljs-number">0</span>]<br>    <span class="hljs-built_in">print</span>(solution_state.posix.dumps(<span class="hljs-number">0</span>).decode())<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-keyword">assert</span> <span class="hljs-string">&#x27;fail&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="01-avoid"><a href="#01-avoid" class="headerlink" title="01_avoid"></a>01_avoid</h1><p><img src="/2025/09/30/AES%E7%AF%87/ctf/2.png" srcset="/img/loading.gif" lazyload></p>
+<p>find地址附近即可，avoid改为avoid_me函数地址，绕过减少solver时间</p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/3.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br>project = angr.Project(<span class="hljs-string">&#x27;./01_angr_avoid&#x27;</span>)<br>initial_state = project.factory.entry_state(     <br>    add_options = &#123; angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>                    angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS&#125;<br>  )<br>simgr = project.factory.simulation_manager()<br><br>find_address = <span class="hljs-number">0x80485F4</span><br>avoid_address = <span class="hljs-number">0x80485BF</span><br><br>simgr.explore(find=find_address, avoid=avoid_address)<br><br><span class="hljs-keyword">if</span> simgr.found:<br>    solution_state = simgr.found[<span class="hljs-number">0</span>]<br>    <span class="hljs-built_in">print</span>(solution_state.posix.dumps(<span class="hljs-number">0</span>).decode())<br><br><span class="hljs-comment">#&#x27;JLVUSGJZ&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="02-def-addr"><a href="#02-def-addr" class="headerlink" title="02_def_addr"></a>02_def_addr</h1><p>上一关调用大量avoid_me，此关则是两个对应输出语句被大量调用，采用下述写法处理没有具体地址情况</p>
+<p>eg.</p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/4.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">b&#x27;Good Job&#x27;</span> <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">failure</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">b&#x27;Try again&#x27;</span> <span class="hljs-keyword">in</span> output<br><br>project=angr.Project(<span class="hljs-string">&#x27;./02_angr_find_condition&#x27;</span>)<br>initial_state=project.factory.entry_state(<br>    add_options = &#123; angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>                    angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS&#125;<br>)<br><span class="hljs-comment">#simulation 模拟</span><br>simulation=project.factory.simgr(initial_state)<br>simulation.explore(find=success,avoid=failure)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    state=simulation.found[<span class="hljs-number">0</span>]<br>    <span class="hljs-built_in">print</span>(state.posix.dumps(<span class="hljs-number">0</span>).decode())<br><span class="hljs-comment"># 0 = stdin（输入）</span><br><span class="hljs-comment"># 1 = stdout（正常输出）</span><br><span class="hljs-comment"># 2 = stderr（错误输出）</span><br>    <br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-keyword">assert</span> <span class="hljs-literal">False</span><br><span class="hljs-comment"># OHYJUMBE</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="03-register"><a href="#03-register" class="headerlink" title="03_register"></a>03_register</h1><p>angr不支持多个scanf输入，scanf调用结束后指定angr注入地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">get_user_input</span><span class="hljs-params">()</span><br>&#123;<br>    <span class="hljs-type">int</span> v1; <span class="hljs-comment">// [esp+0h] [ebp-18h] BYREF</span><br>    <span class="hljs-type">int</span> v2; <span class="hljs-comment">// [esp+4h] [ebp-14h] BYREF</span><br>    _DWORD v3[<span class="hljs-number">4</span>]; <span class="hljs-comment">// [esp+8h] [ebp-10h] BYREF</span><br><br>    v3[<span class="hljs-number">1</span>] = __readgsdword(<span class="hljs-number">0x14u</span>);<br>    __isoc99_scanf(<span class="hljs-string">&quot;%x %x %x&quot;</span>, &amp;v1, &amp;v2, v3);<br>    <span class="hljs-keyword">return</span> v1;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/5.png" srcset="/img/loading.gif" lazyload></p>
+<p>此关新增将符号值注入寄存器</p>
+<p>补充：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>entry_state()</td>
+<td>从程序入口开始</td>
+</tr>
+<tr>
+<td>blank_state(addr&#x3D;&#x3D;…)</td>
+<td>从指定地址开始，完全空白</td>
+</tr>
+<tr>
+<td>full_init_state()</td>
+<td>执行到 main<br/> 前的所有初始化（如构造函数），比 entry_state()<br/> 更完整</td>
+</tr>
+<tr>
+<td>call_state(addr,arg11,arg2,…)</td>
+<td>专门用于调用某个函数，自动设置参数和返回地址</td>
+</tr>
+</tbody></table>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>    __int64 user_input; <span class="hljs-comment">// rax</span><br>    <span class="hljs-type">int</span> v5; <span class="hljs-comment">// [esp+4h] [ebp-14h]</span><br>    <span class="hljs-type">int</span> v6; <span class="hljs-comment">// [esp+8h] [ebp-10h]</span><br>    <span class="hljs-type">int</span> v7; <span class="hljs-comment">// [esp+Ch] [ebp-Ch]</span><br>    <span class="hljs-type">int</span> v8; <span class="hljs-comment">// [esp+Ch] [ebp-Ch]</span><br><br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Enter the password: &quot;</span>);<br>    user_input = get_user_input();<br>    v7 = HIDWORD(user_input);<br>    v5 = complex_function_1(user_input);<br>    v6 = complex_function_2();<br>    v8 = complex_function_3(v7);<br>    <span class="hljs-keyword">if</span> ( v5 || v6 || v8 )<br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try again.&quot;</span>);<br>    <span class="hljs-keyword">else</span><br>        <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Good Job.&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>wk.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./03_angr_symbolic_registers&#x27;</span>)<br>start_address=<span class="hljs-number">0x080488C7</span><br>initial_state=project.factory.blank_state(<br>    addr=start_address,<br>    add_options = &#123; angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>                    angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS&#125;<br>)<br><br>hoge0_size=<span class="hljs-number">32</span> <span class="hljs-comment">#32bit register</span><br>hoge1_size=<span class="hljs-number">32</span><br>hoge2_size=<span class="hljs-number">32</span><br>hoge0=claripy.BVS(<span class="hljs-string">&#x27;hoge0&#x27;</span>,hoge0_size)<br>hoge1=claripy.BVS(<span class="hljs-string">&#x27;hoge1&#x27;</span>,hoge1_size)<br>hoge2=claripy.BVS(<span class="hljs-string">&#x27;hoge2&#x27;</span>,hoge2_size)<br><br>initial_state.regs.eax=hoge0<br>initial_state.regs.ebx=hoge1<br>initial_state.regs.edx=hoge2<br><br>simulation=project.factory.simgr(initial_state)<br>simulation.explore(find=<span class="hljs-number">0x0804892A</span>,avoid=<span class="hljs-number">0x08048918</span>)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    state=simulation.found[<span class="hljs-number">0</span>]<br>    a0=state.solver.<span class="hljs-built_in">eval</span>(hoge0)<br>    a1=state.solver.<span class="hljs-built_in">eval</span>(hoge1)<br>    a2=state.solver.<span class="hljs-built_in">eval</span>(hoge2)<br>    a=<span class="hljs-string">&#x27;&#x27;</span>.join(<span class="hljs-built_in">map</span>(<span class="hljs-string">&#x27;&#123;:08x&#125;&#x27;</span>.<span class="hljs-built_in">format</span>,[a0,a1,a2]))<br>    <span class="hljs-built_in">print</span>(a)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-keyword">assert</span> <span class="hljs-literal">False</span><br><span class="hljs-comment"># e9b37483 7aab5fde 8f5b48ea</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="04-stack"><a href="#04-stack" class="headerlink" title="04_stack"></a>04_stack</h1><p>此关跳过scanf的目的地在一个函数内部，需重新构建一个栈环境，像上一关直接将返回值返回给对应寄存器，栈的影响不重要，此关数据仍在栈中，需要构建模拟scanf后的情况</p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/6.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#一个字节在栈中占一个地址</span><br><span class="hljs-comment">#            /-------- The stack --------\</span><br>  <span class="hljs-comment"># ebp -&gt;     |          padding          |</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment"># ebp - 0x01 |       more padding        |</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment"># ebp - 0x02 |     even more padding     |</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment">#                        . . .</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment"># ebp - 0x0b |   password0, second byte  |</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment"># ebp - 0x0c |   password0, first byte   |</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment"># ebp - 0x0d |   password1, last byte    |</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment">#                        . . .</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment"># ebp - 0x10 |   password1, first byte   |</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment">#                        . . .</span><br>  <span class="hljs-comment">#            |---------------------------|</span><br>  <span class="hljs-comment"># esp -&gt;     |                           |</span><br>  <span class="hljs-comment">#            \---------------------------/</span><br>  <span class="hljs-comment">#</span><br><span class="hljs-comment"># padding_len=8</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br><br>project=angr.Project(<span class="hljs-string">&#x27;./04_angr_symbolic_stack&#x27;</span>)<br><span class="hljs-comment">#老规矩绕过scanf</span><br>start_address=<span class="hljs-number">0x080486AE</span><br>initial_state=project.factory.blank_state(<br>    addr=start_address,<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br><br>initial_state.regs.ebp=initial_state.regs.esp<br>hoge0=claripy.BVS(<span class="hljs-string">&#x27;hoge0&#x27;</span>,<span class="hljs-number">32</span>)<br>hoge1=claripy.BVS(<span class="hljs-string">&#x27;hoge1&#x27;</span>,<span class="hljs-number">32</span>)<br><br>initial_state.regs.esp-=<span class="hljs-number">8</span><br>initial_state.stack_push(hoge0)<br>initial_state.stack_push(hoge1)<br>simulation=project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br>simulation.explore(find=success,avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution=simulation.found[<span class="hljs-number">0</span>]<br>    a0=solution.solver.<span class="hljs-built_in">eval</span>(hoge0)<br>    a1=solution.solver.<span class="hljs-built_in">eval</span>(hoge1)<br>    s=<span class="hljs-string">&#x27; &#x27;</span>.join(<span class="hljs-built_in">map</span>(<span class="hljs-built_in">str</span>,[a0,a1]))<br>    <span class="hljs-built_in">print</span>(s)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br><span class="hljs-comment"># 2089710965 12847883</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="05-memory-store"><a href="#05-memory-store" class="headerlink" title="05_memory_store"></a>05_memory_store</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">int</span> __cdecl main(<span class="hljs-built_in">int</span> argc, const char **argv, const char **envp)<br>&#123;<br>  <span class="hljs-built_in">int</span> i; // [esp+Ch] [ebp-Ch]<br><br>  memset(user_input, <span class="hljs-number">0</span>, 0x21u);<br>  printf(<span class="hljs-string">&quot;Enter the password: &quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%8s %8s %8s %8s&quot;</span>, user_input, &amp;unk_AB232C8, &amp;unk_AB232D0, &amp;unk_AB232D8);<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">31</span>; ++i )<br>    *(_BYTE *)(i + <span class="hljs-number">0xAB232C0</span>) = complex_function(*(char *)(i + <span class="hljs-number">0xAB232C0</span>), i);<br>  <span class="hljs-keyword">if</span> ( !strncmp(user_input, <span class="hljs-string">&quot;OSIWHBXIFOQVSBZBISILSCLBIAXSEWUT&quot;</span>, 0x20u) )<br>    puts(<span class="hljs-string">&quot;Good Job.&quot;</span>);<br>  <span class="hljs-keyword">else</span><br>    puts(<span class="hljs-string">&quot;Try again.&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/7.png" srcset="/img/loading.gif" lazyload></p>
+<p>wk.   </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./05_angr_symbolic_memory&#x27;</span>)<br>start_address=<span class="hljs-number">0x08048618</span><br>initial_state=project.factory.blank_state(<br>    addr=start_address,<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br>a=claripy.BVS(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-number">8</span>*<span class="hljs-number">8</span>) <span class="hljs-comment">#%8s char=1 byte</span><br>b=claripy.BVS(<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-number">64</span>)<br>c=claripy.BVS(<span class="hljs-string">&#x27;c&#x27;</span>,<span class="hljs-number">64</span>)<br>d=claripy.BVS(<span class="hljs-string">&#x27;d&#x27;</span>,<span class="hljs-number">64</span>)<br><br>a_addr = <span class="hljs-number">0xab232c0</span><br>initial_state.memory.store(a_addr, a)<br>b_addr = <span class="hljs-number">0xab232c8</span><br>initial_state.memory.store(b_addr, b)<br>c_addr = <span class="hljs-number">0xab232d0</span><br>initial_state.memory.store(c_addr, c)<br>d_addr = <span class="hljs-number">0xab232d8</span><br>initial_state.memory.store(d_addr, d)<br><br>simulation=project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br>simulation.explore(find=success,avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution=simulation.found[<span class="hljs-number">0</span>]<br>    q=solution.solver.<span class="hljs-built_in">eval</span>(a,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    w=solution.solver.<span class="hljs-built_in">eval</span>(b,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    e=solution.solver.<span class="hljs-built_in">eval</span>(c,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    r=solution.solver.<span class="hljs-built_in">eval</span>(d,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    s=<span class="hljs-string">&#x27; &#x27;</span>.join([q,w,e,r])<br>    <span class="hljs-built_in">print</span>(s)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br><span class="hljs-comment"># OJQVXIVX LLEAOODW UVCWUVVC AJXJMVKA</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="06-malloc-memory"><a href="#06-malloc-memory" class="headerlink" title="06_malloc_memory"></a>06_malloc_memory</h1><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">int</span> i; <span class="hljs-comment">// [esp+Ch] [ebp-Ch]</span><br><br>  buffer0 = (<span class="hljs-type">char</span> *)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">9u</span>);<br>  buffer1 = (<span class="hljs-type">char</span> *)<span class="hljs-built_in">malloc</span>(<span class="hljs-number">9u</span>);<br>  <span class="hljs-built_in">memset</span>(buffer0, <span class="hljs-number">0</span>, <span class="hljs-number">9u</span>);<br>  <span class="hljs-built_in">memset</span>(buffer1, <span class="hljs-number">0</span>, <span class="hljs-number">9u</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Enter the password: &quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%8s %8s&quot;</span>, buffer0, buffer1);<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">7</span>; ++i )<br>  &#123;<br>    buffer0[i] = complex_function(buffer0[i], i);<br>    buffer1[i] = complex_function(buffer1[i], i + <span class="hljs-number">32</span>);<br>  &#125;<br>  <span class="hljs-keyword">if</span> ( !<span class="hljs-built_in">strncmp</span>(buffer0, <span class="hljs-string">&quot;OSIWHBXI&quot;</span>, <span class="hljs-number">8u</span>) &amp;&amp; !<span class="hljs-built_in">strncmp</span>(buffer1, <span class="hljs-string">&quot;FOQVSBZB&quot;</span>, <span class="hljs-number">8u</span>) )<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Good Job.&quot;</span>);<br>  <span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try again.&quot;</span>);<br>  <span class="hljs-built_in">free</span>(buffer0);<br>  <span class="hljs-built_in">free</span>(buffer1);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>改用地址指针，此关模拟heap堆</p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/8.png" srcset="/img/loading.gif" lazyload></p>
+<p>补充：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs plain">程序中调用了 malloc(9)，<br>但 malloc 返回的内存块通常会按 16 字节对齐（在 32 位或 64 位系统上），<br>所以即使申请 8 字节，实际占用的空间是 16 字节（0x10）。<br><br>heap 是进程内存中的一块专门用于动态内存分配的区域。<br><br>特点：大小不固定，可以随着 malloc / free 动态扩展或收缩<br>由程序员手动管理（不像栈那样自动释放）<br>起始地址较低，向上增长（与栈相反）<br><br>Heap 区域（初始空闲）<br>+--------------------------------------------------+<br>|                                                  |<br>|                     Free Space                   |<br>|                                                  |<br>+--------------------------------------------------+<br>                         ↑<br>                      malloc(8) 请求 8 字节<br><br>Heap 分配后<br>+------------------+-------------------------------+<br>|   malloc(8)      |        Remaining Free         |<br>|     返回 ptr     |                                |<br>+------------------+-------------------------------+<br>↑<br>ptr → 指向这里<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./06_angr_symbolic_dynamic_memory&#x27;</span>)<br>start_address=<span class="hljs-number">0x080486AF</span><br>initial_state=project.factory.blank_state(<br>    addr=start_address,<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br>a=claripy.BVS(<span class="hljs-string">&#x27;a&#x27;</span>,<span class="hljs-number">8</span>*<span class="hljs-number">8</span>) <span class="hljs-comment">#%8s char=1 byte</span><br>b=claripy.BVS(<span class="hljs-string">&#x27;b&#x27;</span>,<span class="hljs-number">64</span>)<br><br><span class="hljs-comment"># *p 0xa2def74 --&gt; 0x1111111</span><br>heap_addr0=<span class="hljs-number">0x1111111</span><br>pointer0=<span class="hljs-number">0xa2def74</span><br><span class="hljs-comment"># 目标架构,字节序调整 endness=project.arch.memory_endness</span><br>initial_state.memory.store(pointer0,heap_addr0,endness=project.arch.memory_endness, size=<span class="hljs-number">4</span>)<br>heap_addr1=<span class="hljs-number">0x1111121</span><br>pointer1=<span class="hljs-number">0xa2def7c</span><br>initial_state.memory.store(pointer1,heap_addr1,endness=project.arch.memory_endness, size=<span class="hljs-number">4</span>)<br><br>initial_state.memory.store(heap_addr0, a)<br>initial_state.memory.store(heap_addr1, b)<br>simulation=project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br>simulation.explore(find=success,avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution=simulation.found[<span class="hljs-number">0</span>]<br>    q=solution.solver.<span class="hljs-built_in">eval</span>(a,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    w=solution.solver.<span class="hljs-built_in">eval</span>(b,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    s=<span class="hljs-string">&#x27; &#x27;</span>.join([q,w])<br>    <span class="hljs-built_in">print</span>(s)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br><span class="hljs-comment"># OFIJHOXV FBQISOZO</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="07-file"><a href="#07-file" class="headerlink" title="07_file"></a>07_file</h1><p>模拟文件读取</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl __noreturn <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">int</span> v3; <span class="hljs-comment">// [esp-14h] [ebp-30h]</span><br>  <span class="hljs-type">int</span> v4; <span class="hljs-comment">// [esp-10h] [ebp-2Ch]</span><br>  <span class="hljs-type">int</span> v5; <span class="hljs-comment">// [esp-Ch] [ebp-28h]</span><br>  <span class="hljs-type">int</span> v6; <span class="hljs-comment">// [esp-8h] [ebp-24h]</span><br>  <span class="hljs-type">int</span> v7; <span class="hljs-comment">// [esp-4h] [ebp-20h]</span><br>  <span class="hljs-type">int</span> v8; <span class="hljs-comment">// [esp+0h] [ebp-1Ch]</span><br>  <span class="hljs-type">int</span> i; <span class="hljs-comment">// [esp+0h] [ebp-1Ch]</span><br><br>  <span class="hljs-built_in">memset</span>(buffer, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(buffer));<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Enter the password: &quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%64s&quot;</span>, buffer, v3, v4, v5, v6, v7, v8);<br>  ignore_me(buffer, <span class="hljs-number">0x40u</span>);<br>  <span class="hljs-built_in">memset</span>(buffer, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(buffer));<br>  fp = fopen(<span class="hljs-string">&quot;FOQVSBZB.txt&quot;</span>, <span class="hljs-string">&quot;rb&quot;</span>);<br>  fread(buffer, <span class="hljs-number">1u</span>, <span class="hljs-number">0x40u</span>, fp);<br>  fclose(fp);<br>  unlink(<span class="hljs-string">&quot;FOQVSBZB.txt&quot;</span>);<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">7</span>; ++i )<br>    *(_BYTE *)(i + <span class="hljs-number">0x804A0A0</span>) = complex_function(*(<span class="hljs-type">char</span> *)(i + <span class="hljs-number">134520992</span>), i);<br>  <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strcmp</span>(buffer, <span class="hljs-string">&quot;OSIWHBXI&quot;</span>) )<br>  &#123;<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try again.&quot;</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">1</span>);<br>  &#125;<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Good Job.&quot;</span>);<br>  <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/9.png" srcset="/img/loading.gif" lazyload></p>
+<p>wk.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./07_angr_symbolic_file&#x27;</span>)<br>start_address=<span class="hljs-number">0x080488BC</span><br>initial_state=project.factory.blank_state(<br>    addr=start_address,<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br><br>filename=<span class="hljs-string">&#x27;FOQVSBZB.txt&#x27;</span><br>symbolic_file_size_bytes = <span class="hljs-number">8</span><br>password = claripy.BVS(<span class="hljs-string">&#x27;password&#x27;</span>, symbolic_file_size_bytes * <span class="hljs-number">8</span>)<br>file=angr.storage.SimFile(filename,content=password)<br>initial_state.fs.insert(filename,file)<br><br>simulation=project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br>simulation.explore(find=success,avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution=simulation.found[<span class="hljs-number">0</span>]<br>    s=solution.solver.<span class="hljs-built_in">eval</span>(password,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    <span class="hljs-built_in">print</span>(s)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br>    <br><span class="hljs-comment"># OBAXRUZT</span><br></code></pre></td></tr></table></figure>
+
+<p>补充：</p>
+<table>
+<thead>
+<tr>
+<th><strong>概念</strong></th>
+<th><strong>类型</strong></th>
+<th><strong>含义</strong></th>
+<th><strong>是否符号化</strong></th>
+<th><strong>典型用途</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>BVS</code></td>
+<td><code>claripy.BVS(name, size)</code></td>
+<td>符号变量（Symbolic Variable）</td>
+<td>是</td>
+<td>表示未知输入（如密码、密钥）</td>
+</tr>
+<tr>
+<td><code>BVV</code></td>
+<td><code>claripy.BVV(value, size)</code></td>
+<td>具体值（Concrete Value）</td>
+<td>否</td>
+<td>表示已知常量（如 “hello”）</td>
+</tr>
+<tr>
+<td><code>dumps(0)</code></td>
+<td><code>state.posix.dumps(0)</code></td>
+<td>获取程序从 stdin 读入的数据</td>
+<td>可能包含符号，但输出 concrete</td>
+<td>查看输入内容、调试</td>
+</tr>
+<tr>
+<td><code>solver.eval(...)</code></td>
+<td><code>state.solver.eval(expr)</code></td>
+<td>求解符号表达式 的具体值</td>
+<td>输入是符号，输出是 concrete</td>
+<td>得到密码、密钥等答案</td>
+</tr>
+</tbody></table>
+<h1 id="08-constrain"><a href="#08-constrain" class="headerlink" title="08_constrain"></a>08_constrain</h1><p>处理字符串</p>
+<p>符号执行16轮相当于2^16次，手动给出指定地址绕过字符串处理</p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/10.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/11.png" srcset="/img/loading.gif" lazyload></p>
+<p>跳过字符串处理</p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/12.png" srcset="/img/loading.gif" lazyload></p>
+<p>blank设置具体参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./08_angr_constraints&#x27;</span>)<br>start_addr=<span class="hljs-number">0x0804863C</span><br>initial_state=project.factory.blank_state(<br>    addr=start_addr,<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br><br>passwd=claripy.BVS(<span class="hljs-string">&#x27;passwd&#x27;</span>,<span class="hljs-number">8</span>*<span class="hljs-number">16</span>)<br>passwd_addr=<span class="hljs-number">0x804a040</span><br>initial_state.memory.store(passwd, passwd_addr) <span class="hljs-comment">#默认端序</span><br><br>simulation=project.factory.simgr(initial_state)<br><br>check_addr=<span class="hljs-number">0x8048683</span><br>simulation.explore(addr=check_addr)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution_state=simulation.found[<span class="hljs-number">0</span>]<br>    cmp_addr=<span class="hljs-number">0x804a040</span><br>    bytes_size=<span class="hljs-number">16</span><br>    target_bitvector=solution_state.load(addr=check_addr,size=bytes_size)<br>    aim_value=<span class="hljs-string">&#x27;OSIWHBXIFOQVSBZB&#x27;</span>.encode()<br>    solution_state.add(target_bitvector==aim_value)<br>    solution=solution_state.solver.<span class="hljs-built_in">eval</span>(passwd,cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    <span class="hljs-built_in">print</span>(solution)<br><br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;No solution found&#x27;</span>)<br><span class="hljs-comment"># ZEVKWROAYILRPZYB</span><br></code></pre></td></tr></table></figure>
+
+<p>entry自行填充</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./08_angr_constraints&#x27;</span>)<br>initial_state=project.factory.entry_state(<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br><br>simulation=project.factory.simgr(initial_state)<br><br>address_to_check_constraint = <span class="hljs-number">0x8048683</span><br>simulation.explore(find=address_to_check_constraint)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution=simulation.found[<span class="hljs-number">0</span>]<br>    constrained_parameter_address = <span class="hljs-number">0x804a040</span><br>    constrained_parameter_size_bytes = <span class="hljs-number">16</span><br>    constrained_parameter_bitvector = solution.memory.load(<br>        constrained_parameter_address,<br>        constrained_parameter_size_bytes<br>    )<br><br>    constrained_parameter_desired_value = <span class="hljs-string">&#x27;OSIWHBXIFOQVSBZB&#x27;</span>.encode()<br>    solution.add_constraints(constrained_parameter_bitvector == constrained_parameter_desired_value)<br>    <span class="hljs-built_in">print</span>(solution.posix.dumps(<span class="hljs-number">0</span>).decode())<br><br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br><span class="hljs-comment">#ZEVKWROAYILRPZYB</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="09-hook"><a href="#09-hook" class="headerlink" title="09_hook"></a>09_hook</h1><p>angr的hook方法</p>
+<p>主逻辑如下，两次输入以及校验，angr hook函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  _BOOL4 equals; <span class="hljs-comment">// eax</span><br>  <span class="hljs-type">int</span> i; <span class="hljs-comment">// [esp+8h] [ebp-10h]</span><br>  <span class="hljs-type">int</span> j; <span class="hljs-comment">// [esp+Ch] [ebp-Ch]</span><br><br>  qmemcpy(password, <span class="hljs-string">&quot;OSIWHBXIFOQVSBZB&quot;</span>, <span class="hljs-number">16</span>);<br>  <span class="hljs-built_in">memset</span>(buffer, <span class="hljs-number">0</span>, <span class="hljs-number">0x11u</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Enter the password: &quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%16s&quot;</span>, buffer);<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">15</span>; ++i )<br>    *(_BYTE *)(i + <span class="hljs-number">0x804A044</span>) = complex_function(*(<span class="hljs-type">char</span> *)(i + <span class="hljs-number">0x804A044</span>), <span class="hljs-number">18</span> - i);<br>  ::equals = check_equals_OSIWHBXIFOQVSBZB(buffer, <span class="hljs-number">16</span>);<br>  <span class="hljs-keyword">for</span> ( j = <span class="hljs-number">0</span>; j &lt;= <span class="hljs-number">15</span>; ++j )<br>    *(_BYTE *)(j + <span class="hljs-number">0x804A034</span>) = complex_function(*(<span class="hljs-type">char</span> *)(j + <span class="hljs-number">0x804A034</span>), j + <span class="hljs-number">9</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%16s&quot;</span>, buffer);<br>  equals = ::equals &amp;&amp; !<span class="hljs-built_in">strncmp</span>(buffer, password, <span class="hljs-number">0x10u</span>);<br>  ::equals = equals;<br>  <span class="hljs-keyword">if</span> ( equals )<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Good Job.&quot;</span>);<br>  <span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try again.&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">//占五个opcode</span><br><span class="hljs-comment">// .text:080486CA 02C E8 ED FE FF FF                    </span><br><span class="hljs-comment">// call    check_equals_OSIWHBXIFOQVSBZB</span><br></code></pre></td></tr></table></figure>
+
+<p>关于此处字符串比较不用绕过的解释：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// 标准strcmp函数如下</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">strncmp</span><span class="hljs-params">(<span class="hljs-type">const</span> <span class="hljs-type">char</span> *s1, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *s2, <span class="hljs-type">size_t</span> n)</span> &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">size_t</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) &#123;<br>        <span class="hljs-keyword">if</span> (s1[i] != s2[i]) &#123;<br>            <span class="hljs-keyword">return</span> s1[i] - s2[i];<br>        &#125;<br>        <span class="hljs-keyword">if</span> (s1[i] == <span class="hljs-string">&#x27;\0&#x27;</span>) &#123; <span class="hljs-comment">// 如果遇到结束符</span><br>            <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-comment">// 采用减法形式，而常规比较则为==流</span><br><span class="hljs-comment">//angr每轮执行后分支&lt;和&gt;=两种情况，次方叠加，此处仅为减法，无需优化</span><br></code></pre></td></tr></table></figure>
+
+<p>wk.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./09_angr_hooks&#x27;</span>)<br>initial_state=project.factory.entry_state(<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br><br>check_equal_addr=<span class="hljs-number">0x080486CA</span><br>instruction_len=<span class="hljs-number">5</span>   <span class="hljs-comment">#.text:080486CA 02C E8 ED FE FF FF call</span><br><span class="hljs-comment"># check_equals_OSIWHBXIFOQVSBZB</span><br><span class="hljs-comment">#装饰器写法，用于angr执行下方函数</span><br><span class="hljs-meta">@project.hook(<span class="hljs-params">check_equal_addr,length=instruction_len</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">skip_check_equal</span>(<span class="hljs-params">state</span>):<br>    inputbuff_addr=<span class="hljs-number">0x804A044</span><br>    <span class="hljs-built_in">len</span>=<span class="hljs-number">16</span><br>    input_string=state.memory.load(inputbuff_addr,<span class="hljs-built_in">len</span>)<br>    check_string=<span class="hljs-string">&#x27;OSIWHBXIFOQVSBZB&#x27;</span>.encode()<br>    <span class="hljs-comment">#angr下 if/else 写法</span><br>    state.regs.eax=claripy.If(<br>        input_string==check_string,<br>        claripy.BVV(<span class="hljs-number">1</span>,<span class="hljs-number">32</span>),<br>        claripy.BVV(<span class="hljs-number">0</span>,<span class="hljs-number">32</span>)<br>    )<br><br>simulation=project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output = state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br>simulation.explore(find=success,avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution_state=simulation.found[<span class="hljs-number">0</span>]<br>    solution=solution_state.posix.dumps(<span class="hljs-number">0</span>).decode()<br>    <span class="hljs-built_in">print</span>(solution)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br><br><span class="hljs-comment"># QREPXOHPJPOQKQLK</span><br><span class="hljs-comment"># NOBMULEMGMLNHNIH</span><br></code></pre></td></tr></table></figure>
+
+<p>python装饰器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs python">check_equal_addr=<span class="hljs-number">0x080486CA</span><br>instruction_len=<span class="hljs-number">5</span><br><span class="hljs-meta">@project.hook(<span class="hljs-params">check_equal_addr,length=instruction_len</span>)</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">skip_check_equal</span>(<span class="hljs-params">state</span>):<br>    inputbuff_addr=<span class="hljs-number">0x804A044</span><br>    <span class="hljs-built_in">len</span>=<span class="hljs-number">16</span><br>    input_string=state.memory.load(inputbuff_addr,<span class="hljs-built_in">len</span>)<br>    check_string=<span class="hljs-string">&#x27;OSIWHBXIFOQVSBZB&#x27;</span>.encode()<br>    <span class="hljs-comment">#angr下 if/else 写法</span><br>    state.regs.eax=claripy.If(<br>        input_string==check_string,<br>        claripy.BVV(<span class="hljs-number">1</span>,<span class="hljs-number">32</span>),<br>        claripy.BVV(<span class="hljs-number">0</span>,<span class="hljs-number">32</span>)<br>    )<br><br><span class="hljs-comment">#等价</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">skip_check_equal</span>(<span class="hljs-params">state</span>):<br>    inputbuff_addr = <span class="hljs-number">0x804A044</span><br>    <span class="hljs-built_in">len</span> = <span class="hljs-number">16</span><br>    input_string = state.memory.load(inputbuff_addr, <span class="hljs-built_in">len</span>)<br>    check_string = <span class="hljs-string">&#x27;OSIWHBXIFOQVSBZB&#x27;</span>.encode()<br>    <span class="hljs-comment"># angr下 if/else 写法</span><br>    state.regs.eax = claripy.If(<br>        input_string == check_string,<br>        claripy.BVV(<span class="hljs-number">1</span>, <span class="hljs-number">32</span>),<br>        claripy.BVV(<span class="hljs-number">0</span>, <span class="hljs-number">32</span>)<br>    )<br><br><span class="hljs-comment"># 将函数注册为 hook</span><br>project.hook(check_equal_addr, skip_check_equal, length=instruction_len)<br></code></pre></td></tr></table></figure>
+
+<h1 id="10-simprocedures"><a href="#10-simprocedures" class="headerlink" title="10_simprocedures"></a>10_simprocedures</h1><p>多轮加密，利用simprocedures简化处理，替换调用函数，原理不变：</p>
+<p>1.<font style="color:rgb(17, 17, 51);">hook 函数本身的地址</font></p>
+<p><font style="color:rgb(17, 17, 51);">2.memory.load(regs.esp + xx)读取栈中函数</font></p>
+<p><font style="color:rgb(17, 17, 51);">3.设eax返回值</font></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">int</span> i; <span class="hljs-comment">// [esp+20h] [ebp-28h]</span><br>  _BYTE s[<span class="hljs-number">17</span>]; <span class="hljs-comment">// [esp+2Bh] [ebp-1Dh] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v6; <span class="hljs-comment">// [esp+3Ch] [ebp-Ch]</span><br><br>  v6 = __readgsdword(<span class="hljs-number">0x14u</span>);<br>  <span class="hljs-built_in">memcpy</span>(&amp;password, <span class="hljs-string">&quot;OSIWHBXIFOQVSBZB&quot;</span>, <span class="hljs-number">0x10u</span>);<br>  <span class="hljs-built_in">memset</span>(s, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(s));<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Enter the password: &quot;</span>);<br>  __isoc99_scanf(<span class="hljs-string">&quot;%16s&quot;</span>, s);<br>  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">15</span>; ++i )<br>    s[i] = complex_function((<span class="hljs-type">char</span>)s[i], <span class="hljs-number">18</span> - i);<br>  <span class="hljs-keyword">if</span> ( check_equals_OSIWHBXIFOQVSBZB((<span class="hljs-type">int</span>)s, <span class="hljs-number">0x10u</span>) )<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Good Job.&quot;</span>);<br>  <span class="hljs-keyword">else</span><br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Try again.&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>wk.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./10_angr_simprocedures&#x27;</span>)<br>initial_state=project.factory.entry_state(<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">replacement_check_equal</span>(angr.SimProcedure):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self,to_check,<span class="hljs-built_in">len</span></span>):<br>        input_addr=to_check<br>        input_len=<span class="hljs-built_in">len</span><br>        string=<span class="hljs-variable language_">self</span>.state.memory.load(input_addr,input_len)<br>        aim_string=<span class="hljs-string">&#x27;OSIWHBXIFOQVSBZB&#x27;</span>.encode()<br>        <span class="hljs-keyword">return</span> claripy.If(<br>            string==aim_string,<br>            claripy.BVV(<span class="hljs-number">1</span>,<span class="hljs-number">32</span>),<br>            claripy.BVV(<span class="hljs-number">0</span>,<span class="hljs-number">32</span>)<br>        )<br>check_equal_symbol=<span class="hljs-string">&#x27;check_equals_OSIWHBXIFOQVSBZB&#x27;</span><br><span class="hljs-comment">#函数()勿忘</span><br>project.hook_symbol(check_equal_symbol,replacement_check_equal())<br><br>simulation=project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output = state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br>simulation.explore(find=success,avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution_state=simulation.found[<span class="hljs-number">0</span>]<br>    solution=solution_state.posix.dumps(<span class="hljs-number">0</span>).decode()<br>    <span class="hljs-built_in">print</span>(solution)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br><span class="hljs-comment"># MTMDRONBBNSAAMNS</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="11-sim-scanf"><a href="#11-sim-scanf" class="headerlink" title="11_sim_scanf"></a>11_sim_scanf</h1><p>simprocedures处理多个输入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs c">.text:<span class="hljs-number">08048711</span> <span class="hljs-number">04</span>C <span class="hljs-number">83</span> EC <span class="hljs-number">04</span>                          sub     esp, <span class="hljs-number">4</span><br>.text:<span class="hljs-number">08048714</span> <span class="hljs-number">050</span> <span class="hljs-number">68</span> F8 <span class="hljs-number">8</span>A <span class="hljs-number">06</span> <span class="hljs-number">08</span>                    push    offset buffer1<br>.text:<span class="hljs-number">08048719</span> <span class="hljs-number">054</span> <span class="hljs-number">68</span> <span class="hljs-number">0</span>C <span class="hljs-number">3</span>A <span class="hljs-number">06</span> <span class="hljs-number">08</span>                    push    offset buffer0<br>.text:<span class="hljs-number">0804871</span>E <span class="hljs-number">058</span> <span class="hljs-number">68</span> <span class="hljs-number">83</span> FD <span class="hljs-number">04</span> <span class="hljs-number">08</span>                    push    offset aUU      ; <span class="hljs-string">&quot;%u %u&quot;</span><br>.text:<span class="hljs-number">08048723</span> <span class="hljs-number">05</span>C E8 <span class="hljs-number">28</span> FD FF FF                    call    ___isoc99_scanf<br>.text:<span class="hljs-number">08048728</span> <span class="hljs-number">05</span>C <span class="hljs-number">83</span> C4 <span class="hljs-number">10</span>                          add     esp, <span class="hljs-number">10</span>h<br><br><br>objdump -d ./<span class="hljs-number">11</span>_angr_sim_scanf | grep <span class="hljs-built_in">scanf</span>             #-d disassemble<br><br>./<span class="hljs-number">11</span>_angr_sim_scanf：     文件格式 elf32-i386<br><span class="hljs-number">08048450</span> &lt;__isoc99_scanf@plt&gt;:<br> <span class="hljs-number">8048723</span>:	e8 <span class="hljs-number">28</span> fd ff ff       	call   <span class="hljs-number">8048450</span> &lt;__isoc99_scanf@plt&gt;<br> <span class="hljs-number">804878</span>e:	e8 bd fc ff ff       	call   <span class="hljs-number">8048450</span> &lt;__isoc99_scanf@plt&gt;<br> <span class="hljs-number">8048802</span>:	e8 <span class="hljs-number">49</span> fc ff ff       	call   <span class="hljs-number">8048450</span> &lt;__isoc99_scanf@plt&gt;<br> <span class="hljs-number">804886</span>d:	e8 de fb ff ff       	call   <span class="hljs-number">8048450</span> &lt;__isoc99_scanf@plt&gt;<br> <span class="hljs-number">80488</span>ee:	e8 <span class="hljs-number">5</span>d fb ff ff       	call   <span class="hljs-number">8048450</span> &lt;__isoc99_scanf@plt&gt;<br> <span class="hljs-number">8048959</span>:	e8 f2 fa ff ff       	call   <span class="hljs-number">8048450</span> &lt;__isoc99_scanf@plt&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p>wk.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>project=angr.Project(<span class="hljs-string">&#x27;./11_angr_sim_scanf&#x27;</span>)<br>initial_state=project.factory.entry_state(<br>    add_options=&#123;<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>        angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS<br>    &#125;<br>)<br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">replacement_scanf</span>(angr.SimProcedure):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">run</span>(<span class="hljs-params">self,format_string,string1_addr,string2_addr</span>):<br>        string1=claripy.BVS(<span class="hljs-string">&#x27;string1&#x27;</span>,<span class="hljs-number">32</span>)<br>        string2=claripy.BVS(<span class="hljs-string">&#x27;string2&#x27;</span>,<span class="hljs-number">32</span>)<br>        <span class="hljs-variable language_">self</span>.state.memory.store(string1_addr,string1,endness=project.arch.memory_endness)<br>        <span class="hljs-variable language_">self</span>.state.memory.store(string2_addr,string2,endness=project.arch.memory_endness)<br>        <span class="hljs-variable language_">self</span>.state.<span class="hljs-built_in">globals</span>[<span class="hljs-string">&#x27;solution1&#x27;</span>]=string1<br>        <span class="hljs-variable language_">self</span>.state.<span class="hljs-built_in">globals</span>[<span class="hljs-string">&#x27;solution2&#x27;</span>]=string2<br><br>scanf_symbol=<span class="hljs-string">&#x27;__isoc99_scanf&#x27;</span><br>project.hook_symbol(scanf_symbol,replacement_scanf())<br>simulation=project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output=state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output = state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output<br><br>simulation.explore(find=success,avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution_state=simulation.found[<span class="hljs-number">0</span>]<br>    s1=solution_state.<span class="hljs-built_in">globals</span>[<span class="hljs-string">&#x27;solution1&#x27;</span>]<br>    s2=solution_state.<span class="hljs-built_in">globals</span>[<span class="hljs-string">&#x27;solution2&#x27;</span>]<br>    solution=<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;solution_state.solver.<span class="hljs-built_in">eval</span>(s1)&#125;</span> <span class="hljs-subst">&#123;solution_state.solver.<span class="hljs-built_in">eval</span>(s2)&#125;</span>&#x27;</span><br>    <span class="hljs-built_in">print</span>(solution)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;fail&#x27;</span>)<br><span class="hljs-comment"># 1447907916 1146768724</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="12-veritesting"><a href="#12-veritesting" class="headerlink" title="12_veritesting"></a>12_veritesting</h1><p>主要引入veritesting概念</p>
+<p><em>“Enhancing Symbolic Execution with Veritesting” (Avgerinos et al., ICSE 2014)</em></p>
+<p>核心思想：<strong>结合动态符号执行（concolic execution）与静态路径展开（static path enumeration）</strong>，在遇到复杂控制流（如循环、深层嵌套条件）时，自动“展开”部分代码区域，生成多条路径，从而避免过早陷入某一条路径而错过其他可能的解。</p>
+<p>eg.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">simgr = project.factory.simgr(initial_state, veritesting=<span class="hljs-literal">True</span>)<br><br>simgr = project.factory.simgr(<br>    initial_state,<br>    veritesting=<span class="hljs-literal">True</span>,<br>    veritesting_options=&#123;<br>        <span class="hljs-string">&#x27;enable_function_inlining&#x27;</span>: <span class="hljs-literal">False</span>,<br>        <span class="hljs-string">&#x27;max_iterations&#x27;</span>: <span class="hljs-number">10</span>,<br>        <span class="hljs-string">&#x27;loop_unrolling_limit&#x27;</span>: <span class="hljs-number">5</span><br>    &#125;<br>)<br></code></pre></td></tr></table></figure>
+
+<p>wk. 自己这里本地没跑通，github上跑通的为2020年样例，等佬研究</p>
+<p>附官方的</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># When you construct a simulation manager, you will want to enable Veritesting:</span><br><span class="hljs-comment"># project.factory.simgr(initial_state, veritesting=True)</span><br><span class="hljs-comment"># Hint: use one of the first few levels&#x27; solutions as a reference.</span><br><br><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> sys<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>(<span class="hljs-params">argv</span>):<br>  path_to_binary = argv[<span class="hljs-number">1</span>]<br>  project = angr.Project(path_to_binary)<br>  initial_state = project.factory.entry_state(<br>    add_options = &#123; angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>                    angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS&#125;<br>  )<br>  simulation = project.factory.simgr(initial_state, veritesting=<span class="hljs-literal">True</span>)<br><br>  <span class="hljs-comment"># Define a function that checks if you have found the state you are looking</span><br>  <span class="hljs-comment"># for.</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">is_successful</span>(<span class="hljs-params">state</span>):<br>    <span class="hljs-comment"># Dump whatever has been printed out by the binary so far into a string.</span><br>    stdout_output = state.posix.dumps(sys.stdout.fileno())<br><br>    <span class="hljs-comment"># Return whether &#x27;Good Job.&#x27; has been printed yet.</span><br>    <span class="hljs-comment"># (!)</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> stdout_output  <span class="hljs-comment"># :boolean</span><br><br>  <span class="hljs-comment"># Same as above, but this time check if the state should abort. If you return</span><br>  <span class="hljs-comment"># False, Angr will continue to step the state. In this specific challenge, the</span><br>  <span class="hljs-comment"># only time at which you will know you should abort is when the program prints</span><br>  <span class="hljs-comment"># &quot;Try again.&quot;</span><br>  <span class="hljs-keyword">def</span> <span class="hljs-title function_">should_abort</span>(<span class="hljs-params">state</span>):<br>    stdout_output = state.posix.dumps(sys.stdout.fileno())<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> stdout_output  <span class="hljs-comment"># :boolean</span><br><br>  <span class="hljs-comment"># Tell Angr to explore the binary and find any state that is_successful identfies</span><br>  <span class="hljs-comment"># as a successful state by returning True.</span><br>  simulation.explore(find=is_successful, avoid=should_abort)<br><br>  <span class="hljs-keyword">if</span> simulation.found:<br>    solution_state = simulation.found[<span class="hljs-number">0</span>]<br>    <span class="hljs-built_in">print</span>(solution_state.posix.dumps(sys.stdin.fileno()).decode())<br>  <span class="hljs-keyword">else</span>:<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not find the solution&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>  main(sys.argv)<br><br></code></pre></td></tr></table></figure>
+
+<h1 id="13-static-binary"><a href="#13-static-binary" class="headerlink" title="13_static_binary"></a>13_static_binary</h1><p>未打包库函数的静态elf，手动加载</p>
+<p>留意_libc_start_main函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// positive sp value has been detected, the output may be wrong!</span><br><span class="hljs-type">void</span> __usercall __noreturn <span class="hljs-title function_">start</span><span class="hljs-params">(<span class="hljs-type">int</span> stack_end_@&lt;eax&gt;, <span class="hljs-type">void</span> (*rtld_fini)(<span class="hljs-type">void</span>)@&lt;edx&gt;)</span><br>&#123;<br>  <span class="hljs-type">int</span> argc; <span class="hljs-comment">// esi</span><br>  <span class="hljs-type">int</span> stack_end__1; <span class="hljs-comment">// [esp-4h] [ebp-4h] BYREF</span><br>  <span class="hljs-type">char</span> *ubp_av_; <span class="hljs-comment">// [esp+0h] [ebp+0h] BYREF</span><br><br>  argc = stack_end__1;<br>  stack_end__1 = stack_end_;<br>  _libc_start_main(<br>    (<span class="hljs-type">int</span> (*)(<span class="hljs-type">int</span>, <span class="hljs-type">char</span> **, <span class="hljs-type">char</span> **))main,<br>    argc,<br>    &amp;ubp_av_,<br>    (<span class="hljs-type">void</span> (*)(<span class="hljs-type">void</span>))_libc_csu_init,<br>    (<span class="hljs-type">void</span> (*)(<span class="hljs-type">void</span>))_libc_csu_fini,<br>    rtld_fini,<br>    &amp;stack_end__1);<br>&#125;<br><br>.text:<span class="hljs-number">080487F</span>0                       <br>; <span class="hljs-type">void</span> __usercall __noreturn <span class="hljs-title function_">start</span><span class="hljs-params">(<span class="hljs-type">int</span> stack_end_@&lt;eax&gt;, <span class="hljs-type">void</span> (*rtld_fini)(<span class="hljs-type">void</span>)@&lt;edx&gt;)</span><br><br></code></pre></td></tr></table></figure>
+
+<p>wk.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><br><br>project = angr.Project(<span class="hljs-string">&#x27;./13_angr_static_binary&#x27;</span>)<br><br>initial_state = project.factory.entry_state(<br>        add_options=&#123;angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>                     angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS&#125;<br>    )<br><br>project.hook(<span class="hljs-number">0x804fab0</span>, angr.SIM_PROCEDURES[<span class="hljs-string">&#x27;libc&#x27;</span>][<span class="hljs-string">&#x27;printf&#x27;</span>]())<br>project.hook(<span class="hljs-number">0x804fb10</span>, angr.SIM_PROCEDURES[<span class="hljs-string">&#x27;libc&#x27;</span>][<span class="hljs-string">&#x27;scanf&#x27;</span>]())<br>project.hook(<span class="hljs-number">0x80503f0</span>, angr.SIM_PROCEDURES[<span class="hljs-string">&#x27;libc&#x27;</span>][<span class="hljs-string">&#x27;puts&#x27;</span>]())<br>project.hook(<span class="hljs-number">0x8048d60</span>, angr.SIM_PROCEDURES[<span class="hljs-string">&#x27;glibc&#x27;</span>][<span class="hljs-string">&#x27;__libc_start_main&#x27;</span>]())<br><br>simulation = project.factory.simgr(initial_state)<br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">success</span>(<span class="hljs-params">state</span>):<br>    output = state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Good Job.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output  <span class="hljs-comment"># :boolean</span><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">fail</span>(<span class="hljs-params">state</span>):<br>    output = state.posix.dumps(<span class="hljs-number">1</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;Try again.&#x27;</span>.encode() <span class="hljs-keyword">in</span> output  <span class="hljs-comment"># :boolean</span><br><br>simulation.explore(find=success, avoid=fail)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution_state = simulation.found[<span class="hljs-number">0</span>]<br>    <span class="hljs-built_in">print</span>(solution_state.posix.dumps(<span class="hljs-number">0</span>).decode())<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not find the solution&#x27;</span>)<br><br><span class="hljs-comment"># EADQYLAR</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="14-so"><a href="#14-so" class="headerlink" title="14_so"></a>14_so</h1><p>学起来跟frida思路很想啊，包括后面的地址偏移</p>
+<p>so文件下的validate函数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">(base) ma5k@ma5k-Ubuntu24:~/angr_ctf-master/solutions/14_angr_shared_library$ checksec --file=14_angr_shared_library<br>RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH	Symbols		FORTIFY	FortifiedFortifiable	FILE<br>Partial RELRO   Canary found      NX enabled    No PIE          No RPATH   RW-RUNPATH   69 Symbols	  No	0	214_angr_shared_library<br></code></pre></td></tr></table></figure>
+
+<p>no pie，基址不变</p>
+<p><img src="/2025/09/30/AES%E7%AF%87/ctf/13.png" srcset="/img/loading.gif" lazyload></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> angr<br><span class="hljs-keyword">import</span> claripy<br><br>path_to_binary = <span class="hljs-string">&quot;./lib14_angr_shared_library.so&quot;</span><br><span class="hljs-comment">#自定义base基址,此处0x4000000默认，避开低地址与堆栈地址</span><br>base = <span class="hljs-number">0x4000000</span><br>project = angr.Project(path_to_binary, load_options=&#123;<br>        <span class="hljs-string">&#x27;main_opts&#x27;</span> : &#123;<br>        <span class="hljs-string">&#x27;custom_base_addr&#x27;</span> : base<br>        &#125;<br>    &#125;)<br><br>buffer_pointer = claripy.BVV(<span class="hljs-number">0x3000000</span>, <span class="hljs-number">32</span>)<br>validate_function_address = base + <span class="hljs-number">0x670</span><br>initial_state = project.factory.call_state(<br>    validate_function_address,<br>buffer_pointer,<br>    claripy.BVV(<span class="hljs-number">8</span>, <span class="hljs-number">32</span>),<br>    add_options = &#123;<br>    angr.options.SYMBOL_FILL_UNCONSTRAINED_MEMORY,<br>    angr.options.SYMBOL_FILL_UNCONSTRAINED_REGISTERS&#125;<br>    )<br><br>password = claripy.BVS(<span class="hljs-string">&#x27;password&#x27;</span>, <span class="hljs-number">8</span>*<span class="hljs-number">8</span>)<br>initial_state.memory.store(buffer_pointer, password)<br>simulation = project.factory.simgr(initial_state)<br><span class="hljs-comment">#validate处retn</span><br>success_address = base + <span class="hljs-number">0x71c</span><br>simulation.explore(find=success_address)<br><br><span class="hljs-keyword">if</span> simulation.found:<br>    solution_state = simulation.found[<span class="hljs-number">0</span>]<br>    solution_state.add_constraints(solution_state.regs.eax != <span class="hljs-number">0</span>)<br>    solution = solution_state.solver.<span class="hljs-built_in">eval</span>(password, cast_to=<span class="hljs-built_in">bytes</span>).decode()<br>    <span class="hljs-built_in">print</span>(solution)<br><span class="hljs-keyword">else</span>:<br>    <span class="hljs-keyword">raise</span> Exception(<span class="hljs-string">&#x27;Could not find the solution&#x27;</span>)<br><span class="hljs-comment"># TSDLQKWZ</span><br></code></pre></td></tr></table></figure>
+
+<p><font style="color:rgb(31, 35, 40);">pre-binary 选项：</font></p>
+<p>如果你想要对一个特定的二进制对象设置一些选项，CLE也能满足你的需求在加载二进制文件时可以设置特定的参数，使用 <code>main_opts</code> 和 <code>lib_opts</code> 参数进行设置。</p>
+<ul>
+<li><code>backend</code> - 指定 backend</li>
+<li><code>base_addr</code> - 指定基址</li>
+<li><code>entry_point</code> - 指定入口点</li>
+<li><code>arch</code> - 指定架构</li>
+</ul>
+<p>示例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs plain">&gt;&gt;&gt; angr.Project(&#x27;examples/fauxware/fauxware&#x27;, main_opts=&#123;&#x27;backend&#x27;: &#x27;blob&#x27;, &#x27;arch&#x27;: &#x27;i386&#x27;&#125;, lib_opts=&#123;&#x27;libc.so.6&#x27;: &#123;&#x27;backend&#x27;: &#x27;elf&#x27;&#125;&#125;)<br>&lt;Project examples/fauxware/fauxware&gt;<br></code></pre></td></tr></table></figure>
+
+<p>参数<code>main_opts</code>和<code>lib_opts</code>接收一个以python字典形式存储的选项组。<code>main_opts</code>接收一个形如{选项名1：选项值1，选项名2：选项值2……}的字典，而<code>lib_opts</code>接收一个库名到形如{选项名1:选项值1，选项名2:选项值2……}的字典的映射。</p>
+<p>lib_opts是二级字典，原因是一个二进制文件可能加载多个库，而main_opts指定的是主程序加载参数，而主程序一般只有一个，因此是一级字典。</p>
+<p>这些选项的内容因不同的后台而异，下面是一些通用的选项：</p>
+<ul>
+<li>backend —— 使用哪个后台，可以是一个对象，也可以是一个名字(字符串)</li>
+<li>custom_base_addr —— 使用的基地址</li>
+<li>custom_entry_point —— 使用的入口点</li>
+<li>custom_arch —— 使用的处理器体系结构的名字</li>
+</ul>
+<h1 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h1><p>后续关卡为无条件约束以及溢出类pwn利用了，不是很感兴趣，暂时学到这，完工</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Reverse/" class="category-chain-item">Reverse</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>angr_ctf</div>
+      <div>https://alenirving.github.io/2025/11/04/angr_ctf/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Ma5k</div>
+        </div>
+      
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              CC-BY-NC-SA
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/11/02/Empire_Lupin_One/" title="Empire_Lupin_One">
+                        <span class="hidden-mobile">Empire_Lupin_One</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+
+    Fluid.utils.listenDOMLoaded(function() {
+      Fluid.events.registerRefreshCallback(function() {
+        if ('mermaid' in window) {
+          mermaid.init();
+        }
+      });
+    });
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+
+</div>
+
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
