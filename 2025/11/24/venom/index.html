@@ -26,17 +26,17 @@
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
 <meta property="og:description" content="信息搜集扫描网段 nmap -sn 192.168.244.0&#x2F;24 检测存活ip，跳过端口扫描 123456789101112131415┌──(ma5k㉿localhost)-[~]└─$ nmap -sn 192.168.244.0&#x2F;24                                    Starting Nmap 7.94SVN ( https:&#x2F;&#x2F;nmap.">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/1.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/2.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/3.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/4.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/5.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/6.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/11/24/venom/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/11/24/venom/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/11/24/venom/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/11/24/venom/4.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/11/24/venom/5.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/11/24/venom/6.png">
 <meta property="article:published_time" content="2025-11-23T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-11-24T08:36:28.043Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/1.png">
+<meta name="twitter:image" content="https://alenirving.github.io/2025/11/24/venom/1.png">
   
   
   
@@ -332,11 +332,11 @@
 <p>常规扫目录：dirb <a target="_blank" rel="noopener" href="http://192.168.244.85/">http://192.168.244.85/</a></p>
 <p>无果，分析网页源码：</p>
 <p>5f2a66f947fa5690c26506f66bde5c23</p>
-<p><img src="/2025/09/30/AES%E7%AF%87/1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/11/24/venom/1.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──(ma5k㉿localhost)-[~]<br>└─$ hashid 5f2a66f947fa5690c26506f66bde5c23<br>Analyzing <span class="hljs-string">&#x27;5f2a66f947fa5690c26506f66bde5c23&#x27;</span><br>[+] MD2 <br>[+] MD5 <br>[+] MD4 <br>[+] Double MD5 <br>[+] LM <br>[+] RIPEMD-128 <br>[+] Haval-128 <br>[+] Tiger-128 <br>[+] Skein-256(128) <br>[+] Skein-512(128) <br>[+] Lotus Notes/Domino 5 <br>[+] Skype <br>[+] Snefru-128 <br>[+] NTLM <br>[+] Domain Cached Credentials <br>[+] Domain Cached Credentials 2 <br>[+] DNSSEC(NSEC3) <br>[+] RAdmin v2.x <br></code></pre></td></tr></table></figure>
 
 <p>hostinger</p>
-<p><img src="/2025/09/30/AES%E7%AF%87/2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/11/24/venom/2.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="ftp"><a href="#ftp" class="headerlink" title="ftp"></a>ftp</h1><p>ftp 192.168.244.85 </p>
 <blockquote>
 <p>cewl（Custom Word List generator）是一个开源的信息收集工具，主要用于从目标网站中爬取内容并生成自定义密码字典</p>
@@ -377,16 +377,16 @@
 <p>192.168.244.85 venom.box</p>
 <p>刷新dns缓存</p>
 <p><font style="color:rgb(0, 0, 0);">ipconfig &#x2F;flushdns    ping&#x2F;nslook</font></p>
-<p><img src="/2025/09/30/AES%E7%AF%87/3.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/11/24/venom/3.png" srcset="/img/loading.gif" lazyload></p>
 <p>常规还是爆破遍历：python .\dirsearch.py -u <a target="_blank" rel="noopener" href="http://venom.box/">http://venom.box/</a> -o rs.txt</p>
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_65712192/article/details/132445466">CVE-2018-19422(Subrion CMS 4.2.1 存在文件上传漏洞)</a></p>
 <p>一个上传页面：<a target="_blank" rel="noopener" href="http://venom.box/panel/uploads/">http://venom.box/panel/uploads/</a></p>
 <p>爆用户名</p>
 <p>dora &#x2F; <font style="color:rgb(51, 51, 51);">E7r9t8@Q#h%Hy+M1234</font></p>
 <p><font style="color:rgb(51, 51, 51);">传马</font></p>
-<p><img src="/2025/09/30/AES%E7%AF%87/4.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/2025/09/30/AES%E7%AF%87/5.png" srcset="/img/loading.gif" lazyload></p>
-<p><img src="/2025/09/30/AES%E7%AF%87/6.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/11/24/venom/4.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/11/24/venom/5.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2025/11/24/venom/6.png" srcset="/img/loading.gif" lazyload></p>
 <h1 id="后渗透"><a href="#后渗透" class="headerlink" title="后渗透"></a>后渗透</h1><p>进后台继续搞Subrion</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash">/var/www/html/subrion/uploads/ &gt;<span class="hljs-built_in">ls</span> -hail<br><br>total 32K<br> 538489 drwxr-xr-x  4 www-data www-data 4.0K Nov 24 15:47 .<br>1190802 drwxr-xr-x 13 www-data www-data 4.0K May 21  2021 ..<br> 538490 -rwxr-xr-x  1 www-data www-data  656 Jun 14  2018 .htaccess<br> 538784 drwxr-xr-x  2 www-data www-data 4.0K May 20  2021 .quarantine<br> 538783 drwxrwxrwx  2 www-data www-data 4.0K May 20  2021 .tmb<br> 526453 -rw-r--r--  1 www-data www-data   29 Nov 24 15:35 1.php<br> 536773 -rw-r--r--  1 www-data www-data   30 Nov 24 15:47 gsl.phar<br> 526454 -rw-r--r--  1 www-data www-data   35 Nov 24 15:40 system.pht<br><br>/var/www/html/subrion &gt;<span class="hljs-built_in">ls</span> -hail<br><br>total 180K<br>1190802 drwxr-xr-x 13 www-data www-data 4.0K May 21  2021 .<br>1190429 drwxr-xr-x  3 root     root     4.0K May 20  2021 ..<br>1191377 -rwxr-xr-x  1 www-data www-data  247 Jun 14  2018 .gitignore<br>1191378 -rwxr-xr-x  1 www-data www-data 2.3K Jun 14  2018 .htaccess<br>1191381 -rwxr-xr-x  1 www-data www-data 4.0K Jun 14  2018 CONTRIBUTING.md<br>1191385 -rwxr-xr-x  1 www-data www-data 4.7K Jun 14  2018 README.md<br>1190843 drwxr-xr-x  3 www-data www-data 4.0K May 20  2021 admin<br>1191155 drwxr-xr-x  2 www-data www-data 4.0K May 21  2021 backup<br>1191379 -rwxr-xr-x  1 www-data www-data  49K Jun 14  2018 changelog.txt<br>1191380 -rwxr-xr-x  1 www-data www-data  694 Jun 14  2018 composer.json<br>1191382 -rwxr-xr-x  1 www-data www-data 1.2K Jun 14  2018 favicon.ico<br>1191157 drwxr-xr-x  2 www-data www-data 4.0K Jun 14  2018 front<br>1191173 drwxr-xr-x 17 www-data www-data 4.0K May 20  2021 includes<br>1191383 -rwxr-xr-x  1 www-data www-data 4.1K Jun 14  2018 index.php<br>1191348 drwxr-xr-x  6 www-data www-data 4.0K Jun 14  2018 install<br> 411391 drwxr-xr-x 13 www-data www-data 4.0K Jun 14  2018 js<br>1191384 -rwxr-xr-x  1 www-data www-data  35K Jun 14  2018 license.txt<br> 411392 drwxr-xr-x  5 www-data www-data 4.0K Jun 14  2018 modules<br>1191386 -rwxr-xr-x  1 www-data www-data   41 May 21  2021 robots.txt<br> 411470 drwxr-xr-x  4 www-data www-data 4.0K Jun 14  2018 templates<br> 538485 drwxr-xr-x  7 www-data www-data 4.0K May 20  2021 tmp<br> 538487 drwxr-xr-x  2 www-data www-data 4.0K Jun 14  2018 updates<br> 538489 drwxr-xr-x  4 www-data www-data 4.0K Nov 24 15:47 uploads<br></code></pre></td></tr></table></figure>
 

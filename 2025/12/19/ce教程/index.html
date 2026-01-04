@@ -26,31 +26,31 @@
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
 <meta property="og:description" content="杂很久之前整过，有作业要求，顺带整理到博客了，有生之年去研究研究外挂病毒 关一添加注入进程，初次扫描，100 精确数值 四字节或所有类型一步步缩小范围触发后再次精确扫描，修改目标值 关二初始0-500扫描减少的数值或数值减少缩小范围 关三字节变浮点数，方法不变 关四定位，选择改写地址，ce注入进程分析nop掉复制语句，替换 关五依旧定位，查找改写新扫描寻找提示指针数值，根据找到的数值确定指针地址找">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/1.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/2.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/3.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/4.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/5.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/6.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/7.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/8.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/9.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/10.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/11.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/12.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/13.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/14.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/15.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/16.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/17.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/18.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/19.png">
-<meta property="og:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/20.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/4.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/5.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/6.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/7.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/8.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/9.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/10.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/11.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/12.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/13.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/14.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/15.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/16.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/17.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/18.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/19.png">
+<meta property="og:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/20.png">
 <meta property="article:published_time" content="2025-12-18T16:00:00.000Z">
 <meta property="article:modified_time" content="2025-12-19T05:07:35.584Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://alenirving.github.io/2025/09/30/AES%E7%AF%87/1.png">
+<meta name="twitter:image" content="https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/1.png">
   
   
   
@@ -333,12 +333,12 @@
                 <h1 id="杂"><a href="#杂" class="headerlink" title="杂"></a>杂</h1><p>很久之前整过，有作业要求，顺带整理到博客了，有生之年去研究研究外挂病毒</p>
 <h1 id="关一"><a href="#关一" class="headerlink" title="关一"></a>关一</h1><p>添加注入进程，初次扫描，100 精确数值 四字节或所有类型一步步缩小范围<br>触发后再次精确扫描，修改目标值</p>
 <h1 id="关二"><a href="#关二" class="headerlink" title="关二"></a>关二</h1><p>初始0-500扫描<br>减少的数值或数值减少缩小范围</p>
-<h1 id="关三"><a href="#关三" class="headerlink" title="关三"></a>关三</h1><p>字节变浮点数，方法不变<br><img src="/2025/09/30/AES%E7%AF%87/1.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="关四"><a href="#关四" class="headerlink" title="关四"></a>关四</h1><p>定位，选择改写地址，ce注入进程分析<br>nop掉复制语句，替换<br><img src="/2025/09/30/AES%E7%AF%87/2.png" srcset="/img/loading.gif" lazyload></p>
-<h1 id="关五"><a href="#关五" class="headerlink" title="关五"></a>关五</h1><p>依旧定位，查找改写<br><img src="/2025/09/30/AES%E7%AF%87/3.png" srcset="/img/loading.gif" lazyload><br>新扫描寻找提示指针数值，根据找到的数值确定指针地址<br>找到后手动添加地址<br><img src="/2025/09/30/AES%E7%AF%87/4.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/09/30/AES%E7%AF%87/5.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/09/30/AES%E7%AF%87/6.png" srcset="/img/loading.gif" lazyload><br>右键锁定地址改变指针即可</p>
-<h1 id="关六"><a href="#关六" class="headerlink" title="关六"></a>关六</h1><p>注入代码修改目标变化预期<br>先定位，可以看到sub<br><img src="/2025/09/30/AES%E7%AF%87/7.png" srcset="/img/loading.gif" lazyload><br>显示反汇编程序<br>菜单栏-&gt;工具-&gt;自动汇编-&gt;模板-&gt;代码注入<br><img src="/2025/09/30/AES%E7%AF%87/8.png" srcset="/img/loading.gif" lazyload><br>此处sub用于对比，报错可删除</p>
-<h1 id="关七"><a href="#关七" class="headerlink" title="关七"></a>关七</h1><p>多级指针，32位程序使用CE基本还是通过偏移寻找基准地址<br>依旧定位，找到第一层指针<br><img src="/2025/09/30/AES%E7%AF%87/9.png" srcset="/img/loading.gif" lazyload><br>指针数值存储在ESI，对应偏移量18<br>扫指针数值，预期结果是对应一个搜索结果，这里凭经验选了地址最接近的一个<br><img src="/2025/09/30/AES%E7%AF%87/10.png" srcset="/img/loading.gif" lazyload><br>指针2-&gt;指针1-&gt;目标值，此处选择访问地址而非改写<br>第二处对应二级指针对一级指针的访问<br><img src="/2025/09/30/AES%E7%AF%87/11.png" srcset="/img/loading.gif" lazyload><br>分析cmp处<br><img src="/2025/09/30/AES%E7%AF%87/12.png" srcset="/img/loading.gif" lazyload><br>依旧黑色，继续查找访问寻找上级<br>此处结果类似<br><img src="/2025/09/30/AES%E7%AF%87/13.png" srcset="/img/loading.gif" lazyload><br>继续扫描<br><img src="/2025/09/30/AES%E7%AF%87/14.png" srcset="/img/loading.gif" lazyload><br>next，找到基址<br><img src="/2025/09/30/AES%E7%AF%87/15.png" srcset="/img/loading.gif" lazyload><br>总共四级，手动添加指针<br><img src="/2025/09/30/AES%E7%AF%87/16.png" srcset="/img/loading.gif" lazyload><br>修改值，锁定地址，下一步</p>
-<h1 id="关八"><a href="#关八" class="headerlink" title="关八"></a>关八</h1><p>确定一个玩家地址对应数值<br><img src="/2025/09/30/AES%E7%AF%87/17.png" srcset="/img/loading.gif" lazyload><br>反汇编程序，找出指令返回地址<br><img src="/2025/09/30/AES%E7%AF%87/18.png" srcset="/img/loading.gif" lazyload><br>全选右键，打开选中地址分析数据，锁定并添加到结构分析，一路默认<br><img src="/2025/09/30/AES%E7%AF%87/19.png" srcset="/img/loading.gif" lazyload><br>对应指针，血量，阵容，名字<br>此处四名玩家调用的为同一函数，所以回到先前的 mov [ ebx + 04], eax 处，自动汇编注入代码<br><img src="/2025/09/30/AES%E7%AF%87/20.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="关三"><a href="#关三" class="headerlink" title="关三"></a>关三</h1><p>字节变浮点数，方法不变<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/1.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="关四"><a href="#关四" class="headerlink" title="关四"></a>关四</h1><p>定位，选择改写地址，ce注入进程分析<br>nop掉复制语句，替换<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/2.png" srcset="/img/loading.gif" lazyload></p>
+<h1 id="关五"><a href="#关五" class="headerlink" title="关五"></a>关五</h1><p>依旧定位，查找改写<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/3.png" srcset="/img/loading.gif" lazyload><br>新扫描寻找提示指针数值，根据找到的数值确定指针地址<br>找到后手动添加地址<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/4.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/5.png" srcset="/img/loading.gif" lazyload><br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/6.png" srcset="/img/loading.gif" lazyload><br>右键锁定地址改变指针即可</p>
+<h1 id="关六"><a href="#关六" class="headerlink" title="关六"></a>关六</h1><p>注入代码修改目标变化预期<br>先定位，可以看到sub<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/7.png" srcset="/img/loading.gif" lazyload><br>显示反汇编程序<br>菜单栏-&gt;工具-&gt;自动汇编-&gt;模板-&gt;代码注入<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/8.png" srcset="/img/loading.gif" lazyload><br>此处sub用于对比，报错可删除</p>
+<h1 id="关七"><a href="#关七" class="headerlink" title="关七"></a>关七</h1><p>多级指针，32位程序使用CE基本还是通过偏移寻找基准地址<br>依旧定位，找到第一层指针<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/9.png" srcset="/img/loading.gif" lazyload><br>指针数值存储在ESI，对应偏移量18<br>扫指针数值，预期结果是对应一个搜索结果，这里凭经验选了地址最接近的一个<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/10.png" srcset="/img/loading.gif" lazyload><br>指针2-&gt;指针1-&gt;目标值，此处选择访问地址而非改写<br>第二处对应二级指针对一级指针的访问<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/11.png" srcset="/img/loading.gif" lazyload><br>分析cmp处<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/12.png" srcset="/img/loading.gif" lazyload><br>依旧黑色，继续查找访问寻找上级<br>此处结果类似<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/13.png" srcset="/img/loading.gif" lazyload><br>继续扫描<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/14.png" srcset="/img/loading.gif" lazyload><br>next，找到基址<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/15.png" srcset="/img/loading.gif" lazyload><br>总共四级，手动添加指针<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/16.png" srcset="/img/loading.gif" lazyload><br>修改值，锁定地址，下一步</p>
+<h1 id="关八"><a href="#关八" class="headerlink" title="关八"></a>关八</h1><p>确定一个玩家地址对应数值<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/17.png" srcset="/img/loading.gif" lazyload><br>反汇编程序，找出指令返回地址<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/18.png" srcset="/img/loading.gif" lazyload><br>全选右键，打开选中地址分析数据，锁定并添加到结构分析，一路默认<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/19.png" srcset="/img/loading.gif" lazyload><br>对应指针，血量，阵容，名字<br>此处四名玩家调用的为同一函数，所以回到先前的 mov [ ebx + 04], eax 处，自动汇编注入代码<br><img src="/2025/12/19/ce%E6%95%99%E7%A8%8B/20.png" srcset="/img/loading.gif" lazyload></p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c">alloc(newmem,<span class="hljs-number">2048</span>)<br>label(returnhere)<br>label(originalcode)<br>label(<span class="hljs-built_in">exit</span>)<br><br>newmem: <span class="hljs-comment">//this is allocated memory, you have read,write,execute access</span><br><span class="hljs-comment">//place your code here</span><br><br>mov eax,<span class="hljs-number">0</span><br>cmp [ebx+<span class="hljs-number">10</span>],<span class="hljs-number">1</span><br>jne originalcode<br>mov eax,<span class="hljs-number">42</span>C80000   <span class="hljs-comment">//100对应的单浮点数16进制</span><br><br>originalcode:<br><br>mov [ebx+<span class="hljs-number">04</span>],eax<br>fldz <br><br><span class="hljs-built_in">exit</span>:<br>jmp returnhere<br><br><span class="hljs-string">&quot;Tutorial-i386.exe&quot;</span>+<span class="hljs-number">28E89</span>:<br>jmp newmem<br>returnhere:<br></code></pre></td></tr></table></figure>
                 
               </div>
