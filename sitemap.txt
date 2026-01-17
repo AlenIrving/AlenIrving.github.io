@@ -1,3 +1,4 @@
+https://alenirving.github.io/2025/01/17/vite%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0/
 https://alenirving.github.io/2026/01/12/%E9%97%B2%E6%96%87/
 https://alenirving.github.io/2025/12/19/ce%E6%95%99%E7%A8%8B/
 https://alenirving.github.io/2025/12/14/vm%E5%88%9D%E7%AA%A5/
@@ -40,3 +41,4 @@ https://alenirving.github.io/categories/Reverse/
 https://alenirving.github.io/categories/%E7%99%BE%E6%97%A5%E7%AD%91%E5%9F%BA/
 https://alenirving.github.io/categories/Web/
 https://alenirving.github.io/categories/Android/
+https://alenirving.github.io/categories/Developer/
