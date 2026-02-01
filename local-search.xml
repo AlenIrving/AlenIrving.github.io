@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>xx控接口</title>
+    <link href="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/"/>
+    <url>/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/</url>
+    
+    <content type="html"><![CDATA[<h1 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h1><p>仅用于技术交流分享，严禁恶意利用，感谢大佬教学OrzOrz</p><h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h1><p>找到目标接口，抓取网络数据<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/1.png"></p><p>在网络面板（Network Panel）中，“Fetch&#x2F;XHR” 过滤器的作用是：只显示通过 fetch() 或 XMLHttpRequest（XHR）发起的 HTTP 请求，帮助开发者快速聚焦于前端代码主动发起的 API 调用或数据请求。</p><blockquote><p>而 Fetch&#x2F;XHR 请求通常承载着业务逻辑的核心数据交互（比如登录、获取用户信息、提交表单等）。使用该过滤器可以：<br>快速定位前后端通信的接口<br>查看请求参数（Headers、Body、Query）<br>检查响应内容（Response）和状态码（200、401、500 等）<br>分析性能（耗时、等待时间、是否慢）<br>调试跨域（CORS）或认证（Cookie、Token）问题</p></blockquote><p>页面不刷新但是可以加载数据，找到目标数据后cURL(bash)，观察到如下接口</p><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">params</span> = &#123;  <br>    <span class="hljs-string">&quot;start&quot;</span>: <span class="hljs-string">&quot;0&quot;</span>,  <br>    <span class="hljs-string">&quot;limit&quot;</span>: <span class="hljs-string">&quot;20&quot;</span>,  <br>    <span class="hljs-string">&quot;timestamp&quot;</span>: <span class="hljs-string">&quot;1769517580795&quot;</span>,  <br>    <span class="hljs-string">&quot;sign&quot;</span>: <span class="hljs-string">&quot;6d2f43e7e79bc6c2f0b80ac793a6c80055d792fa&quot;</span>  <br>&#125;  <br></code></pre></td></tr></table></figure><p>搜索sign或者查看调用堆栈追踪，因为fetch&#x2F;xhr这里是异步请求<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/2.png"><br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/3.png"><br>根据n处调用函数下断点追踪</p><p>interceptors触发，断在use的内部方法<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/4.png"><br>return处下断点调试至此处<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/5.png"><br>参数sign未出现，追踪t(e)<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/6.png"><br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/7.png"><br>No执行加密<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/8.png"><br>sha1加密<br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/9.png"><br><img src="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/10.png"><br>最后脚本解密即可爬取</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>aHR0cHM6Ly93d3cuYmlsaWJpbGkuY29tL3ZpZGVvL0JWMUQ0QkVCY0VzRT92ZF9zb3VyY2U9ZmMzOGIzZGMyMWUwOGZiZDA2NjU5NTExYzBhMjNhYzQ&#x3D;</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>JS</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CVE-2026-24061复现</title>
     <link href="/2026/01/23/CVE-2026-24061%E5%A4%8D%E7%8E%B0/"/>
     <url>/2026/01/23/CVE-2026-24061%E5%A4%8D%E7%8E%B0/</url>
