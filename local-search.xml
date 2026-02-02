@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>一加6刷机</title>
+    <link href="/2026/02/02/%E4%B8%80%E5%8A%A06%E5%88%B7%E6%9C%BA/"/>
+    <url>/2026/02/02/%E4%B8%80%E5%8A%A06%E5%88%B7%E6%9C%BA/</url>
+    
+    <content type="html"><![CDATA[<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>1.一加全能工具箱：<a href="https://optool.daxiaamu.com/optool/">https://optool.daxiaamu.com/optool/</a></p><p>下载安装对应adb和fastboot驱动：<a href="https://optool.daxiaamu.com/install_adb_drivers?src=pctool">https://optool.daxiaamu.com/install_adb_drivers?src&#x3D;pctool</a></p><p>2.备份+系统设置&#x2F;开发者选项&#x2F;OEM解锁和USB调试+版本信息&#x2F;版本号&#x2F;点击版本号若干次进入开发者模式</p><p>3.工具箱选择激活BootLoader，手机上点击允许调试连接，我这里是老手机，不需要深度测试app以及申请，按需选择选项即可。随后触发BootLoader进行激活</p><p>这里补充手动方法：</p><p>OME+USB+OTG(如果有选项的话)选项选好</p><p>手机关机，同时按住开机键+音量下键(不同型号不一样，可去一加社区查找相关信息)进入FASTBOOT模式，使用USB数据线将手机与电脑进行连接，在CMD窗口输入<code>fastboot oem unlock</code>，此时手机屏幕上会显示解锁风险信息，使用音量上下键移动光标，选择最下面的选项，按一下开机键确认解锁，之后系统会擦除原有手机的所有数据，完成解锁。或者直接<code>adb reboot fastboot</code></p><p>4.激活开发者模式打开USB调试，然后按工具箱教程刷入Magisk</p><blockquote><p>这里安利一个工具：<a href="https://github.com/1q23lyc45/KitsuneMagisk/releases">https://github.com/1q23lyc45/KitsuneMagisk/releases</a></p></blockquote><blockquote><p><a href="https://jesse205.github.io/MagiskChineseDocument/delta/main.html">https://jesse205.github.io/MagiskChineseDocument/delta/main.html</a></p></blockquote><p>按P超级root刷30.x版本Magisk，3选项刷入的是26版本(鄙人的是oneplus a6000 version10.0.11，挺旧的，选择了3)</p><p><em>手机端盒子，可以bootloader或者recovery</em>：<a href="https://optool.daxiaamu.com/oplusbox">https://optool.daxiaamu.com/oplusbox</a></p><p>安装完后根据提示修复，默认推荐选项，然后右上角设置开启Zygisk重启激活即可</p><p>5.LSPosed-Zygisk+Shamiko</p><blockquote><p>Shamiko 是一个用于 Android 系统的 Magisk 模块，主要作用是增强对 Magisk 隐藏（Magisk Hide）功能的支持，尤其是在较新版本的 Android（如 Android 10 及以上）和新版 Magisk（特别是 Magisk Zygisk 架构下）中，帮助用户更好地隐藏 Root 和 Magisk 的痕迹，以绕过某些应用（如银行类 App、游戏防作弊系统、Google SafetyNet &#x2F; Play Integrity 等）的安全检测。</p></blockquote><p>Shamiko：<a href="https://github.com/LSPosed/LSPosed.github.io/releases">https://github.com/LSPosed/LSPosed.github.io/releases</a></p><p>LSPosed：<a href="https://github.com/LSPosed/LSPosed/releases">https://github.com/LSPosed/LSPosed/releases</a></p><p>最新版即可，然后将zip传到手机，Magisk模块本地导入安装(MT或者QQ传输都行)</p><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://www.bilibili.com/video/BV1AnCTBNEaE/?spm_id_from=333.337&vd_source=cd856a7d7a208f3060ffd0f77bb86e38">https://www.bilibili.com/video/BV1AnCTBNEaE/?spm_id_from&#x3D;333.337&amp;vd_source&#x3D;cd856a7d7a208f3060ffd0f77bb86e38</a></p><p><a href="https://dongxunz.github.io/2025/06/19/Android/%E4%B8%80%E5%8A%A06%E5%88%B7%E6%9C%BA%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/">https://dongxunz.github.io/2025/06/19/Android/%E4%B8%80%E5%8A%A06%E5%88%B7%E6%9C%BA%E6%93%8D%E4%BD%9C%E6%8C%87%E5%8D%97/</a></p><p><a href="https://magiskcn.com/oneplus-boot.html">https://magiskcn.com/oneplus-boot.html</a></p><h1 id="踩的坑"><a href="#踩的坑" class="headerlink" title="踩的坑"></a>踩的坑</h1><p>文中的fastboot驱动必须得安装，一开始搜的教程没有这步直接上adb，结果识别不到设备卡住，也算是拖了很久，总算刷完机了。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Android</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>xx控接口</title>
     <link href="/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/"/>
     <url>/2026/02/01/xx%E6%8E%A7%E6%8E%A5%E5%8F%A3/</url>
