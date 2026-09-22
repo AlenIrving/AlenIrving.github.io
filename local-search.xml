@@ -4,6 +4,25 @@
   
   
   <entry>
+    <title>Web3D初窥</title>
+    <link href="/2026/09/22/Web3D%E5%88%9D%E7%AA%A5/"/>
+    <url>/2026/09/22/Web3D%E5%88%9D%E7%AA%A5/</url>
+    
+    <content type="html"><![CDATA[<h1 id="小记"><a href="#小记" class="headerlink" title="小记"></a>小记</h1><p>如果没有ai，我将来的兴趣可能扎根在前端艺术影视效果展示，有ai后基本就废了。到最后还是建模占大头，就大一的时候学了ps和ai，之后的剪辑以及建模搁置了，也没那个精力了，以后有需要再学吧。</p><p>我在主页里放了 front_show ，灵感来源：</p><p><a href="https://dogstudio.co/">https://dogstudio.co/</a></p><p><a href="https://sketchfab.com/3d-models">https://sketchfab.com/3d-models</a></p><p>其实想把 dog 的颜色渐变效果也搞出来的，大致原理其实就是颜色的映射，但当前效果也还行，就这样凑合了</p><p>Web3D Three.js 学习网站：<a href="https://threejs-learning.com/zh/guide/introduction.html">https://threejs-learning.com/zh/guide/introduction.html</a></p><p>核心就是三要素以及你的建模</p><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs qml">scene   <span class="hljs-comment">// 世界（容器）</span><br>camera  <span class="hljs-comment">// 眼睛</span><br>renderer<span class="hljs-comment">// 画笔</span><br>animate <span class="hljs-comment">// 循环（每秒 60 次重画）</span><br><br>scene.add(modelRoot)          <span class="hljs-comment">// 定位 + 缩放</span><br>modelRoot.add(scrollGroup)    <span class="hljs-comment">// 滚动位移/旋转</span><br>scrollGroup.add(tiltGroup)    <span class="hljs-comment">// 鼠标倾斜</span><br>tiltGroup.add(model)          <span class="hljs-comment">// 真正的模型</span><br><br><span class="hljs-keyword">const</span> bounds = <span class="hljs-keyword">new</span> THREE.Box3().setFromObject(object); <span class="hljs-comment">// 求包围盒</span><br><span class="hljs-keyword">const</span> <span class="hljs-built_in">size</span>   = bounds.getSize(<span class="hljs-keyword">new</span> THREE.Vector3());    <span class="hljs-comment">// 求尺寸</span><br><span class="hljs-keyword">const</span> scale  = MODEL_MAX_SIZE / <span class="hljs-built_in">Math</span>.max(<span class="hljs-built_in">size</span>.x, <span class="hljs-built_in">size</span>.y, <span class="hljs-built_in">size</span>.z);<br>object.scale.setScalar(scale);                         <span class="hljs-comment">// 统一大小</span><br>object.position.set(-center.x * scale, ...);           <span class="hljs-comment">// 居中</span><br><br>pointer.lerp(pointerTarget, <span class="hljs-number">0.045</span>);<br><span class="hljs-comment">// 等价于：</span><br>pointer.x += (pointerTarget.x - pointer.x) * <span class="hljs-number">0.045</span>;<br><br><span class="hljs-keyword">const</span> theta = <span class="hljs-built_in">Math</span>.random() * <span class="hljs-built_in">Math</span>.PI * <span class="hljs-number">2</span>;      <span class="hljs-comment">// 经度，均匀</span><br><span class="hljs-keyword">const</span> phi   = <span class="hljs-built_in">Math</span>.acos(<span class="hljs-number">2</span> * <span class="hljs-built_in">Math</span>.random() - <span class="hljs-number">1</span>); <span class="hljs-comment">// 纬度，要 acos</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Developer</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>OSCP-Tempus-Fugit-5v2</title>
     <link href="/2026/07/11/OSCP-Tempus-Fugit-5v2/"/>
     <url>/2026/07/11/OSCP-Tempus-Fugit-5v2/</url>
